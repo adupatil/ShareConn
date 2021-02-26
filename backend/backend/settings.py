@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'frontend',
+    'posts',
+    'subconns',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = "users.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -122,6 +126,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../frontend/build/static'),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
