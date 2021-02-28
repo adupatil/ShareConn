@@ -16,23 +16,24 @@ class UserProfile(models.Model):
   num_followers = models.PositiveIntegerField(default= 0)
   profile_pic = models.ImageField(default='default.jpg',upload_to='profile_pics')
   cover_pic = models.ImageField(default='default.jpg',upload_to='cover_pics')
+  #num_subconns = models.PositiveIntegerField(default=0)
   
   def save(self, *args, **kwargs):
     super().save(*args,**kwargs)
-    img1 = Image.open(self.profile_pics.path)
+    img1 = Image.open(self.profile_pic.path)
     img2 = Image.open(self.cover_pic.path)
     if img1.height > 300 or img1.width > 300:
             output_size = (300, 300)
             img1.thumbnail(output_size)
-            img1.save(self.profile_picture.path)
+            img1.save(self.profile_pic.path)
 
     if img2.height > 312 or img2.width > 820:
             output_size = (312, 820)
             img2.thumbnail(output_size)
-            img2.save(self.profile_picture.path)
+            img2.save(self.profile_pic.path)
 
     def __str__(self):
-       return self.username
+       return self.user.username
 		 
 
     
@@ -40,6 +41,7 @@ class UserProfile(models.Model):
 class UserFollow(models.Model):
   follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower')
   followee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followee')
+  
 
   class Meta:
         constraints = [

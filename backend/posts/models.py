@@ -6,13 +6,14 @@ from django.db.models import F
 
 
 class Post(models.Model):
+    # post_id= models.AutoField()
     post_title= models.TextField(max_length=500)
     user_id= models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_id')
-    subconn_id= models.ForeignKey(Subconn, on_delete=models.CASCADE, related_name='subconn_id')
     num_likes = models.PositiveBigIntegerField(default=0)
     num_comments = models.PositiveBigIntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
-    post_type= models.FileField(upload_to=f"posts/{F('user.username')}",verbose_name="path")
+    post_type= models.FileField(upload_to=f"posts/{F('user.username')}",verbose_name="path",blank=True)
+    post_text=models.TextField(max_length=1000, blank=True)
     category = models.CharField(max_length=50)
 
     def __str__(self):

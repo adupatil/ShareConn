@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+# from posts.models import Post
 
 
 class Subconn(models.Model):
@@ -9,6 +10,10 @@ class Subconn(models.Model):
 
     def __str__(self):
         return self.subconn_name
+
+class SubconnPost(models.Model):
+    subconn = models.ForeignKey(Subconn, on_delete=models.CASCADE)
+    post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
 
 class SubconnFollower(models.Model):
   follower_s = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower_s')
