@@ -1,0 +1,14 @@
+.page{
+    height: 100%;
+}
+.main_area{
+    display: flex;
+    height: 100%;
+}
+.list_container_wrapper{
+    flex-grow: 1;
+   
+    padding: 12rem;
+    padding-left: 1rem;
+    padding-top: 0px;
+}
