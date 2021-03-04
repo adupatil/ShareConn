@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,100&family=Noto+Sans&family=Open+Sans:wght@300;400;600;700&display=swap');
 html{
-    --modeColor:rgb(40, 44, 52);
-    --inverseModeColor:white;
-   
+    --modeColor:white;
+    --inverseModeColor:black;
+    /* rgb(40, 44, 52) */
 }
 body{
     margin:0;
@@ -18,6 +19,6 @@ body{
     height: 100vh;
     overflow: hidden;
 }
-/* ::-webkit-scrollbar {
-    width: 20px;
-  } */
+button{
+    cursor: pointer;
+}

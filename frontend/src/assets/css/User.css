@@ -1,0 +1,18 @@
+
+/* user avatar */
+
+.user_avatar_container{
+    height:3rem;
+}
+.user_avatar{
+    display: flex;
+    
+    background-color: var(--modeColor);
+    color:var(--inverseModeColor)
+}
+.user_avatar .user_profile_pic{
+    height: 2.5rem;
+    width:2.5rem;
+    border-radius: 50%;
+    border:1px solid lightgray;
+}

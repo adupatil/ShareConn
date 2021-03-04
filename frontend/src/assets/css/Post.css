@@ -1,5 +1,6 @@
 .list_container_wrapper{
     height: 100%;
+    padding-right: 23rem;
    
 }
 .posts{
@@ -16,9 +17,24 @@
 }
 .post__list{
     list-style: none;
+    padding:0px;
 }
-.post__list li{
-    background-color: lightcoral;
+.post__list .post{
+    border-top:1px solid gray;
+    border-bottom:1px solid gray;
     margin-top:1rem;
+    padding: 0.4rem;
+    
 
+}
+.post_container{
+    margin-right: 1rem;
+    margin-left: 3rem;
+}
+.post_area_container{
+    border-radius: 5px;
+    border:1px solid gray;
+    padding: 0px;
+    height: 7rem;
+    
 }

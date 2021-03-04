@@ -45,6 +45,7 @@
     color:var(--inverseModeColor);
     width: 25%;
     padding: 1rem;
+    padding-top:0px;
     height: 100%;
     border-right: 1px solid lightgray;
 
@@ -64,7 +65,7 @@
     margin:0.5rem;
     padding:0.7rem;
     font-weight: 600;
-   
+   text-transform: capitalize;
     display: flex;
     align-items: center;
     
@@ -77,10 +78,24 @@ li i{
     font-size: 23px;
 }
 .sidebar__items li.active{
-    color:var(--primaryColor)
+    color:var(--primaryColor);
+    background-color: rgb(240,128,128,0.1);
+    border-radius:1000px;
 }
 .sidebar__items li:hover{
     background-color: rgb(240,128,128,0.1);
     border-radius:1000px;
     color: var(--primaryColor);
+    transition: all 100ms linear;
+}
+
+/* Engagement Bar */
+.engagementBar{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding-top: 0.5rem;
+   
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import '../../../assets/css/Bars.css';
-import '../Bars/NavBar.js'
-import NavBar from '../Bars/NavBar.js';
-import PostList from '../Posts/PostList.js'
-import SideBar from '../Bars/SideBar.js';
-import '../../../assets/css/Page.css'
+// css
+import '../../assets/css/Bars.css';
+import '../../assets/css/Page.css'
+// components
+import {NavBar,SideBar} from '../Bars/Bars';
+
+import PostList from '../Posts/PostList';
+
 
 class Home extends Component{
     constructor(props){
@@ -15,7 +17,7 @@ class Home extends Component{
             <div className='page'>
                 <NavBar username="sakshikale14"></NavBar>
                 <div className="main_area">
-                <SideBar></SideBar>
+                <SideBar activePage='home'></SideBar>
                 <PostList></PostList>
 
                 </div>
