@@ -11,6 +11,7 @@ import PostList from '../Posts/PostList';
 class Home extends Component{
     constructor(props){
         super(props);
+        
     }
     render(){
         return(
