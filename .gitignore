@@ -1,8 +1,6 @@
 # Ignore Pycache Folder
 /__pycache__
 
-# Ignore Migrations
-/migrations/*
 
 # Ignore .pyc
 *.pyc
@@ -14,8 +12,6 @@
 /.idea
 /.vscode
 
-# Ignore DB
-*.sqlite3
 
 # Ignore Secret Key
 /sk.txt
