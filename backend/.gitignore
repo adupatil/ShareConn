@@ -10,6 +10,9 @@
 /.idea
 /.vscode
 
+#ignore DB
+*.sqlite3
+
 
 # Ignore Secret Key
 /sk.txt
