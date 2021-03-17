@@ -1,8 +1,7 @@
-# Ignore Migrations
-/migrations/*
+
 
 # Ignore .pyc
-.pyc
+*.pyc
 
 #Ignore Media Folder
 **/media/
@@ -11,11 +10,9 @@
 /.idea
 /.vscode
 
-# Ignore DB
-*.sqlite3
 
 # Ignore Secret Key
 /sk.txt
 
 #Ignore pycache
-_pycache_
+/__pycache__
