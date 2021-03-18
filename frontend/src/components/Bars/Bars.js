@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import AuthButton from '../Buttons/AuthButton';
 import AddPostBtn from '../Buttons/AddPostBtn';
+import {NavLink} from 'react-router-dom';
 import '../../assets/css/Bars.css'
+import PageRoutes from '../Routes/PageRoutes';
 
 function NavBar(props){
 return(
@@ -24,18 +26,19 @@ return(
 
 }
 const sidebarElements=[
-    {pageName:'home',icon:'bx bx-home'},{pageName:'notifications',icon:'bx bx-bell'},{pageName:'profile',icon:'bx bx-user'},{pageName:'settings',icon:'bx bx-wrench'}
+    {pageName:'home',icon:'bx bx-home',routeName:'/'},{pageName:'notifications',icon:'bx bx-bell',routeName:'/notifications'},{pageName:'profile',icon:'bx bx-user',routeName:'/profile'},{pageName:'settings',icon:'bx bx-wrench',routeName:'/settings'}
 ]
 function SideBar(props){
     // get which page is active
-    const arr=sidebarElements.map((el,i)=>{
-        
-        if(props.activePage===el.pageName){
-            return( <li key={i} className='active'><i className={el.icon}></i>{el.pageName}</li> )
-        }else{
-            return(<li key={i} ><i className={el.icon}></i>{el.pageName}</li>)
-        }
-    })
+    const activeStyle={
+        color:'var(--primaryColor)',
+        backgroundColor: 'rgb(240,128,128,0.1)',
+        borderRadius:'1000px'
+    }
+    const arr=sidebarElements.map((el,i)=>( <NavLink exact to={el.routeName} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink > ))
+       
+       
+   
     
    
     return(
@@ -43,6 +46,7 @@ function SideBar(props){
             <div className='sidebar'>
                 <ul className="sidebar__items">
                     {arr.map(a=>a)}
+                    
                     
                 </ul>
                 <AddPostBtn></AddPostBtn>

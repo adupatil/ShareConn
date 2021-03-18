@@ -8,7 +8,7 @@ function PostList(props){
         'comments':25
     }
     return(
-        <div className='list_container_wrapper'>
+        
             <div className='posts'>
                 <ul className="post__list">
                     <Post></Post>
@@ -20,7 +20,7 @@ function PostList(props){
                 </ul>
             </div>
             
-        </div>
+       
     )
 
 }

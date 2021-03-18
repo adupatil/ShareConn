@@ -11,6 +11,9 @@ button{
         border: 1px solid #EA8201;
         color:white
 }
+.orangeBtn:hover{
+    background-color: #EA8201B2;
+}
 .newPostBtn{
     height: 3.5rem;
     width: 10rem;
@@ -20,6 +23,11 @@ button{
     color:white;
     
     font-size:large
+}
+.likeBtnContainer,.commentBtnContainer{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 .like_btn,.comment_btn{
     background-color: var(--modeColor);

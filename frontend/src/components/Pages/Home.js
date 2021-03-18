@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 // css
 import '../../assets/css/Bars.css';
 import '../../assets/css/Page.css'
@@ -8,24 +8,21 @@ import {NavBar,SideBar} from '../Bars/Bars';
 import PostList from '../Posts/PostList';
 
 
-class Home extends Component{
-    constructor(props){
-        super(props);
+function Home(props) {
+    // const [userDetail,setUserDetail]=useState({})
+    
+    
+    return(
+        <div className="listContainerScroll">
+   <PostList></PostList>
+        </div>
         
-    }
-    render(){
-        return(
-            <div className='page'>
-                <NavBar username="sakshikale14"></NavBar>
-                <div className="main_area">
-                <SideBar activePage='home'></SideBar>
-                <PostList></PostList>
-
-                </div>
+                
+           
                 
 
-            </div>
-        )
-    }
+        
+    )
+    
 }
 export default Home;

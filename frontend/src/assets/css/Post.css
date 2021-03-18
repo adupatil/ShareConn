@@ -5,19 +5,14 @@
 }
 .posts{
     height: 100%;
-    overflow: scroll;
+   
     list-style: none;
 }
-.posts::-webkit-scrollbar{
-    width:2px;
-    background-color: grey;
-}
-.posts::-webkit-scrollbar-thumb{
-    background-color: black;
-}
+
 .post__list{
     list-style: none;
     padding:0px;
+    margin-bottom: 5rem;
 }
 .post__list .post{
     border-top:1px solid gray;
@@ -38,3 +33,6 @@
     height: 7rem;
     
 }
+
+
+
