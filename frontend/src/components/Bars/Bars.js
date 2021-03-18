@@ -4,7 +4,7 @@ import AddPostBtn from '../Buttons/AddPostBtn';
 import {NavLink} from 'react-router-dom';
 import '../../assets/css/Bars.css'
 import PageRoutes from '../Routes/PageRoutes';
-
+// Bars need to get user values
 function NavBar(props){
 return(
     <div className="nav_container">
@@ -30,12 +30,20 @@ const sidebarElements=[
 ]
 function SideBar(props){
     // get which page is active
+    const user='sakshiKale14'
     const activeStyle={
         color:'var(--primaryColor)',
         backgroundColor: 'rgb(240,128,128,0.1)',
         borderRadius:'1000px'
     }
-    const arr=sidebarElements.map((el,i)=>( <NavLink exact to={el.routeName} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink > ))
+    const arr=sidebarElements.map((el,i)=>{ 
+    if(el.pageName==='profile'){
+    
+        return(<NavLink exact to={`/u/${user}${el.routeName}`} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
+    }else{
+        return(<NavLink exact to={el.routeName} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
+    }
+     })
        
        
    

@@ -11,9 +11,11 @@ const PageRoutes=()=>(
     <Switch>
         
         <Route exact path='/notifications' component={Notifications}></Route>
-        <Route exact path='/profile' render={(props) => <Profile option="user"></Profile>}></Route>
+        <Route exact path='/u/:userName/profile' render={(props) => <Profile option="user"></Profile>}></Route>
+        <Route exact path='/s/:subconnName/profile' render={(props) => <Profile option="subconn"></Profile>}></Route>
         <Route exact path='/settings' component={Settings}></Route>
         <Route exact path='/' component={Home}></Route>
+        
     </Switch>
 )
 export default PageRoutes;

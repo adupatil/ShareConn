@@ -1,6 +1,8 @@
 import React from 'react';
-import PostList from '../Posts/PostList'
+import PostList from '../Posts/PostList';
+import {useParams} from 'react-router';
 function UserProfile(props){
+    const {userName}=useParams()
     return(
         <div>
             <div className='pictures'>
@@ -13,7 +15,7 @@ function UserProfile(props){
             </div>
             <div className="userDetails">
                 <div className="userCredentials">
-                    <div id="userName">Sakshi Kale</div>
+                    <div id="userName">{userName}</div>
                     <div id="userBio">abscd</div>
                     <div className="userEngagement">
                         <div id="userFollowers"><span className="followerCount">10</span> Followers</div>
