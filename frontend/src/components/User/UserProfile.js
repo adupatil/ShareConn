@@ -9,10 +9,19 @@ function UserProfile(props){
     // const [error,setError]=useState(null)
     // const {data,isPending,error}=useFetch('http://127.0.0.1:8000/api/posts/');
     useEffect(()=>{
-        axios.get('http://127.0.0.1:8000/api/posts')
+      
+        axios.get('ttp://127.0.0.1:8000/api/posts/')
         .then(res=>{
             console.log(res.data)
             setData(res.data)
+        })
+        .catch(function(err){
+            if(err.response){
+                console.log('response err')
+            }if(err.request){
+                console.log('req rr')
+                console.log(err)
+            }
         })
     },[])
    console.log(data)
