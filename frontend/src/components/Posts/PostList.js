@@ -2,12 +2,12 @@ import React from 'react';
 import '../../assets/css/Post.css'
 import Post from './Post'
 
-function PostList({postList,uid}){
+function PostList({postList,uid,userDetails}){
     console.log('uid='+uid)
     const posts=postList.map((post,i)=>{
         console.log(post)
     if(post.user_id==uid){
-        return(<Post postDetail={post} key={i}></Post>)
+        return(<Post postDetail={post} key={i} userDetails={userDetails}></Post>)
     }
 })
     

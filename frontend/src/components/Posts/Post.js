@@ -4,7 +4,7 @@ import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
 import {engagementContext} from '../Context'
 // props=post details
-function Post({postDetail}){
+function Post({postDetail,userDetails}){
     
     const [likes,setLikes]=useState(postDetail.num_likes)
     const [comments,setComments]=useState(postDetail.num_comments)
@@ -17,7 +17,7 @@ function Post({postDetail}){
     }
     return(
         <div className='post'>
-            <UserAvatar username="sakshikale14">
+            <UserAvatar username={userDetails.username}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
               
             </UserAvatar>

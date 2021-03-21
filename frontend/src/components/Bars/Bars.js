@@ -4,6 +4,7 @@ import AddPostBtn from '../Buttons/AddPostBtn';
 import {NavLink} from 'react-router-dom';
 import '../../assets/css/Bars.css'
 import PageRoutes from '../Routes/PageRoutes';
+
 // Bars need to get user values
 function NavBar(props){
 return(
@@ -26,7 +27,7 @@ return(
 
 }
 const sidebarElements=[
-    {pageName:'home',icon:'bx bx-home',routeName:'/'},{pageName:'notifications',icon:'bx bx-bell',routeName:'/notifications'},{pageName:'profile',icon:'bx bx-user',routeName:'/profile'},{pageName:'settings',icon:'bx bx-wrench',routeName:'/settings'}
+    {pageName:'home',icon:'bx bx-home',routeName:'/home'},{pageName:'notifications',icon:'bx bx-bell',routeName:'/notifications'},{pageName:'profile',icon:'bx bx-user',routeName:'/profile'},{pageName:'settings',icon:'bx bx-wrench',routeName:'/settings'}
 ]
 function SideBar(props){
     // get which page is active
@@ -37,7 +38,7 @@ function SideBar(props){
         borderRadius:'1000px'
     }
     const arr=sidebarElements.map((el,i)=>{ 
-    if(el.pageName==='profile'){
+    if(el.pageName==='profile' || el.pageName==='home'){
     
         return(<NavLink exact to={`/u${el.routeName}/${user}`} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
     }else{

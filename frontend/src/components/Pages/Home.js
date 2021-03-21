@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 // css
 import '../../assets/css/Bars.css';
 import '../../assets/css/Page.css'
 // components
-import {NavBar,SideBar} from '../Bars/Bars';
-
 import PostList from '../Posts/PostList';
-
+//router
+import {useParams} from 'react-router'
+// redux
+import {connect} from 'react-redux';
+import {fetchUser,fetchUserPost} from '../../actions/userActions'
 
 function Home(props) {
-    // const [userDetail,setUserDetail]=useState({})
-    const userPosts=[{
-        "id": 1,
-        "post_title": "Test",
-        "num_likes": 2,
-        "num_comments": 2,
-        "date_created": "2021-02-28T17:28:20.878348Z",
-        "post_type": "http://127.0.0.1:8000/media/posts/F(user.username)/dogs_1280p_0_f6NtrjR.jpg",
-        "post_text": "this is my doggo",
-        "category": "Dogs",
-        "user_id": 1
-    }]
+    const uid=useParams().id
+    useEffect(()=>{
+            props.fetchUser(uid)
+            props.fetchUserPost(uid)
+        },[])
+    // sort users post and posts of subconn they follow acc to date and time.
+    
     
     return(
         <div className="listContainerScroll">
-            <PostList postList={userPosts} uid='1'></PostList>
+            <PostList postList={props.userPosts} uid={uid} userDetails={props.userDetails}></PostList>
         </div>
         
                 
@@ -35,4 +32,11 @@ function Home(props) {
     )
     
 }
-export default Home;
+
+const mapStateToProps=state=>({
+    userDetails:state.user.userDetails,
+    userPosts:state.user.userPosts
+   
+
+})
+export default connect(mapStateToProps,{fetchUser,fetchUserPost})(Home)

@@ -1,54 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import PostList from '../Posts/PostList';
 import {useParams} from 'react-router';
-import axios from 'axios';
+
+import {connect} from 'react-redux';
+import {fetchUser,fetchUserPost,fetchUserFollow} from '../../actions/userActions'
 // import useFetch from '../Hooks/useFetch';
 function UserProfile(props){
    const uid=useParams().id
-   console.log(uid)
-    const [userDetails,setUserDetail]=useState(null)
-    const [userPosts,setuserPosts]=useState(null)
-    
-    useEffect(()=>{
+   useEffect(()=>{
+        props.fetchUser(uid)
+       props.fetchUserPost(uid)
+       props.fetchUserFollow(uid)
         
-        axios.get(`http://127.0.0.1:8000/api/users/${uid}/`)
-        .then(res1=>{
-            console.log(res1.data)
-            setUserDetail(res1.data)
-        })
-        .catch(function(err){
-            if(err.response){
-                console.log('response err fromdetails')
-            }if(err.request){
-                console.log('req rr fd')
-                console.log(err)
-            }
-        })
-        axios.get(`http://127.0.0.1:8000/api/posts/`)
-        .then(res=>{
-            
-            setuserPosts(res.data)
-        })
-        .catch(function(err){
-            if(err.response){
-                console.log('response err')
-            }if(err.request){
-                console.log('req rr')
-                console.log(err)
-            }
-        })
     },[])
    
-   
-   
-   
-    
-    if(userDetails!==null){
+   if(props.userDetails!==null){
         return(
             <div>
                 <div className='pictures'>
                     <div className="coverPicContainer">
-                        <div className="coverPic"></div>
+                        <div className="coverPic">
+                            <img src={`http://localhost:8000/backend/media/cover_pics/dog-puppy-on-garden-royalty-free-image-1586966191_5uWMOng.jpg`}></img>
+                        </div>
                     </div>
                     <div className="profilePicContainer">
                         <div className="profilePic"></div>
@@ -56,16 +29,16 @@ function UserProfile(props){
                 </div>
                 <div className="userDetails">
                     <div className="userCredentials">
-                        <div id="userName">{userDetails.username}</div>
+                        <div id="userName">{props.userDetails.username}</div>
                       
                         <div className="userEngagement">
-                            <div id="userFollowers"><span className="followerCount">10</span> Followers</div>
-                            <div id="userFollowing"><span className="followingCount">10</span> Following</div>
+                            <div id="userFollowers"><span className="followerCount">{props.userFollow.follower}</span> Followers</div>
+                            <div id="userFollowing"><span className="followingCount">{props.userFollow.followee}</span> Following</div>
                         </div>
                     </div>
                 </div>
-                {userPosts && <div className="userPostContainer">
-                    <PostList postList={userPosts} uid={uid}></PostList>
+                {props.userPosts && <div className="userPostContainer">
+                    <PostList postList={props.userPosts} uid={uid} userDetails={props.userDetails}></PostList>
                 </div>}
     
             </div>
@@ -76,4 +49,10 @@ function UserProfile(props){
     }
     
 }
-export default UserProfile
+const mapStateToProps=state=>({
+    userDetails:state.user.userDetails,
+    userPosts:state.user.userPosts,
+    userFollow:state.user.userFollow
+
+})
+export default connect(mapStateToProps,{fetchUser,fetchUserPost,fetchUserFollow})(UserProfile)
