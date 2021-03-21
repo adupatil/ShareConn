@@ -30,7 +30,7 @@ const sidebarElements=[
 ]
 function SideBar(props){
     // get which page is active
-    const user='sakshiKale14'
+    const user='1'
     const activeStyle={
         color:'var(--primaryColor)',
         backgroundColor: 'rgb(240,128,128,0.1)',
@@ -39,7 +39,7 @@ function SideBar(props){
     const arr=sidebarElements.map((el,i)=>{ 
     if(el.pageName==='profile'){
     
-        return(<NavLink exact to={`/u/${user}${el.routeName}`} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
+        return(<NavLink exact to={`/u${el.routeName}/${user}`} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
     }else{
         return(<NavLink exact to={el.routeName} key={i} activeStyle={activeStyle}><i className={el.icon}></i>{el.pageName}</NavLink >)
     }

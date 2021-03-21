@@ -27,7 +27,7 @@ SECRET_KEY = 's^s!h)wd24^rk3pyy=tud819a4mgfqilx5oez6k76sfdqy+(bi'
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 # Application definition
@@ -158,3 +158,4 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
 
 X_FRAME_OPTIONS = 'ALLOWALL'
+CORS_ORIGIN_ALLOW_ALL = True

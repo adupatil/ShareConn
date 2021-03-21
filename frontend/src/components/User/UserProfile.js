@@ -4,16 +4,30 @@ import {useParams} from 'react-router';
 import axios from 'axios';
 // import useFetch from '../Hooks/useFetch';
 function UserProfile(props){
-    const [data,setData]=useState(null)
-    // const [isPending,setisPending]=useState(true)
-    // const [error,setError]=useState(null)
-    // const {data,isPending,error}=useFetch('http://127.0.0.1:8000/api/posts/');
+   const uid=useParams().id
+   console.log(uid)
+    const [userDetails,setUserDetail]=useState(null)
+    const [userPosts,setuserPosts]=useState(null)
+    
     useEffect(()=>{
-      
-        axios.get('ttp://127.0.0.1:8000/api/posts/')
+        
+        axios.get(`http://127.0.0.1:8000/api/users/${uid}/`)
+        .then(res1=>{
+            console.log(res1.data)
+            setUserDetail(res1.data)
+        })
+        .catch(function(err){
+            if(err.response){
+                console.log('response err fromdetails')
+            }if(err.request){
+                console.log('req rr fd')
+                console.log(err)
+            }
+        })
+        axios.get(`http://127.0.0.1:8000/api/posts/`)
         .then(res=>{
-            console.log(res.data)
-            setData(res.data)
+            
+            setuserPosts(res.data)
         })
         .catch(function(err){
             if(err.response){
@@ -24,10 +38,12 @@ function UserProfile(props){
             }
         })
     },[])
-   console.log(data)
    
-    const {userName}=useParams()
-    if(data!==null){
+   
+   
+   
+    
+    if(userDetails!==null){
         return(
             <div>
                 <div className='pictures'>
@@ -40,17 +56,17 @@ function UserProfile(props){
                 </div>
                 <div className="userDetails">
                     <div className="userCredentials">
-                        <div id="userName">{userName}</div>
-                        <div id="userBio">abscd</div>
+                        <div id="userName">{userDetails.username}</div>
+                      
                         <div className="userEngagement">
                             <div id="userFollowers"><span className="followerCount">10</span> Followers</div>
                             <div id="userFollowing"><span className="followingCount">10</span> Following</div>
                         </div>
                     </div>
                 </div>
-                <div className="userPostContainer">
-                    <PostList></PostList>
-                </div>
+                {userPosts && <div className="userPostContainer">
+                    <PostList postList={userPosts} uid={uid}></PostList>
+                </div>}
     
             </div>
             

@@ -1,14 +1,17 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import '../../assets/css/Buttons.css'
-
+import { engagementContext } from '../Context';
 function LikeBtn(props){
+    const {likes}=useContext(engagementContext)
+    const [likes1,setLikes]=likes
+   
     return(
         <div className="likeBtnContainer">
-            <div className='like_btn' >
-                <i class='bx bx-like ' ></i>
+            <div className='like_btn' onClick={()=>setLikes(prev=>(prev+1))}>
+                <i className='bx bx-like ' ></i>
             </div>
             <div>
-                {props.likes}
+                {likes1}
             </div>
 
         </div>
@@ -16,13 +19,15 @@ function LikeBtn(props){
     )
 }
 function CommentBtn(props){
+    const {comments}=useContext(engagementContext)
+    const [comments1,setComments]=comments
     return(
         <div className="commentBtnContainer">
-            <div className='comment_btn' >
-                <i class='bx bx-comment ' ></i>
+            <div className='comment_btn' onClick={()=>setComments(prev=>prev+1)} >
+                <i className='bx bx-comment ' ></i>
             </div>
             <div>
-                {props.comments}
+                {comments1}
             </div>
 
         </div>

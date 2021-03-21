@@ -4,7 +4,7 @@ function AddPostBtn(props){
     
     return(
         <button  className="newPostBtn orangeBtn" >
-            <i class='bx bx-plus'></i>Add Post
+            <i className='bx bx-plus'></i>Add Post
         </button>
     )
 }

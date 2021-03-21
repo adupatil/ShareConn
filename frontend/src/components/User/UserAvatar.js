@@ -14,8 +14,11 @@ class UserAvatar extends Component{
             <div className="user_avatar_container">
                 <div className="user_avatar">
                     <div className='user_profile_pic'>{this.props.user_profilepic}</div>
+                    <div className='verticleWrap'>
                     <div className='username'>{this.props.username}</div>
                     <div>{this.props.children}</div>
+                    </div>
+                    
                 </div>
             </div> 
         );

@@ -14,7 +14,7 @@ function useFetch(url) {
                 }
                 return res.json()
             }).then(data=>{
-                console.log(data)
+                console.log('----')
                 setData(data);
                 setisPending(false);
                 setError(null)

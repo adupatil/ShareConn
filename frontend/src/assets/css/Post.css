@@ -29,9 +29,22 @@
 .post_area_container{
     border-radius: 5px;
     border:1px solid gray;
-    padding: 0px;
+    padding: 0.3rem;
     height: 7rem;
     
+}
+.postDate{
+    font-size: x-small;
+    font-weight: 300;
+}
+.post_title,.post_text{
+    margin:0px;
+}
+.post_title{
+    font-size: x-small;
+}
+.post_text{
+    font-size: smaller;
 }
 
 
