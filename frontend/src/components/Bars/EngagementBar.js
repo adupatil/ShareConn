@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {LikeBtn,CommentBtn} from '../Buttons/EngagementButtons'
-function EngagementBar(props){
+
+function EngagementBar(){
+    
     return(
         <div className="engagementBar">
-            <LikeBtn likes={props.count.likes}></LikeBtn>
-            <CommentBtn comments={props.count.comments}></CommentBtn>
+            <LikeBtn  ></LikeBtn>
+            <CommentBtn ></CommentBtn>
         </div>
     )
 }

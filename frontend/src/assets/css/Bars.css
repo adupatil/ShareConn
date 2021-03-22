@@ -61,7 +61,7 @@
     list-style: none;
     
 }
-.sidebar__items li{
+.sidebar__items a{
     margin:0.5rem;
     padding:0.7rem;
     font-weight: 600;
@@ -70,19 +70,17 @@
     align-items: center;
     
 }
-li {
+a {
     cursor: pointer;
+    text-decoration: none;
+    color:var(--inverseModeColor)
 }
-li i{
+a i{
     margin-right:0.5rem;
     font-size: 23px;
 }
-.sidebar__items li.active{
-    color:var(--primaryColor);
-    background-color: rgb(240,128,128,0.1);
-    border-radius:1000px;
-}
-.sidebar__items li:hover{
+
+.sidebar__items a:hover{
     background-color: rgb(240,128,128,0.1);
     border-radius:1000px;
     color: var(--primaryColor);

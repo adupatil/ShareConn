@@ -16,3 +16,54 @@
     border-radius: 50%;
     border:1px solid lightgray;
 }
+.verticleWrap{
+    display: flex;
+    flex-direction: column;
+}
+
+/* User Profile */
+.pictures{
+    height: 16.3rem;
+}
+.coverPicContainer{
+    width:100%;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: lightgray;
+    height:13rem;
+}
+.profilePicContainer{
+    border-radius: 50%;
+    border:4px solid var(--modeColor);
+    width:6rem;
+    height: 6rem;
+    background-color: lightgray;
+    position: relative;
+    transform: translate(20%,-50%);
+
+}
+.userDetails{
+    padding:2rem;
+    padding-top: 0px;
+    display: flex;
+}
+#userName{
+    font-weight: 500;
+}
+#userBio{
+    font-weight: 300;
+}
+.userEngagement{
+    display: flex;
+    font-size: small;
+    font-weight: 400;
+    margin-top:0.5rem;
+    color:gray;
+}
+.userEngagement span{
+    font-weight: 500;
+    color:var(--inverseModeColor)
+}
+#userFollowers{
+    margin-right:1rem
+}

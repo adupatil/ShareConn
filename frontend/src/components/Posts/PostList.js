@@ -2,25 +2,25 @@ import React from 'react';
 import '../../assets/css/Post.css'
 import Post from './Post'
 
-function PostList(props){
-    const count={
-        'likes':20,
-        'comments':25
+function PostList({postList,uid,userDetails}){
+    console.log('uid='+uid)
+    const posts=postList.map((post,i)=>{
+        console.log(post)
+    if(post.user_id==uid){
+        return(<Post postDetail={post} key={i} userDetails={userDetails}></Post>)
     }
+})
+    
+    
     return(
-        <div className='list_container_wrapper'>
+        
             <div className='posts'>
                 <ul className="post__list">
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
-                    <Post></Post>
+                   {posts}
                 </ul>
             </div>
             
-        </div>
+       
     )
 
 }

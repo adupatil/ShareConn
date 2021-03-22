@@ -5,19 +5,14 @@
 }
 .posts{
     height: 100%;
-    overflow: scroll;
+   
     list-style: none;
 }
-.posts::-webkit-scrollbar{
-    width:2px;
-    background-color: grey;
-}
-.posts::-webkit-scrollbar-thumb{
-    background-color: black;
-}
+
 .post__list{
     list-style: none;
     padding:0px;
+    margin-bottom: 5rem;
 }
 .post__list .post{
     border-top:1px solid gray;
@@ -34,7 +29,23 @@
 .post_area_container{
     border-radius: 5px;
     border:1px solid gray;
-    padding: 0px;
+    padding: 0.3rem;
     height: 7rem;
     
 }
+.postDate{
+    font-size: x-small;
+    font-weight: 300;
+}
+.post_title,.post_text{
+    margin:0px;
+}
+.post_title{
+    font-size: x-small;
+}
+.post_text{
+    font-size: smaller;
+}
+
+
+

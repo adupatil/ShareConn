@@ -5,10 +5,22 @@
     display: flex;
     height: 100%;
 }
-.list_container_wrapper{
-    flex-grow: 1;
+.listContainer{
+    width:45%;
+
+    
+}
+.listContainerScroll{
    
-    padding: 12rem;
-    padding-left:0px;
-    padding-top: 0px;
+        height: 100vh;
+        overflow: scroll;
+        list-style: none;
+    
+}
+.listContainerScroll::-webkit-scrollbar{
+    width:2px;
+    background-color: grey;
+}
+.listContainerScroll::-webkit-scrollbar-thumb{
+    background-color: var(--inverseModeColor);
 }

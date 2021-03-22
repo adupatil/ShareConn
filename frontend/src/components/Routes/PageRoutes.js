@@ -1,0 +1,23 @@
+import React from 'react';
+import {Switch,Route} from 'react-router-dom';
+import Home from '../Pages/Home'
+import Notifications from '../Pages/Notification'
+import Profile from '../Pages/Profile'
+import Settings from '../Pages/Settings'
+
+
+
+const PageRoutes=()=>(
+    <Switch>
+        
+        <Route exact path='/notifications' component={Notifications}></Route>
+        <Route exact path='/u/profile/:id' render={(props) => <Profile option="user"></Profile>}></Route>
+        <Route exact path='/s/profile/:id' render={(props) => <Profile option="subconn"></Profile>}></Route>
+        <Route exact path='/settings' component={Settings}></Route>
+        <Route exact path='/u/home/:id' component={Home}></Route>
+        
+    </Switch>
+)
+export default PageRoutes;
+
+
