@@ -8,11 +8,10 @@ function LikeBtn(props){
     // if uid in user_id list of posts liked then true else false
     const [liked,setLiked]=useState(false)
     const post_id=props.postDetail.id;
-    console.log(post_id)
+ 
     const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
     const dispatch=useDispatch()
-    console.log(props.postDetail)
-    console.log(post)
+  
     const likedStyle={
         color:'red'
     }

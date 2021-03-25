@@ -3,8 +3,7 @@ import {LikeBtn,CommentBtn} from '../Buttons/EngagementButtons'
 
 
 function EngagementBar(props){
-    console.log('%%%')
-    console.log(props.postDetail)
+    
     
 
     
