@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import PostList from '../Posts/PostList';
 import {useParams} from 'react-router';
+import { useSelector,useDispatch} from 'react-redux'
+import {selectUser,fetchUser,fetchUserFollow,selectUserFollow,selectUserPosts} from '../../features/user/userSlice'
+import {fetchUserPosts} from '../../features/posts/postSlice'
 
-import {connect} from 'react-redux';
-import {fetchUser,fetchUserPost,fetchUserFollow} from '../../actions/userActions'
+
 // import useFetch from '../Hooks/useFetch';
 function UserProfile(props){
    const uid=useParams().id
+
+   const dispatch=useDispatch()
+   const userDetails=useSelector(selectUser)
+   const userPosts=useSelector(state=>state.posts.user_posts)
+   const userFollow=useSelector(selectUserFollow)
+   
    useEffect(()=>{
-        props.fetchUser(uid)
-       props.fetchUserPost(uid)
-       props.fetchUserFollow(uid)
+       dispatch(fetchUser(uid))
+       dispatch(fetchUserFollow(uid))
+       dispatch(fetchUserPosts(uid))
+        
         
     },[])
    
-   if(props.userDetails!==null){
+   if(userDetails!==null){
         return(
             <div>
                 <div className='pictures'>
@@ -29,16 +38,16 @@ function UserProfile(props){
                 </div>
                 <div className="userDetails">
                     <div className="userCredentials">
-                        <div id="userName">{props.userDetails.username}</div>
+                        <div id="userName">{userDetails.username}</div>
                       
                         <div className="userEngagement">
-                            <div id="userFollowers"><span className="followerCount">{props.userFollow.follower}</span> Followers</div>
-                            <div id="userFollowing"><span className="followingCount">{props.userFollow.followee}</span> Following</div>
+                            <div id="userFollowers"><span className="followerCount">{userFollow.follower}</span> Followers</div>
+                            <div id="userFollowing"><span className="followingCount">{userFollow.followee}</span> Following</div>
                         </div>
                     </div>
                 </div>
-                {props.userPosts && <div className="userPostContainer">
-                    <PostList postList={props.userPosts} uid={uid} userDetails={props.userDetails}></PostList>
+                {userPosts && <div className="userPostContainer">
+                    <PostList postList={userPosts} uid={uid} userDetails={userDetails}></PostList>
                 </div>}
     
             </div>
@@ -49,10 +58,5 @@ function UserProfile(props){
     }
     
 }
-const mapStateToProps=state=>({
-    userDetails:state.user.userDetails,
-    userPosts:state.user.userPosts,
-    userFollow:state.user.userFollow
 
-})
-export default connect(mapStateToProps,{fetchUser,fetchUserPost,fetchUserFollow})(UserProfile)
+export default UserProfile;

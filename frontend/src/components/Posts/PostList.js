@@ -4,12 +4,9 @@ import Post from './Post'
 
 function PostList({postList,uid,userDetails}){
     console.log('uid='+uid)
-    const posts=postList.map((post,i)=>{
-        console.log(post)
-    if(post.user_id==uid){
-        return(<Post postDetail={post} key={i} userDetails={userDetails}></Post>)
-    }
-})
+    
+    const posts=postList.map((post,i)=>(<Post postDetail={post} key={"post_"+i} userDetails={userDetails}></Post>))
+console.log(posts)
     
     
     return(

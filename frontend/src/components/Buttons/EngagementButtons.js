@@ -1,33 +1,58 @@
-import React,{useContext} from 'react';
+import React,{ useState} from 'react';
 import '../../assets/css/Buttons.css'
-import { engagementContext } from '../Context';
+import {useDispatch,useSelector} from 'react-redux';
+import {increment_post_likes,decrement_post_likes} from '../../features/posts/postSlice'
+
 function LikeBtn(props){
-    const {likes}=useContext(engagementContext)
-    const [likes1,setLikes]=likes
+    // how tocheck if someone has like dour post 
+    // if uid in user_id list of posts liked then true else false
+    const [liked,setLiked]=useState(false)
+    const post_id=props.postDetail.id;
+    console.log(post_id)
+    const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
+    const dispatch=useDispatch()
+    console.log(props.postDetail)
+    console.log(post)
+    const likedStyle={
+        color:'red'
+    }
+
+
+   
+  
+   const toggleLike=()=>{
+        if(liked){
+            dispatch(increment_post_likes({option:'user_posts',post_id:post_id}))
+       }else{
+          
+        dispatch(increment_post_likes({option:'user_posts',post_id:post_id}))
+       }
+       setLiked(prev=>prev?false:true)
+       
+   }
    
     return(
-        <div className="likeBtnContainer">
-            <div className='like_btn' onClick={()=>setLikes(prev=>(prev+1))}>
-                <i className='bx bx-like ' ></i>
+        <div className="likeBtnContainer" onClick={toggleLike}>
+            <div className='like_btn' >
+                <i className={`bx bx${liked?'s':''}-like `} style={liked?likedStyle:{}}></i>
             </div>
             <div>
-                {likes1}
+                {post.num_likes}
             </div>
 
         </div>
         
     )
 }
-function CommentBtn(props){
-    const {comments}=useContext(engagementContext)
-    const [comments1,setComments]=comments
+function CommentBtn({comments}){
+    
     return(
         <div className="commentBtnContainer">
-            <div className='comment_btn' onClick={()=>setComments(prev=>prev+1)} >
+            <div className='comment_btn'  >
                 <i className='bx bx-comment ' ></i>
             </div>
             <div>
-                {comments1}
+                {comments}
             </div>
 
         </div>
