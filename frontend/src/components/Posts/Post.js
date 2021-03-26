@@ -6,8 +6,7 @@ import UserAvatar from '../User/UserAvatar'
 // props=post details
 function Post({postDetail,userDetails}){
   
-    console.log('^^^^^')
-    console.log(postDetail)
+  
   
     const post_area=()=>{
         let postType=postDetail.post_type;

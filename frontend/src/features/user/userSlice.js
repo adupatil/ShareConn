@@ -5,6 +5,7 @@ const initialState={
     userDetails:{},
     userAuthDetails:{},
     userPosts:[],
+    userProfile:{},
     userFollow:{
         follower:0,
         followee:0
@@ -21,7 +22,9 @@ const userSlice=createSlice({
         fetch_user_authDetails:(state,action)=>{
             state.userAuthDetails=action.payload
         },
-        
+        fetch_user_profile:(state,action)=>{
+            state.userProfile=action.payload
+        },
         fetch_user_follow:(state,action)=>{
             state.userFollow=action.payload
         },
@@ -31,7 +34,7 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_follow,increment_user_follow}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile}=userSlice.actions
 export default userSlice.reducer
 
 
@@ -47,25 +50,39 @@ export const fetchUser=(uid)=>dispatch=>{
 
 
 
-export const fetchUserFollow=(uid)=>dispatch=>{
-    axios.get(`http://127.0.0.1:8000/api/users_follow/`)
-    .then(follow=>{
-    //    send folllow details of uid
-        follow.data.forEach(el=>{
-            console.log(el)
-            if(el.id==uid){
-                console.log(el)
-                dispatch(fetch_user_follow(el))
+// export const fetchUserFollow=(uid)=>dispatch=>{
+//     axios.get(`http://127.0.0.1:8000/api/users_follow/`)
+//     .then(follow=>{
+//     //    send folllow details of uid
+//         follow.data.forEach(el=>{
+//             console.log(el)
+//             if(el.fol==uid){
+//                 console.log(el)
+//                 dispatch(fetch_user_follow(el))
+//             }
+//         })
+        
+        
+//     }).catch((err)=>{
+//         if(err.response){
+//             console.log('res err')
+//         }if(err.request){
+//             console.log('req err')
+//         }
+//     })
+// }
+
+export const fetchUserProfile=(uid)=>dispatch=>{
+   
+    axios.get('http://127.0.0.1:8000/api/users_profile/')
+    .then(userProfiles=>{
+       
+        userProfiles.data.forEach(profile=>{
+            if(profile.user==uid){
+              
+                dispatch(fetch_user_profile(profile))
             }
         })
-        
-        
-    }).catch((err)=>{
-        if(err.response){
-            console.log('res err')
-        }if(err.request){
-            console.log('req err')
-        }
     })
 }
 

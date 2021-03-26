@@ -13,12 +13,16 @@ import {useDispatch,useSelector} from 'react-redux';
 
 
 
+
 function Home(props) {
+    const loggedInUser='1'
     const dispatch = useDispatch();
     const userDetails=useSelector(state=>state.user.userDetails)
+   
     const uid=useParams().id
     const posts=useSelector(state=>state.posts)
     const Allposts=posts.user_posts.concat(posts.followed_posts)
+    
     
     // sort users post and posts of subconn they follow acc to date and time.
     

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useEffect } from 'react';
 // css
 import '../assets/css/Bars.css';
 import '../assets/css/Page.css'
@@ -8,13 +8,25 @@ import Home from './Pages/Home'
 import PageRoutes from './Routes/PageRoutes'
 
 // redux
-import {Provider} from 'react-redux';
-import store from '../store'
+import {useDispatch,useSelector} from 'react-redux';
+
+import {selectUser,fetchUser,fetchUserProfile,selectUserFollow,selectUserPosts} from '../features/user/userSlice'
+import {fetchUserPosts} from '../features/posts/postSlice'
 
 function App(props) {
+const uid='1'
+ const dispatch = useDispatch()
+    useEffect(()=>{
+        console.log('in effect')
+        dispatch(fetchUser(uid))
+        dispatch(fetchUserProfile(uid))
+        dispatch(fetchUserPosts(uid))
+         
+         
+     },[])
     // const [userDetail,setUserDetail]=useState({})
     return(
-    <Provider store={store}>
+   
        
         <div className='page'>
             <NavBar username="sakshikale14"></NavBar>
@@ -33,7 +45,7 @@ function App(props) {
         
   
 
-    </Provider>
+  
     )
     
 }
