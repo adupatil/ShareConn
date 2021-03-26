@@ -1,12 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import {LikeBtn,CommentBtn} from '../Buttons/EngagementButtons'
 
-function EngagementBar(){
+
+function EngagementBar(props){
+    
+    
+
     
     return(
         <div className="engagementBar">
-            <LikeBtn  ></LikeBtn>
-            <CommentBtn ></CommentBtn>
+            <LikeBtn  postDetail={props.postDetail} ></LikeBtn>
+            <CommentBtn postDetail={props.postDetail}></CommentBtn>
         </div>
     )
 }

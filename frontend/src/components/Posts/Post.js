@@ -1,14 +1,13 @@
 // import Avatar
-import React, { useState } from 'react';
+import React from 'react';
 import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
-import {engagementContext} from '../Context'
+
 // props=post details
 function Post({postDetail,userDetails}){
-    
-    const [likes,setLikes]=useState(postDetail.num_likes)
-    const [comments,setComments]=useState(postDetail.num_comments)
-
+  
+  
+  
     const post_area=()=>{
         let postType=postDetail.post_type;
         if(postType){
@@ -30,9 +29,9 @@ function Post({postDetail,userDetails}){
                     </div>
                     
                 </div>
-                <engagementContext.Provider value={{likes:[likes,setLikes],comments:[comments,setComments]}}>
-                    <EngagementBar ></EngagementBar>
-                </engagementContext.Provider>
+               
+                    <EngagementBar  postDetail={postDetail}  ></EngagementBar>
+                
                 
 
             </div>

@@ -1,7 +1,13 @@
-import {createStore,applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './Reducers'
+import {configureStore} from '@reduxjs/toolkit';
+import postReducer from './features/posts/postSlice';
+import userReducer from './features/user/userSlice';
 const initialState={}
-const middleware=[thunk]
-const store=createStore(rootReducer,initialState,applyMiddleware(...middleware))
+
+const store=configureStore({
+    reducer:{
+        user:userReducer,
+        posts:postReducer
+    }
+})
 export default store;
+
