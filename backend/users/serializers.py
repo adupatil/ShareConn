@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User, UserProfile, UserFollow
+from rest_auth.serializers import PasswordResetSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +16,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def get_email_options(self):
+        return {
+            'email_template_name': 'password_reset_email.html'
+        }
+    
+

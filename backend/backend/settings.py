@@ -72,7 +72,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../frontend')],
+        'DIRS': [os.path.join(BASE_DIR, '../frontend','../users/templates/users/registration')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,6 +119,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "users.User"
 
+REST_AUTH_SERIALIZERS= {
+    'PASSWORD_RESET_SERIALIZER': 'users.serializers.CustomPasswordResetSerializer',
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -154,8 +158,10 @@ LOGOUT_ON_PASSWORD_CHANGE = False
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIT_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
+EMAIL_HOST_USER = 'shareconnservices@gmail.com'
+#os.environ.get('EMAIL_USER')
+EMAIL_HOST_PASSWORD = 'niqqpkivonuyohcl'
+#os.environ.get('EMAIL_PASS')
 
 X_FRAME_OPTIONS = 'ALLOWALL'
 CORS_ORIGIN_ALLOW_ALL = True
