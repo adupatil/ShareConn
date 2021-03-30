@@ -6,7 +6,7 @@
     height: 100%;
 }
 .listContainer{
-    width:45%;
+    width:40%;
 
     
 }
@@ -23,4 +23,64 @@
 }
 .listContainerScroll::-webkit-scrollbar-thumb{
     background-color: var(--inverseModeColor);
+}
+
+/* add post  */
+.addPostFormContainer{
+    position: absolute;
+    background-color:  rgba(0,0,0,0.4); /* Black w/ opacity */
+   /* display: none; */
+    top: 0;
+    left:0;
+    right: 0;
+    width:100%;
+    height:100%;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+.addPostForm{
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    left:0;
+    right:0;
+    top:5rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding:1rem;
+    background-color: var(--modeColor);
+    color:var(--inverseModeColor);
+    width:31rem;
+    height: 26rem;
+    border-radius: 15px;
+    transition: display 0.5s linear;
+
+}
+.addPostForm input[type='text']{
+    border:1px solid  #EA8201;
+    height: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    padding: 0.5rem;
+    width: 100%;
+    
+}
+.addPostForm input[type='submit']{
+    background-color: #EA8201;
+    border-radius: 18px;
+    margin-top:1.5rem;
+    border:none;
+    padding:0.5rem;
+    color:white;
+    width:50%
+}
+.addPostForm .close{
+    background-color: var(--modeColor);
+    color:var(--inverseModeColor);
+    position:absolute;
+    left:98%;
+    cursor: pointer;
 }

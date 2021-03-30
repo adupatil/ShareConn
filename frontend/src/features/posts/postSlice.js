@@ -3,13 +3,17 @@ import axios from 'axios'
 
 const initialState={
     user_posts:[],
-    followed_posts:[]
+    followed_posts:[],
+    addPost:'none'
 }
 
 const postSlice=createSlice({
     name:'posts',
     initialState,
     reducers:{
+        add_new_post:(state,action)=>{
+            state.addPost=action.payload
+        },
         fetch_user_posts:(state,action)=>{
             state.user_posts=action.payload
         },
@@ -36,15 +40,26 @@ const postSlice=createSlice({
 
     }
 })
-export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts}=postSlice.actions
+export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post}=postSlice.actions
 export default postSlice.reducer
 
+export const addNewPost=(val)=>dispatch=>{
+    dispatch(add_new_post(val))
+}
+
 export const fetchUserPosts=(uid)=>dispatch=>{
+    let users_posts=[]
+    let followed_posts=[]
     axios.get(`http://127.0.0.1:8000/api/posts/`)
     .then(posts=>{
-        console.log(posts.data)
+        posts.data.forEach(post=>{
+            if(post.user_id==uid){
+                users_posts.push(post)
+            }
+        })
+        dispatch(fetch_user_posts(users_posts))
         
-        dispatch(fetch_user_posts(posts.data))
+    
     }).catch((err)=>{
         if(err.response){
             console.log('res err')

@@ -1,22 +1,44 @@
 // import Avatar
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
+import axios from 'axios'
 
 // props=post details
-function Post({postDetail,userDetails}){
-  
-  
-  
+function Post({postDetail}){
+//   check if loggenInUSer===userDetails.id
+    const loggedInuser=useSelector(state=>state.user.userDetails)
+    const [postsUser,setpostUser]=useState(null)
     const post_area=()=>{
         let postType=postDetail.post_type;
         if(postType){
             return(<img src={postDetail.postType}></img>)
         }
     }
+
+useEffect(()=>{
+    console.log(loggedInuser)
+    if(loggedInuser==postDetail.user_id){
+        setpostUser(loggedInuser)
+    }else{
+    axios.get('http://localhost:8000/api/users/'+postDetail.user_id+'/')
+        .then(user=>{
+            console.log(user.data)
+            setpostUser(user.data)
+            
+        })}
+ },[])
+ console.log(postsUser)
+
+console.log(postDetail)
+  
+  
+   if(postsUser!==null){ 
+      
     return(
         <div className='post'>
-            <UserAvatar username={userDetails.username}>
+            <UserAvatar username={postsUser.username}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
               
             </UserAvatar>
@@ -38,6 +60,8 @@ function Post({postDetail,userDetails}){
             
         </div>
         
-    )
+    )}else{
+        return( <div>no</div>)
+    }
 }
 export default Post;

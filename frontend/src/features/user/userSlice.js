@@ -6,10 +6,11 @@ const initialState={
     userAuthDetails:{},
     userPosts:[],
     userProfile:{},
-    userFollow:{
-        follower:0,
-        followee:0
-    }
+    users_following:[],
+    users_followed:[],
+    subconns_following:[],
+    subconns_followed:[]
+   
 }
 
 const userSlice=createSlice({
@@ -25,8 +26,12 @@ const userSlice=createSlice({
         fetch_user_profile:(state,action)=>{
             state.userProfile=action.payload
         },
-        fetch_user_follow:(state,action)=>{
-            state.userFollow=action.payload
+        fetch_users_following:(state,action)=>{
+            state.users_following=action.payload.users_following
+            state.users_followed=action.payload.users_followed
+        },
+        fetch_subconns_following:(state,action)=>{
+            state.subconns_following=action.payload
         },
         increment_user_follow:(state,action)=>{
             state.userFollow[action.payload]+=1
@@ -34,45 +39,26 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile,fetch_users_following,fetch_subconns_following}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
-export const fetchUser=(uid)=>dispatch=>{
+export const fetchUser=(uid,loggedIn=true)=>dispatch=>{
     axios.get(`http://127.0.0.1:8000/api/users/${uid}/`)
     .then(user=>{
-        console.log(user.data)
-        // dispatch data to reducer
+    
         dispatch(fetch_user(user.data))
+      
+       
     })
 }
 
 
 
-// export const fetchUserFollow=(uid)=>dispatch=>{
-//     axios.get(`http://127.0.0.1:8000/api/users_follow/`)
-//     .then(follow=>{
-//     //    send folllow details of uid
-//         follow.data.forEach(el=>{
-//             console.log(el)
-//             if(el.fol==uid){
-//                 console.log(el)
-//                 dispatch(fetch_user_follow(el))
-//             }
-//         })
-        
-        
-//     }).catch((err)=>{
-//         if(err.response){
-//             console.log('res err')
-//         }if(err.request){
-//             console.log('req err')
-//         }
-//     })
-// }
 
-export const fetchUserProfile=(uid)=>dispatch=>{
+
+export const fetchUserProfile=(uid,loggedIn=true)=>dispatch=>{
    
     axios.get('http://127.0.0.1:8000/api/users_profile/')
     .then(userProfiles=>{
@@ -80,13 +66,39 @@ export const fetchUserProfile=(uid)=>dispatch=>{
         userProfiles.data.forEach(profile=>{
             if(profile.user==uid){
               
-                dispatch(fetch_user_profile(profile))
+                  dispatch(fetch_user_profile(profile))
+               
+              
+               
             }
         })
     })
 }
 
+// gets all users the logged in user follows and is followed by
+export const fetchUsersFollowing=(uid,loggedIn=true)=>dispatch=>{
+    let users_following=[]
+    let users_followed=[]
+    console.log(uid)
+    axios.get('http://localhost:8000/api/users_follow/')
+    .then(res=>{
+        console.log(res.data)
+        res.data.forEach(obj=>{
+            if(obj.followee==uid){
+                console.log('1')
+                users_following.push(obj.follower)
+            }else if(obj.follower==uid){
+                users_followed.push(obj.followee)
+            }
+        })
+         dispatch(fetch_users_following({users_following:users_following,users_followed:users_followed}))
+        
+       
+    })
+}
+
 // ***Selectorrs***
+export const selectLoggedInUserId=state=>state.user.userDetails.id
 export const selectUser = state => state.user.userDetails
 export const selectUserFollow = state => state.user.userFollow
 export const selectUserPosts = state => state.user.userPosts

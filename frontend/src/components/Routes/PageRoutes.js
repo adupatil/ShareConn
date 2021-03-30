@@ -14,7 +14,7 @@ const PageRoutes=()=>(
         <Route exact path='/u/profile/:id' render={(props) => <Profile option="user"></Profile>}></Route>
         <Route exact path='/s/profile/:id' render={(props) => <Profile option="subconn"></Profile>}></Route>
         <Route exact path='/settings' component={Settings}></Route>
-        <Route exact path='/u/home/:id' component={Home}></Route>
+        <Route exact path='/' component={Home}></Route>
         
     </Switch>
 )

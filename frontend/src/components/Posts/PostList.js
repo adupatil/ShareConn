@@ -4,7 +4,7 @@ import Post from './Post'
 
 function PostList({postList,uid,userDetails}){
     
-    
+    console.log(postList)
     const posts=postList.map((post,i)=>(<Post postDetail={post} key={"post_"+i} userDetails={userDetails}></Post>))
 
     

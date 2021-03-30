@@ -46,6 +46,7 @@
     padding:2rem;
     padding-top: 0px;
     display: flex;
+    justify-content: space-between;
 }
 #userName{
     font-weight: 500;
