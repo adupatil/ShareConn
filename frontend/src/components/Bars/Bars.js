@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import AuthButton from '../Buttons/AuthButton';
+
 import AddPostBtn from '../Buttons/AddPostBtn';
 import {NavLink} from 'react-router-dom';
 import { useSelector,useDispatch} from 'react-redux'
-import '../../assets/css/Bars.css'
+import '../../assets/css/Bars.css';
+import {logout_user as clearPosts} from '../../features/posts/postSlice'
+import {logout_user as clearUser} from '../../features/user/userSlice'
 
-
+import '../../assets/css/Buttons.css'
 
 // Bars need to get user values
 function NavBar(props){
     const username=useSelector(state=>state.user.userDetails.username)
+   const dispatch = useDispatch()
+    const logoutUser=()=>{
+        console.log('logout')
+        dispatch(clearPosts())
+        dispatch(clearUser())
+    }
     
 return(
     <div className="nav_container">
@@ -20,7 +28,7 @@ return(
                     <div className='user_profile_pic'>{props.profile_pic}</div>
                     <div className='username'>{username}</div>
                 </div>
-                <div><AuthButton status="LogOut"></AuthButton></div>
+                <div className=" button orangeBtn auth_btn" onClick={logoutUser}>Logout</div>
                    
              
                 
@@ -35,7 +43,7 @@ const sidebarElements=[
 ]
 function SideBar(props){
     // get which page is active
-    const user='1'
+    const user=useSelector(state=>state.user.userAuthDetails.pk)
     const activeStyle={
         color:'var(--primaryColor)',
         backgroundColor: 'rgb(240,128,128,0.1)',

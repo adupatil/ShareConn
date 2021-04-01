@@ -5,9 +5,9 @@ import '../assets/css/Page.css'
 
 // components
 import {NavBar,SideBar} from './Bars/Bars';
-import Home from './Pages/Home'
-import PageRoutes from './Routes/PageRoutes'
-import AddPost from './Posts/AddPost'
+import PageRoutes from './Routes/PageRoutes';
+import AddPost from './Posts/AddPost';
+import Login from './Auth/Login';
 
 // redux
 import {useDispatch,useSelector} from 'react-redux';
@@ -16,21 +16,25 @@ import {selectUser,fetchUser,fetchUserProfile,fetchUsersFollowing} from '../feat
 import {fetchUserPosts} from '../features/posts/postSlice'
 
 function App(props) {
-const uid='1'
-    const addPostStyle=useSelector(state=>state.posts.addPost)
- const dispatch = useDispatch()
+
+const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
+
+
+// const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
+//  const addPostStyle=useSelector(state=>state.posts.addPost)
+    const dispatch = useDispatch()
     useEffect(()=>{
         console.log('in effect')
-        dispatch(fetchUser(uid))
-        dispatch(fetchUserProfile(uid))
-        dispatch(fetchUserPosts(uid))
-        dispatch(fetchUsersFollowing(uid))
+        dispatch(fetchUser(loggedInUserID))
+        dispatch(fetchUserProfile(loggedInUserID))
+        dispatch(fetchUserPosts(loggedInUserID))
+        dispatch(fetchUsersFollowing(loggedInUserID))
         
          
          
-     },[])
+     },[loggedInUserID])
     
-    // const [userDetail,setUserDetail]=useState({})
+  if(loggedInUserID){
     return(
    
        
@@ -55,6 +59,13 @@ const uid='1'
 
   
     )
+
+  }else{
+      return(
+          <Login></Login>
+      )
+  }
+    
     
 }
 export default App;

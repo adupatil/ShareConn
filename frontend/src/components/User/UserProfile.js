@@ -12,16 +12,20 @@ import axios from 'axios'
 function UserProfile(props){
    const loggedInuser=useSelector(state=>state.user);
    const usersPosts=useSelector(state=>state.posts.user_posts)
-   
    const uid=useParams().id
-  
-  console.log(uid)
-  console.log(loggedInuser.userDetails.id)
     const [user,setUser]=useState(null)
     const [posts,setPosts]=useState(null)
+    const token=useSelector(state=>state.user.token)
+    // const getFollowOption=()=>{
+    //     if(uid==loggedInuser.userAuthDetails.pk){
+    //         return(<div>Edit Profile</div>)
+    //     }else{
+    //         if()
+    //     }
+    // }
     useEffect(()=>{
-        if(loggedInuser.userDetails.id==uid){
-            console.log('treu')
+        if(loggedInuser.userAuthDetails.pk==uid){
+           
             setUser(loggedInuser)
             setPosts(usersPosts)
            
@@ -29,7 +33,7 @@ function UserProfile(props){
            console.log('ffalse')
             let obj={}
             let users_posts=[]
-            axios.get(`http://127.0.0.1:8000/api/users/${uid}/`)
+            axios.get(`http://127.0.0.1:8000/api/users/${uid}/`,{headers:{Authorization:"Token "+token}})
             .then(user=>{
                obj.userDetails=user.data
                axios.get('http://127.0.0.1:8000/api/users_profile/')
@@ -49,7 +53,7 @@ function UserProfile(props){
 
             
 
-            axios.get(`http://127.0.0.1:8000/api/posts/`)
+            axios.get(`http://127.0.0.1:8000/api/posts/`,{headers:{Authorization:"Token "+token}})
             .then(posts=>{
                 posts.data.forEach(post=>{
                     if(post.user_id==uid){
@@ -66,9 +70,7 @@ function UserProfile(props){
        
 
     },[uid])
-    console.log('%%%%%')
-    console.log(user)
-    console.log(posts)
+    
    if(user!==null){
         return(
             <div>

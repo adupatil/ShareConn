@@ -13,7 +13,7 @@ function PostList({postList,uid,userDetails}){
         
             <div className='posts'>
                 <ul className="post__list">
-                   {posts}
+                   {posts.length>0?posts:"No posts :("}
                 </ul>
             </div>
             

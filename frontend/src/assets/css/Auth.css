@@ -1,0 +1,36 @@
+/* login */
+.loginForm{
+    position: relative;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    width:31rem;
+    height: 26rem;
+    display: flex;
+    flex-direction: column;
+    padding:1rem;
+    border:1px solid var(--inverseModeColor);
+    border-radius:6px;
+    align-items: center;
+    margin-top: auto;
+
+}
+.loginForm input[type='text']{
+    width:77%;
+    height: 2rem;
+    margin-top: 1rem;
+    border-radius: 3px;
+    border:1px solid var(--primaryColor)
+}
+.loginBtn{
+    cursor: pointer;
+    width:30%;
+    background-color: var(--primaryColor);
+    color:white;
+    margin-top:1rem;
+    border-radius: 25px;
+    height: 2.5rem;
+    border:1px solid var(--primaryColor)
+
+}

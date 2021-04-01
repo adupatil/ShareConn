@@ -36,21 +36,26 @@ const postSlice=createSlice({
         },
         delete_comment:(state,action)=>{
             state=state
+        },
+        logout_user:(state)=>{
+            state.user_posts=[]
+            state.followed_posts=[]
+            state.addPost='none'
         }
 
     }
 })
-export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post}=postSlice.actions
+export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user}=postSlice.actions
 export default postSlice.reducer
 
 export const addNewPost=(val)=>dispatch=>{
     dispatch(add_new_post(val))
 }
 
-export const fetchUserPosts=(uid)=>dispatch=>{
+export const fetchUserPosts=(uid)=>(dispatch,getState)=>{
     let users_posts=[]
     let followed_posts=[]
-    axios.get(`http://127.0.0.1:8000/api/posts/`)
+    axios.get(`http://127.0.0.1:8000/api/posts/`,{headers:{Authorization:'Token '+getState().user.token}})
     .then(posts=>{
         posts.data.forEach(post=>{
             if(post.user_id==uid){

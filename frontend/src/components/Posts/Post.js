@@ -19,16 +19,18 @@ function Post({postDetail}){
 
 useEffect(()=>{
     console.log(loggedInuser)
-    if(loggedInuser==postDetail.user_id){
+    if(loggedInuser.id==postDetail.user_id){
         setpostUser(loggedInuser)
     }else{
     axios.get('http://localhost:8000/api/users/'+postDetail.user_id+'/')
         .then(user=>{
+            console.log('666')
             console.log(user.data)
-            setpostUser(user.data)
+            setpostUser(user.data)  
             
         })}
  },[])
+ console.log('%%%')
  console.log(postsUser)
 
 console.log(postDetail)

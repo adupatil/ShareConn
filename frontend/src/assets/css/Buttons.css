@@ -9,7 +9,10 @@ button{
         background-color: #EA8201;
         border-radius: 6px;
         border: 1px solid #EA8201;
-        color:white
+        color:white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 }
 .orangeBtn:hover{
     background-color: #EA8201B2;
