@@ -1,11 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 import axios from 'axios';
+import {fetchUserPosts} from '../posts/postSlice'
 
 const initialState={
-    token:null,
+   
     userDetails:{},
     userAuthDetails:{},
-    userPosts:[],
     userProfile:{},
     users_following:[],
     users_followed:[],
@@ -18,9 +18,8 @@ const userSlice=createSlice({
     name:'user',
     initialState,
     reducers:{
-        update_authkey:(state,action)=>{
-            state.token=action.payload
-        },
+       
+        
         fetch_user: (state,action)=>{
             state.userDetails=action.payload
         },
@@ -54,27 +53,16 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile,fetch_users_following,fetch_subconns_following,update_authkey,logout_user}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile,fetch_users_following,fetch_subconns_following,update_authkey,logout_user,update_authkey_register}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
 
-export const updateAuthKey=(data)=>(dispatch,getState)=>{
-    console.log(data)
-    axios.post('rest-auth/login/',data)
-    .then(key=>{
-       
-        dispatch(update_authkey(key.data.key))
-        localStorage.setItem('token',key.data.key)
-        console.log('Token '+localStorage.getItem('token'))
-        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+localStorage.getItem('token')}})
-        .then(data=>{
-           dispatch(fetch_user_authDetails(data.data))})
-    
-    })
+export const updateAuthKeyRegister=(data)=>dispatch=>{
+    axios.post('rest-auth/registration',data)
+    .then(key=>dispatch(update_authkey_register(key.data.key)))
 }
-
 
 export const fetchUser=(uid)=>(dispatch,getState)=>{
    console.log(' f user details='+uid)
@@ -83,6 +71,9 @@ export const fetchUser=(uid)=>(dispatch,getState)=>{
         console.log('(*&^%$#@')
         console.log(user.data)
         dispatch(fetch_user(user.data))
+ 
+            dispatch(fetchUserProfile(uid))
+            dispatch(fetchUsersFollowing(uid))
       
        
     })
@@ -122,9 +113,28 @@ export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
                 users_followed.push(obj.followee)
             }
         })
+    
          dispatch(fetch_users_following({users_following:users_following,users_followed:users_followed}))
+         dispatch(fetchUserPosts(uid))
         
        
+    })
+}
+
+export const updateAuthKey=(data)=>(dispatch,getState)=>{
+    console.log(data)
+    axios.post('rest-auth/login/',data)
+    .then(key=>{
+    
+        localStorage.setItem('token',key.data.key)
+        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+localStorage.getItem('token')}})
+        .then(data=>{
+           dispatch(fetch_user_authDetails(data.data))
+            
+        
+        
+        })
+    
     })
 }
 

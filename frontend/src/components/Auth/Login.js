@@ -50,7 +50,7 @@ if(token===null){
         </div>
     )}
     else{
-        alert("Already logged in")
+       
         return(<Redirect to='/'></Redirect>)
     }
 }

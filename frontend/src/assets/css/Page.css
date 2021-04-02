@@ -3,7 +3,7 @@
 }
 .main_area{
     display: flex;
-    height: 100%;
+    height: 95vh;
 }
 .listContainer{
     width:40%;
@@ -12,7 +12,7 @@
 }
 .listContainerScroll{
    
-        height: 100vh;
+        height: 100%;
         overflow: scroll;
         list-style: none;
     

@@ -26,35 +26,30 @@ const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
 const dispatch = useDispatch()
 const token=localStorage.getItem('token')
 useEffect(()=>{
-    console.log('for token')
+   
  
     if(token){
-        console.log('updating auth details')
         axios.defaults.headers.common['Authorization']='Token '+token;
         axios.get('rest-auth/user/')
         .then(data=>{
-            console.log("(*&^%$#@!@#$%^&")
-            console.log(data.data)
             dispatch(fetch_user_authDetails(data.data))})
     }
 
 },[token])
-
     useEffect(()=>{
-        console.log('in effect')
-        console.log(loggedInUserID)
+       
       
-        dispatch(fetchUser(loggedInUserID))
-            dispatch(fetchUserProfile(loggedInUserID))
-            dispatch(fetchUsersFollowing(loggedInUserID))
-            dispatch(fetchUserPosts(loggedInUserID))
+            dispatch(fetchUser(loggedInUserID))
+            
+            
+            
          
         
     },[loggedInUserID])
      console.log('lOOGG APP')
      console.log(loggedInUserID)
     
-  if(loggedInUserID && Object.keys(userDetails).length>0 && Object.keys(userProfile).length>0 && userPosts.length>=0){
+  if(loggedInUserID){
     return(
    
        

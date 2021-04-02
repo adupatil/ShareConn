@@ -1,5 +1,5 @@
 /* login */
-.loginForm{
+.loginForm,.signupForm{
     position: relative;
     right: 0;
     left: 0;
@@ -16,14 +16,14 @@
     margin-top: auto;
 
 }
-.loginForm input[type='text']{
+.loginForm input[type='text'],.signupForm input[type='text']{
     width:77%;
     height: 2rem;
     margin-top: 1rem;
     border-radius: 3px;
     border:1px solid var(--primaryColor)
 }
-.loginBtn{
+.loginBtn,.signupBtn{
     cursor: pointer;
     width:30%;
     background-color: var(--primaryColor);
@@ -33,4 +33,13 @@
     height: 2.5rem;
     border:1px solid var(--primaryColor)
 
+}
+.form-group{
+    width: 77%;
+    display: flex;
+    justify-content: space-between;
+
+}
+.form-group input[type='text']{
+    width:47%;
 }
