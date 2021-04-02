@@ -125,9 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "users.User"
 
-# REST_AUTH_SERIALIZERS= {
-#     'PASSWORD_RESET_SERIALIZER': 'users.serializers.CustomPasswordResetSerializer',
-# }
+REST_AUTH_SERIALIZERS= {
+    'PASSWORD_RESET_SERIALIZER': 'users.serializers.CustomPasswordResetSerializer',
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -169,7 +169,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 OLD_PASSWORD_FIELD_ENABLED = True
 LOGOUT_ON_PASSWORD_CHANGE = False
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIT_PORT = 587
 EMAIL_USE_TLS = True

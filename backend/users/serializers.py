@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User, UserProfile, UserFollow
-# from rest_auth.serializers import PasswordResetSerializer
+from rest_auth.serializers import PasswordResetSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,8 +17,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
 
-# class CustomPasswordResetSerializer(PasswordResetSerializer):
-#     def get_email_options(self):
-#         return {
-#             'html_email_template_name': 'password_reset_email.html'
-#         }
+class CustomPasswordResetSerializer(PasswordResetSerializer):
+    def get_email_options(self):
+        return {
+            'html_email_template_name': 'password_reset_email.html'
+        }

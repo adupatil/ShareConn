@@ -28,7 +28,7 @@ urlpatterns = [
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    # path(r'^', include('django.contrib.auth.urls')),
+    path(r'^', include('django.contrib.auth.urls')),
     url(r'^accounts/',include('allauth.urls')),
 
 ]
