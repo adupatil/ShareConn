@@ -4,6 +4,8 @@ from .models import User, UserProfile, UserFollow
 from rest_framework import authentication
 from rest_framework.permissions import IsAuthenticated
 from rest_auth.views import LogoutView
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAuthenticated]
 
@@ -24,3 +26,6 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class LogoutExView(LogoutView):
     
     authentication_classes = (authentication.TokenAuthentication,)
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
