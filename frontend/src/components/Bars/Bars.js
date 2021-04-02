@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import AddPostBtn from '../Buttons/AddPostBtn';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import { useSelector,useDispatch} from 'react-redux'
 import '../../assets/css/Bars.css';
 import {logout_user as clearPosts} from '../../features/posts/postSlice'
@@ -18,6 +18,7 @@ function NavBar(props){
         localStorage.removeItem('token')
         dispatch(clearPosts())
         dispatch(clearUser())
+        window.location.replace('/login')
         
     }
     

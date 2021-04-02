@@ -4,6 +4,8 @@ import Home from '../Pages/Home'
 import Notifications from '../Pages/Notification'
 import Profile from '../Pages/Profile'
 import Settings from '../Pages/Settings'
+import Login from '../Auth/Login';
+import Signup from '../Auth/Signup'
 
 
 

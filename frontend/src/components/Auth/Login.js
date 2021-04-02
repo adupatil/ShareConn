@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import '../../assets/css/Auth.css';
-import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+
+import { NavLink, Redirect } from 'react-router-dom';
 import {updateAuthKey} from '../../features/user/userSlice'
 import { useDispatch } from 'react-redux';
+import '../../assets/css/Auth.css'
 
 function Login() {
     const [username,setusername]=useState(null)
     const [password,setpassword]=useState(null)
     const [email,setemail]=useState(null)
+    const [token,settoken]=useState(null)
+    useEffect(()=>{
+        settoken(localStorage.getItem('token'))
+        console.log(token)
+    },[])
+
+    
+   
     const dispatch=useDispatch()
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -20,6 +29,11 @@ function Login() {
         dispatch(updateAuthKey(data))
 
     }
+   
+ 
+if(token===null){
+
+
     return (
         <div className='loginFormContainer'>
             <form className="loginForm">
@@ -34,7 +48,11 @@ function Login() {
             
                 
         </div>
-    )
+    )}
+    else{
+        alert("Already logged in")
+        return(<Redirect to='/'></Redirect>)
+    }
 }
 
 export default Login

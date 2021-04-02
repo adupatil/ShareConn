@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react';
+import React,{ Fragment, useEffect, useState } from 'react';
 // css
 import '../assets/css/Bars.css';
 import '../assets/css/Page.css'
@@ -6,6 +6,7 @@ import '../assets/css/Page.css'
 // components
 import {NavBar,SideBar} from './Bars/Bars';
 import PageRoutes from './Routes/PageRoutes';
+import AuthRoutes from './Routes/AuthRoutes'
 import AddPost from './Posts/AddPost';
 import Login from './Auth/Login';
 
@@ -15,6 +16,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {selectUser,fetchUser,fetchUserProfile,fetchUsersFollowing,fetch_user_authDetails} from '../features/user/userSlice'
 import {fetchUserPosts} from '../features/posts/postSlice'
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 function App(props) {
 const userDetails=useSelector(state=>state.user.userDetails)
@@ -79,7 +81,12 @@ useEffect(()=>{
 
   }else{
       return(
-          <Login></Login>
+          <Fragment>
+              <AuthRoutes></AuthRoutes>
+       <Redirect to='/login'></Redirect>
+
+          </Fragment>
+       
       )
   }
     

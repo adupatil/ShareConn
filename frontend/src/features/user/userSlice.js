@@ -64,11 +64,11 @@ export const updateAuthKey=(data)=>(dispatch,getState)=>{
     console.log(data)
     axios.post('rest-auth/login/',data)
     .then(key=>{
-        console.log(key.data.key)
+       
         dispatch(update_authkey(key.data.key))
         localStorage.setItem('token',key.data.key)
-
-        axios.get('rest-auth/user/')
+        console.log('Token '+localStorage.getItem('token'))
+        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+localStorage.getItem('token')}})
         .then(data=>{
            dispatch(fetch_user_authDetails(data.data))})
     
