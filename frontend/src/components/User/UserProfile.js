@@ -15,25 +15,21 @@ function UserProfile(props){
    const uid=useParams().id
     const [user,setUser]=useState(null)
     const [posts,setPosts]=useState(null)
-    const token=useSelector(state=>state.user.token)
-    // const getFollowOption=()=>{
-    //     if(uid==loggedInuser.userAuthDetails.pk){
-    //         return(<div>Edit Profile</div>)
-    //     }else{
-    //         if()
-    //     }
-    // }
+   
+    
+    console.log("****LOGGEDINUSER")
+    console.log(loggedInuser)
     useEffect(()=>{
         if(loggedInuser.userAuthDetails.pk==uid){
-           
-            setUser(loggedInuser)
+            console.log('true')
+           setUser(loggedInuser)
             setPosts(usersPosts)
            
         }else{
            console.log('ffalse')
             let obj={}
             let users_posts=[]
-            axios.get(`http://127.0.0.1:8000/api/users/${uid}/`,{headers:{Authorization:"Token "+token}})
+            axios.get(`api/users/${uid}/`)
             .then(user=>{
                obj.userDetails=user.data
                axios.get('http://127.0.0.1:8000/api/users_profile/')
@@ -53,7 +49,7 @@ function UserProfile(props){
 
             
 
-            axios.get(`http://127.0.0.1:8000/api/posts/`,{headers:{Authorization:"Token "+token}})
+            axios.get(`api/posts/`)
             .then(posts=>{
                 posts.data.forEach(post=>{
                     if(post.user_id==uid){
@@ -70,18 +66,22 @@ function UserProfile(props){
        
 
     },[uid])
+    console.log("***POSTS");
+    console.log(posts)
     
-   if(user!==null){
+   if(user!==null && posts!==null){
         return(
             <div>
                 <div className='pictures'>
                     <div className="coverPicContainer">
                         <div className="coverPic">
-                            <img ></img>
+                            <img src={`${process.env.PUBLIC_URL}/assets/img/cover_pic.jpg`} className='coverImg'></img>
                         </div>
                     </div>
                     <div className="profilePicContainer">
-                        <div className="profilePic"></div>
+                        <div className="profilePic">
+                        <img src={`${process.env.PUBLIC_URL}/assets/img/bean.jpeg`} className='profileImg'></img>
+                        </div>
                     </div>
                 </div>
                 <div className="userDetails">

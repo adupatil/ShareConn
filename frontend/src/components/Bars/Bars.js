@@ -15,8 +15,10 @@ function NavBar(props){
    const dispatch = useDispatch()
     const logoutUser=()=>{
         console.log('logout')
+        localStorage.removeItem('token')
         dispatch(clearPosts())
         dispatch(clearUser())
+        
     }
     
 return(

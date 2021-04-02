@@ -62,25 +62,26 @@ export default userSlice.reducer
 
 export const updateAuthKey=(data)=>(dispatch,getState)=>{
     console.log(data)
-    axios.post('http://127.0.0.1:8000/rest-auth/login/',data)
+    axios.post('rest-auth/login/',data)
     .then(key=>{
         console.log(key.data.key)
         dispatch(update_authkey(key.data.key))
-        axios.get('http://127.0.0.1:8000/rest-auth/user/',{headers:{Authorization:'Token '+getState().user.token}})
+        localStorage.setItem('token',key.data.key)
+
+        axios.get('rest-auth/user/')
         .then(data=>{
-            
-            dispatch(fetch_user_authDetails(data.data))})
+           dispatch(fetch_user_authDetails(data.data))})
     
     })
 }
 
 
 export const fetchUser=(uid)=>(dispatch,getState)=>{
-    console.log('*&^%$#@!')
-    console.log(getState().user.token)
-   axios.get(`http://127.0.0.1:8000/api/users/${uid}/`,{headers:{Authorization:'Token '+getState().user.token}})
+   console.log(' f user details='+uid)
+   axios.get(`api/users/${uid}/`)
     .then(user=>{
-        console.log(user)
+        console.log('(*&^%$#@')
+        console.log(user.data)
         dispatch(fetch_user(user.data))
       
        
@@ -89,8 +90,8 @@ export const fetchUser=(uid)=>(dispatch,getState)=>{
 
 
 export const fetchUserProfile=(uid)=>(dispatch,getState)=>{
-   console.log('Token '+getState().user.token)
-    axios.get('http://127.0.0.1:8000/api/users_profile/',{headers:{Authorization:'Token '+getState().user.token}})
+    console.log(' f user profile='+uid)
+    axios.get('api/users_profile/')
     .then(userProfiles=>{
        
         userProfiles.data.forEach(profile=>{
@@ -110,12 +111,12 @@ export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
     let users_following=[]
     let users_followed=[]
     console.log(uid)
-    axios.get('http://localhost:8000/api/users_follow/',{headers:{Authorization:'Token '+getState().user.token}})
+    axios.get('api/users_follow/')
     .then(res=>{
         console.log(res.data)
         res.data.forEach(obj=>{
             if(obj.followee==uid){
-                console.log('1')
+                // the logged in user follows
                 users_following.push(obj.follower)
             }else if(obj.follower==uid){
                 users_followed.push(obj.followee)

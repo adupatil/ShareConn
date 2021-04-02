@@ -55,13 +55,14 @@ export const addNewPost=(val)=>dispatch=>{
 export const fetchUserPosts=(uid)=>(dispatch,getState)=>{
     let users_posts=[]
     let followed_posts=[]
-    axios.get(`http://127.0.0.1:8000/api/posts/`,{headers:{Authorization:'Token '+getState().user.token}})
+    axios.get(`api/posts/`)
     .then(posts=>{
         posts.data.forEach(post=>{
             if(post.user_id==uid){
                 users_posts.push(post)
             }
         })
+        console.log(users_posts)
         dispatch(fetch_user_posts(users_posts))
         
     

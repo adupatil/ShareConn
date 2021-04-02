@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../assets/css/User.css'
+import {NavLink} from 'react-router-dom'
 // props will get Username USer Profile pic.
-class UserAvatar extends Component{
-    constructor(props){
-        super(props);
-    }
+function UserAvatar(props){
+   
 
-    getUserProfile(){
-        return;
-    }
-    render() {
+    
+ 
         return (
+           
             <div className="user_avatar_container">
                 <div className="user_avatar">
-                    <div className='user_profile_pic'>{this.props.user_profilepic}</div>
+                    <div className='user_profile_pic'><img src={`${process.env.PUBLIC_URL}/assets/img/bean.jpeg`} className='avatarImg'></img></div>
                     <div className='verticleWrap'>
-                    <div className='username'>{this.props.username}</div>
-                    <div>{this.props.children}</div>
+                    <NavLink to={'/u/profile/'+props.user.id} className='username'>{props.user.username}</NavLink>
+                    <div>{props.children}</div>
                     </div>
                     
                 </div>
             </div> 
         );
-    }
+ 
    
 
 

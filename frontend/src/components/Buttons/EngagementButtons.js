@@ -7,7 +7,7 @@ function LikeBtn(props){
     // how tocheck if someone has like dour post 
     // if uid in user_id list of posts liked then true else false
     const [liked,setLiked]=useState(false)
-    
+    const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
     const post_id=props.postDetail.id;
  
     // const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
@@ -20,27 +20,26 @@ function LikeBtn(props){
 
    
   
-//    const toggleLike=()=>{
-//         if(liked){
-//             dispatch(increment_post_likes({option:'user_posts',post_id:post_id}))
-//        }else{
-          
-//         dispatch(increment_post_likes({option:'user_posts',post_id:post_id}))
-//        }
-//        setLiked(prev=>prev?false:true)
+   const toggleLike=()=>{
+        if(liked){
+        //    decrement
+        props.updateLikes(-1)
+       }else{
+        props.updateLikes(1)
+    //    increment
+       }
+       setLiked(prev=>prev?false:true)
        
-//    }
+   }
    
     return(
-        <div className="likeBtnContainer" >
-            <div className='like_btn' >
+        
+            <div className='like_btn' onClick={toggleLike}>
                 <i className={`bx bx${liked?'s':''}-like `} style={liked?likedStyle:{}}></i>
             </div>
-            <div>
-                {props.postDetail.num_likes}
-            </div>
+            
 
-        </div>
+        
         
     )
 }
@@ -50,15 +49,13 @@ function CommentBtn(props){
     const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
     
     return(
-        <div className="commentBtnContainer">
+  
             <div className='comment_btn'  >
                 <i className='bx bx-comment ' ></i>
             </div>
-            <div>
-                {props.postDetail.num_comments}
-            </div>
+            
 
-        </div>
+        
     )
 }
 export {LikeBtn,CommentBtn}
