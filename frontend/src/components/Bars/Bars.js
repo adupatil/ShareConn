@@ -48,7 +48,7 @@ function SideBar(props){
     const user=useSelector(state=>state.user.userAuthDetails.pk)
     const activeStyle={
         color:'var(--primaryColor)',
-        backgroundColor: 'rgb(240,128,128,0.1)',
+       
         borderRadius:'1000px'
     }
     const dispatch=useDispatch()

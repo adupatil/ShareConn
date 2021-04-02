@@ -65,7 +65,8 @@ img.profileImg{
     padding-top: 0px;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid gray;
 }
 #userName{
     font-weight: 500;
@@ -86,4 +87,24 @@ img.profileImg{
 }
 #userFollowers{
     margin-right:1rem
+}
+.followingBtn{
+    background-color: #00af91;
+    color: white;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 1rem;
+    border-radius: 25px;
+}
+.followBtn{
+    border: 2px solid #00af91;
+    color:#00af91;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 1rem;
+    border-radius: 25px;
 }

@@ -7,12 +7,17 @@
     height: 100%;
    
     list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .post__list{
     list-style: none;
     padding:0px;
     margin-bottom: 5rem;
+    margin-top: 0;
+    width: 100%;
 }
 .post__list .post{
     border-top:1px solid gray;
@@ -46,6 +51,7 @@
 .post_text{
     font-size: smaller;
 }
+
 
 
 

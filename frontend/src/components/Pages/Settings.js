@@ -2,7 +2,12 @@ import React from 'react';
 function Settings(){
     return(
         <div>
-            Settings
+            <div className='theme'>
+                <h5>Themes</h5>
+                <div className='mode'>Mode: 
+
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PostList from '../Posts/PostList';
 import {useParams} from 'react-router';
 import { useSelector,useDispatch} from 'react-redux';
@@ -10,15 +10,28 @@ import axios from 'axios'
 
 // import useFetch from '../Hooks/useFetch';
 function UserProfile(props){
-   const loggedInuser=useSelector(state=>state.user);
-   const usersPosts=useSelector(state=>state.posts.user_posts)
-   const uid=useParams().id
+    const loggedInuser=useSelector(state=>state.user);
+    const usersPosts=useSelector(state=>state.posts.user_posts)
+    const uid=useParams().id
+
     const [user,setUser]=useState(null)
     const [posts,setPosts]=useState(null)
+    const getFollowStatus=()=>{
+        if(loggedInuser.userDetails.id===parseInt(uid)){
+            return(<div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>)
+        }else{
+            if(loggedInuser.users_followed.includes(parseInt(uid))){
+                return(<div className='followingBtn'>Following</div>)
+            }
+            else{
+                return(<div className='followBtn'>Follow</div>)
+            }
+        }
+        
+    }
    
     
-    console.log("****LOGGEDINUSER")
-    console.log(loggedInuser)
+    
     useEffect(()=>{
         if(loggedInuser.userAuthDetails.pk==uid){
             console.log('true')
@@ -66,12 +79,11 @@ function UserProfile(props){
        
 
     },[uid])
-    console.log("***POSTS");
-    console.log(posts)
+   
     
    if(user!==null && posts!==null){
         return(
-            <div>
+        <Fragment>
                 <div className='pictures'>
                     <div className="coverPicContainer">
                         <div className="coverPic">
@@ -93,13 +105,13 @@ function UserProfile(props){
                             <div id="userFollowing"><span className="followingCount">{user.userProfile.num_following}</span> Following</div>
                         </div>
                     </div>
-                    {loggedInuser==uid && <div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>}
+                    {getFollowStatus()}
                 </div>
                 {posts && <div className="userPostContainer">
                     <PostList postList={posts} uid={uid} userDetails={user.userDetails}></PostList>
                 </div>}
     
-            </div>
+        </Fragment>
             
         )
     }
