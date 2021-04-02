@@ -1,4 +1,4 @@
-from .viewsets import UserViewSet,UserFollowViewSet,UserProfileViewSet
+from .viewsets import UserViewSet,UserFollowViewSet,UserProfileViewSet,LogoutExView
 from rest_framework import routers
 from django.urls import path, include
 
@@ -9,6 +9,7 @@ router.register('api/users_profile',UserProfileViewSet)
 
 urlpatterns = [ 
     path('', include(router.urls)),
+    path('rest-auth/logout',LogoutExView.as_view(),name='rest-logout')
 ]
 
 
