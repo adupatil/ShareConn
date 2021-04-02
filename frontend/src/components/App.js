@@ -46,8 +46,9 @@ useEffect(()=>{
       
         dispatch(fetchUser(loggedInUserID))
             dispatch(fetchUserProfile(loggedInUserID))
-            dispatch(fetchUserPosts(loggedInUserID))
             dispatch(fetchUsersFollowing(loggedInUserID))
+            dispatch(fetchUserPosts(loggedInUserID))
+         
         
     },[loggedInUserID])
      console.log('lOOGG APP')

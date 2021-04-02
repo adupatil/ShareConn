@@ -57,13 +57,19 @@ export const fetchUserPosts=(uid)=>(dispatch,getState)=>{
     let followed_posts=[]
     axios.get(`api/posts/`)
     .then(posts=>{
+        
         posts.data.forEach(post=>{
+            
             if(post.user_id==uid){
                 users_posts.push(post)
+            }if(getState().user.users_followed.includes(post.user_id)){
+                
+                followed_posts.push(post)
             }
         })
         console.log(users_posts)
         dispatch(fetch_user_posts(users_posts))
+        dispatch(fetch_followed_posts(followed_posts))
         
     
     }).catch((err)=>{
