@@ -31,7 +31,7 @@ function Login() {
     }
    
  
-if(token===null){
+
 
 
     return (
@@ -48,11 +48,8 @@ if(token===null){
             
                 
         </div>
-    )}
-    else{
-       
-        return(<Redirect to='/'></Redirect>)
-    }
+    )
+    
 }
 
 export default Login

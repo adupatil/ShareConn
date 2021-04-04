@@ -11,12 +11,13 @@ import Signup from '../Auth/Signup'
 
 const PageRoutes=()=>(
     <Switch>
+        <Route  path='/' exact component={Home}></Route>
+        <Route  path='/notifications' exact component={Notifications}></Route>
+        <Route  path='/u/profile/:id' exact render={(props) => <Profile option="user"></Profile>}></Route>
+        <Route  path='/s/profile/:id' exact render={(props) => <Profile option="subconn"></Profile>}></Route>
+        <Route  path='/settings' exact component={Settings}></Route>
         
-        <Route exact path='/notifications' component={Notifications}></Route>
-        <Route exact path='/u/profile/:id' render={(props) => <Profile option="user"></Profile>}></Route>
-        <Route exact path='/s/profile/:id' render={(props) => <Profile option="subconn"></Profile>}></Route>
-        <Route exact path='/settings' component={Settings}></Route>
-        <Route exact path='/' component={Home}></Route>
+        
         
     </Switch>
 )

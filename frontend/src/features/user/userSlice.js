@@ -36,9 +36,13 @@ const userSlice=createSlice({
         fetch_subconns_following:(state,action)=>{
             state.subconns_following=action.payload
         },
-        increment_user_follow:(state,action)=>{
-            state.userFollow[action.payload]+=1
+        increment_user_following:(state,action)=>{
+            state.users_followed.push(parseInt(action.payload))
         },
+        decrement_user_following:(state,action)=>{
+            state.users_followed.splice(state.users_followed.indexOf(parseInt(action.payload)),1)
+        },
+        
         logout_user:(state)=>{
             state.token=null
             state.userDetails={}
@@ -53,15 +57,22 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,increment_user_follow,fetch_user_profile,fetch_users_following,fetch_subconns_following,update_authkey,logout_user,update_authkey_register}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
 
 export const updateAuthKeyRegister=(data)=>dispatch=>{
-    axios.post('rest-auth/registration',data)
-    .then(key=>dispatch(update_authkey_register(key.data.key)))
+    axios.post('rest-auth/registration/',data)
+    .then(key=>{
+        localStorage.setItem('token',key.data);
+        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+localStorage.getItem('token')}})
+        .then(data=>{
+           dispatch(fetch_user_authDetails(data.data))
+        })
+
+    })
 }
 
 export const fetchUser=(uid)=>(dispatch,getState)=>{
@@ -87,6 +98,7 @@ export const fetchUserProfile=(uid)=>(dispatch,getState)=>{
        
         userProfiles.data.forEach(profile=>{
             if(profile.user==uid){
+                console.log(profile)
               
                   dispatch(fetch_user_profile(profile))
                
@@ -107,9 +119,10 @@ export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
         console.log(res.data)
         res.data.forEach(obj=>{
             if(obj.followee==uid){
-                // the logged in user follows
+                // the accounts taht follow the user
                 users_following.push(obj.follower)
             }else if(obj.follower==uid){
+                // the accounts the user follows
                 users_followed.push(obj.followee)
             }
         })
@@ -135,6 +148,41 @@ export const updateAuthKey=(data)=>(dispatch,getState)=>{
         
         })
     
+    })
+}
+
+export const incrementUserFollowing=(fid)=>(dispatch,getState)=>{
+    console.log(fid)
+    axios.post('api/users_follow/',{follower:getState().user.userAuthDetails.pk,followee:fid})
+    .then(data=>{
+        console.log(data.data)
+        dispatch(increment_user_following(fid))
+        dispatch(fetchUsersFollowing(getState().user.userAuthDetails.pk))
+        dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+    })
+}
+
+
+
+
+export const decrementUserFollowing=(fid)=>(dispatch,getState)=>{
+    console.log('decrement='+fid)
+    axios.get('api/users_follow/')
+    .then(res=>{
+        let deleteFollow=res.data.filter(el=>(el.follower===parseInt(getState().user.userAuthDetails.pk) && el.followee===parseInt(fid)))
+        console.log(res.data)
+        console.log(deleteFollow)
+        axios.delete('api/users_follow/'+deleteFollow[0].id+'/')
+        .then(data=>{
+            dispatch(decrement_user_following(fid))
+            dispatch(fetchUsersFollowing(getState().user.userAuthDetails.pk))
+            dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+        })
+        .catch(err=>{
+            console.log(err)
+           
+        })
+       
     })
 }
 

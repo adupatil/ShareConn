@@ -2,29 +2,35 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PostList from '../Posts/PostList';
 import {useParams} from 'react-router';
 import { useSelector,useDispatch} from 'react-redux';
-import {fetchUser,fetchUserProfile,fetchUsersFollowing} from '../../features/user/userSlice';
-import {fetchUserPosts} from '../../features/posts/postSlice'
-
+import {incrementUserFollowing,decrementUserFollowing} from '../../features/user/userSlice'
 import axios from 'axios'
 
 
-// import useFetch from '../Hooks/useFetch';
+
 function UserProfile(props){
     const loggedInuser=useSelector(state=>state.user);
     const usersPosts=useSelector(state=>state.posts.user_posts)
     const uid=useParams().id
-
+// states
     const [user,setUser]=useState(null)
     const [posts,setPosts]=useState(null)
+    const dispatch=useDispatch()
+    const handleFollow=()=>{
+        console.log('clicked')
+        dispatch(incrementUserFollowing(uid))
+    }
+    const handleUnfollow=()=>{
+        dispatch(decrementUserFollowing(uid))
+    }
     const getFollowStatus=()=>{
         if(loggedInuser.userDetails.id===parseInt(uid)){
             return(<div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>)
         }else{
             if(loggedInuser.users_followed.includes(parseInt(uid))){
-                return(<div className='followingBtn'>Following</div>)
+                return(<div className='followingBtn' onClick={handleUnfollow}>Following</div>)
             }
             else{
-                return(<div className='followBtn'>Follow</div>)
+                return(<div className='followBtn' onClick={handleFollow}>Follow</div>)
             }
         }
         
@@ -33,52 +39,61 @@ function UserProfile(props){
     
     
     useEffect(()=>{
+        console.log('in effect profile')
         if(loggedInuser.userAuthDetails.pk==uid){
-            console.log('true')
-           setUser(loggedInuser)
+          
+            setUser(loggedInuser)
             setPosts(usersPosts)
            
         }else{
            console.log('ffalse')
             let obj={}
             let users_posts=[]
+            console.log('fetching')
             axios.get(`api/users/${uid}/`)
-            .then(user=>{
-               obj.userDetails=user.data
-               axios.get('http://127.0.0.1:8000/api/users_profile/')
-                    .then(userProfiles=>{
-                    
-                        userProfiles.data.forEach(profile=>{
-                            if(profile.user==uid){
+                .then(user=>{
+                    console.log('user details being fetched')
+
+                obj.userDetails=user.data
+                axios.get('http://127.0.0.1:8000/api/users_profile/')
+                        .then(userProfiles=>{
+                        
+                            userProfiles.data.forEach(profile=>{
+                                if(profile.user==uid){
+                                
+                                    obj.userProfile=profile
+                                }
+                            })
+                            console.log('obj=')
+                            console.log(obj)
+                            setUser(obj)
                             
-                                obj.userProfile=profile
-                            }
+                            axios.get(`api/posts/`)
+                                .then(posts=>{
+                                    posts.data.forEach(post=>{
+                                        if(post.user_id==uid){
+                                            users_posts.push(post)
+                                        }
+                                    })
+                                    setPosts(users_posts)
+                                })
+
+
                         })
-                        setUser(obj)
-                    })
-            })
+                })
+                .catch(err=>console.log('err='+err))
                
             
 
             
 
-            axios.get(`api/posts/`)
-            .then(posts=>{
-                posts.data.forEach(post=>{
-                    if(post.user_id==uid){
-                        users_posts.push(post)
-                    }
-                })
-                setPosts(users_posts)
-                
             
-            })
            
     
         }
        
 
-    },[uid])
+    },[uid,loggedInuser])
    
     
    if(user!==null && posts!==null){

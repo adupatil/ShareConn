@@ -17,6 +17,9 @@ const postSlice=createSlice({
         fetch_user_posts:(state,action)=>{
             state.user_posts=action.payload
         },
+        add_user_posts:(state,action)=>{
+            state.user_posts.push(action.payload)
+        },
         fetch_followed_posts:(state,action)=>{
             state.followed_posts=action.payload
         },
@@ -45,11 +48,20 @@ const postSlice=createSlice({
 
     }
 })
-export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user}=postSlice.actions
+export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user,add_user_posts}=postSlice.actions
 export default postSlice.reducer
 
 export const addNewPost=(val)=>dispatch=>{
     dispatch(add_new_post(val))
+}
+export const addUserPost=(obj)=>(dispatch)=>{
+    console.log('adding post')
+    axios.post('api/posts/',obj)
+        .then(data=>{
+            console.log('post data from api ')
+            console.log(data.data)
+            dispatch(add_user_posts(data.data))
+        })
 }
 
 export const fetchUserPosts=(uid)=>(dispatch,getState)=>{

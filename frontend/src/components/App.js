@@ -19,26 +19,27 @@ import axios from 'axios';
 import { Redirect } from 'react-router';
 
 function App(props) {
-const userDetails=useSelector(state=>state.user.userDetails)
-const userProfile=useSelector(state=>state.user.userProfile)
-const userPosts=useSelector(state=>state.posts.user_posts)
+
 const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
 const dispatch = useDispatch()
 const token=localStorage.getItem('token')
+
 useEffect(()=>{
    
  
     if(token){
         axios.defaults.headers.common['Authorization']='Token '+token;
-        axios.get('rest-auth/user/')
-        .then(data=>{
-            dispatch(fetch_user_authDetails(data.data))})
+        console.log('token auth')
+        // axios.get('rest-auth/user/')
+        
+        // .then(data=>{
+        //     dispatch(fetch_user_authDetails(data.data))})
     }
 
 },[token])
     useEffect(()=>{
        
-      
+      console.log('loggedin user detail fetch')
             dispatch(fetchUser(loggedInUserID))
             
             
@@ -49,7 +50,7 @@ useEffect(()=>{
      console.log('lOOGG APP')
      console.log(loggedInUserID)
     
-  if(loggedInUserID){
+  if(token){
     return(
    
        

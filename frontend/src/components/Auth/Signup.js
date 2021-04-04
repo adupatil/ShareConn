@@ -2,16 +2,14 @@ import React, { useState,useEffect } from 'react';
 import '../../assets/css/Auth.css';
 
 import { NavLink, Redirect } from 'react-router-dom';
-import {updateAuthKeyRegister} from '../../features/user/userSlice'
-import { useDispatch } from 'react-redux';
+import axios from 'axios'
 import '../../assets/css/Auth.css'
 
 function Signup() {
     const [username,setusername]=useState(null)
     const [password,setpassword]=useState(null)
     const [confirmpassword,setconfirmpassword]=useState(null)
-    const [firstName,setfirstName]=useState(null)
-    const [lastName,setlastName]=useState(null)
+  
     const [email,setemail]=useState(null)
     const [token,settoken]=useState(null)
     useEffect(()=>{
@@ -21,19 +19,33 @@ function Signup() {
 
     
    
-    const dispatch=useDispatch()
+    
     const handleSubmit=(e)=>{
         e.preventDefault();
-        if(confirmpassword===password){
-            let data={
+       
+            let obj={
                 username:username,
                 email:email,
-                password:password,
-                firstName:firstName,
-                lastName:lastName
+                password1:password,
+                password2:confirmpassword
+
             }
-            dispatch(updateAuthKeyRegister(data))
-        }
+            console.log(obj)
+            axios.post('rest-auth/registration/',obj)
+            .then(res=>{
+            console.log(res)
+            return(<Redirect to='/login'></Redirect>)})
+            .catch(err=>{
+                if(err.request){
+                    console.log('req')
+                    console.log(err)
+                }else if(err.response){
+                    console.log('res')
+                    console.log(err)
+                }
+            })
+           
+        
         
 
     }
@@ -47,11 +59,7 @@ if(token===null){
             <form className="signupForm">
                 <h4>Sign Up</h4>
                 <input type='text' placeholder='Username' onChange={(e)=>setusername(e.target.value)}></input>
-                <div className='form-group'>
-                    <input type='text' placeholder='firstName' onChange={(e)=>setfirstName(e.target.value)}></input>
-                    <input type='text' placeholder='lastName' onChange={(e)=>setlastName(e.target.value)}></input>
-
-                </div>
+                
                 
                 <input type='text' placeholder='email' onChange={(e)=>setemail(e.target.value)}></input>
                 <input type='text' placeholder='Password' onChange={(e)=>setpassword(e.target.value)}></input>

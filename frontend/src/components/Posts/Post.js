@@ -36,8 +36,9 @@ useEffect(()=>{
         console.log('like decrement')
         setlikes(prev=>prev-1)
      }else{
-         console.log('like incremen')
-         axios.post('api/posts_likes/',{post_id:postDetail.id,user_id:postsUser.id})
+         console.log('like increment')
+        
+         axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(postsUser.id)},)
          .then(data=>setlikes(prev=>prev+1))
      }
  }
