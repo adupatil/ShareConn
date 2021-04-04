@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNewPost,addUserPost } from '../../features/posts/postSlice';
 import axios from 'axios';
 
+
 function AddPost() {
     const userDetails=useSelector(state=>state.user.userDetails)
     const postStyle=useSelector(state=>state.posts.addPost)
@@ -19,7 +20,7 @@ function AddPost() {
             post_text:post_text,
             post_title:post_title,
             post_type:post_type,
-            cateogary:cateogary,
+            category:cateogary,
             user_id:userDetails.id
         }
         console.log(obj)
@@ -38,7 +39,7 @@ function AddPost() {
                 <div className='close' onClick={hide}><i className='bx bx-x-circle' ></i></div>
                 <div>Post As: {userDetails.username}</div>
                 <input type="text" placeholder='Post title' onChange={(e)=>setpost_title(e.target.value)}></input>
-                <input type="file" placeholder='Post type' onChange={(e)=>setpost_type(e.target.value)}></input>
+                <input type="file" placeholder='Post type' onChange={(e)=>setpost_type(e.target.files[0])}></input>
                 <input type="text" placeholder='Cateogary' onChange={(e)=>setcateogary(e.target.value)}></input>
                 <input type="text" placeholder='Text' onChange={(e)=>setpost_text(e.target.value)}></input>
                 

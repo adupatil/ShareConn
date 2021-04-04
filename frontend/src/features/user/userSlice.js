@@ -66,9 +66,11 @@ export default userSlice.reducer
 export const updateAuthKeyRegister=(data)=>dispatch=>{
     axios.post('rest-auth/registration/',data)
     .then(key=>{
-        localStorage.setItem('token',key.data);
-        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+localStorage.getItem('token')}})
+        console.log(key.data.key)
+        localStorage.setItem('token',key.data.key);
+        axios.get('rest-auth/user/',{headers:{Authorization:'Token '+key.data.key}})
         .then(data=>{
+            console.log(data.data)
            dispatch(fetch_user_authDetails(data.data))
         })
 

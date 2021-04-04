@@ -7,6 +7,7 @@ const initialState={
     addPost:'none'
 }
 
+
 const postSlice=createSlice({
     name:'posts',
     initialState,
@@ -58,10 +59,12 @@ export const addUserPost=(obj)=>(dispatch)=>{
     console.log('adding post')
     axios.post('api/posts/',obj,{headers:{'Content-Type':'multipart/form-data'}})
         .then(data=>{
+            console.log(data)
             console.log('post data from api ')
             console.log(data.data)
             dispatch(add_user_posts(data.data))
         })
+        .catch(err=>console.log(err))
 }
 
 export const fetchUserPosts=(uid)=>(dispatch,getState)=>{

@@ -93,7 +93,10 @@ function UserProfile(props){
         }
        
 
-    },[uid,loggedInuser])
+    },[uid,loggedInuser.userAuthDetails.pk,loggedInuser.users_followed])
+    console.log(user)
+    console.log('posytsss')
+    console.log(posts)
    
     
    if(user!==null && posts!==null){

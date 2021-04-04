@@ -26,14 +26,14 @@ const token=localStorage.getItem('token')
 
 useEffect(()=>{
    
- 
-    if(token){
+   
+    if(token!==null){
         axios.defaults.headers.common['Authorization']='Token '+token;
         console.log('token auth')
-        // axios.get('rest-auth/user/')
+        axios.get('rest-auth/user/')
         
-        // .then(data=>{
-        //     dispatch(fetch_user_authDetails(data.data))})
+        .then(data=>{
+            dispatch(fetch_user_authDetails(data.data))})
     }
 
 },[token])

@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import '../../assets/css/Auth.css';
-
+import {updateAuthKeyRegister} from '../../features/user/userSlice'
+import {useDispatch} from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom';
 import axios from 'axios'
 import '../../assets/css/Auth.css'
@@ -18,7 +19,7 @@ function Signup() {
     },[])
 
     
-   
+   const dispatch=useDispatch()
     
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -31,19 +32,9 @@ function Signup() {
 
             }
             console.log(obj)
-            axios.post('rest-auth/registration/',obj)
-            .then(res=>{
-            console.log(res)
-            return(<Redirect to='/login'></Redirect>)})
-            .catch(err=>{
-                if(err.request){
-                    console.log('req')
-                    console.log(err)
-                }else if(err.response){
-                    console.log('res')
-                    console.log(err)
-                }
-            })
+            dispatch(updateAuthKeyRegister(obj))
+            
+            
            
         
         
