@@ -56,7 +56,7 @@ export const addNewPost=(val)=>dispatch=>{
 }
 export const addUserPost=(obj)=>(dispatch)=>{
     console.log('adding post')
-    axios.post('api/posts/',obj)
+    axios.post('api/posts/',obj,{headers:{'Content-Type':'multipart/form-data'}})
         .then(data=>{
             console.log('post data from api ')
             console.log(data.data)
