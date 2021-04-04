@@ -15,8 +15,8 @@ import {useDispatch,useSelector} from 'react-redux';
 
 
 function Home(props) {
-    const loggedInUser='1'
-    const dispatch = useDispatch();
+ 
+   
     const userDetails=useSelector(state=>state.user.userDetails)
    
     const uid=useParams().id

@@ -8,15 +8,13 @@ import {NavBar,SideBar} from './Bars/Bars';
 import PageRoutes from './Routes/PageRoutes';
 import AuthRoutes from './Routes/AuthRoutes'
 import AddPost from './Posts/AddPost';
-import Login from './Auth/Login';
+import { Redirect } from 'react-router';
 
 // redux
 import {useDispatch,useSelector} from 'react-redux';
-
-import {selectUser,fetchUser,fetchUserProfile,fetchUsersFollowing,fetch_user_authDetails} from '../features/user/userSlice'
-import {fetchUserPosts} from '../features/posts/postSlice'
+import {fetchUser,fetch_user_authDetails} from '../features/user/userSlice'
 import axios from 'axios';
-import { Redirect } from 'react-router';
+
 
 function App(props) {
 
@@ -25,30 +23,30 @@ const dispatch = useDispatch()
 const token=localStorage.getItem('token')
 
 useEffect(()=>{
-   
-   
+   console.log('for token= '+token)
     if(token!==null){
         axios.defaults.headers.common['Authorization']='Token '+token;
         console.log('token auth')
         axios.get('rest-auth/user/')
         
         .then(data=>{
+            console.log('updating auth details')
             dispatch(fetch_user_authDetails(data.data))})
     }
 
 },[token])
     useEffect(()=>{
        
-      console.log('loggedin user detail fetch')
-            dispatch(fetchUser(loggedInUserID))
+      console.log('loggedIn user= '+loggedInUserID)
+        dispatch(fetchUser(loggedInUserID))
             
-            
+          
             
          
         
     },[loggedInUserID])
-     console.log('lOOGG APP')
-     console.log(loggedInUserID)
+
+    
     
   if(token){
     return(

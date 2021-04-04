@@ -26,19 +26,29 @@ useEffect(()=>{
         setpostUser(loggedInuser)
     }else{
     axios.get('http://localhost:8000/api/users/'+postDetail.user_id+'/')
+
         .then(user=>{
+            console.log('user of the post')
             setpostUser(user.data)  
     })}
- },[postsUser])
+ },[likes,comments,postDetail])
 
  const handleSetLikes=(no)=>{
      if(no===-1){
         console.log('like decrement')
-        setlikes(prev=>prev-1)
+        axios.get('api/posts_likes/')
+         .then(res=>{
+            let liked=res.data.filter(el=>el.user_id===parseInt(loggedInuser.id) && el.post_id===parseInt(postDetail.id))
+            if(liked.length===1){
+                axios.delete('api/posts_likes/'+liked[0].id+'/')
+                .then(res=>setlikes(prev=>prev-1))
+            }
+            })
+       
      }else{
          console.log('like increment')
         
-         axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(postsUser.id)},)
+         axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
          .then(data=>setlikes(prev=>prev+1))
      }
  }

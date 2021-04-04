@@ -16,7 +16,7 @@ function UserProfile(props){
     const [posts,setPosts]=useState(null)
     const dispatch=useDispatch()
     const handleFollow=()=>{
-        console.log('clicked')
+      
         dispatch(incrementUserFollowing(uid))
     }
     const handleUnfollow=()=>{
@@ -39,25 +39,23 @@ function UserProfile(props){
     
     
     useEffect(()=>{
-        console.log('in effect profile')
+       console.log('logged in user(profile_='+loggedInuser.userAuthDetails.pk)
         if(loggedInuser.userAuthDetails.pk==uid){
-          
             setUser(loggedInuser)
             setPosts(usersPosts)
            
-        }else{
-           console.log('ffalse')
+        }else if(loggedInuser.userAuthDetails.pk!==uid ){
+          
             let obj={}
             let users_posts=[]
-            console.log('fetching')
+            
             axios.get(`api/users/${uid}/`)
                 .then(user=>{
-                    console.log('user details being fetched')
-
+                    console.log('fetched user not logged')
                 obj.userDetails=user.data
                 axios.get('http://127.0.0.1:8000/api/users_profile/')
                         .then(userProfiles=>{
-                        
+                            
                             userProfiles.data.forEach(profile=>{
                                 if(profile.user==uid){
                                 
@@ -68,8 +66,16 @@ function UserProfile(props){
                             console.log(obj)
                             setUser(obj)
                             
-                            axios.get(`api/posts/`)
+                            
+
+
+                        })
+                })
+                .catch(err=>console.log('err='+err))
+
+                axios.get(`api/posts/`)
                                 .then(posts=>{
+                                   
                                     posts.data.forEach(post=>{
                                         if(post.user_id==uid){
                                             users_posts.push(post)
@@ -77,11 +83,6 @@ function UserProfile(props){
                                     })
                                     setPosts(users_posts)
                                 })
-
-
-                        })
-                })
-                .catch(err=>console.log('err='+err))
                
             
 
@@ -93,10 +94,8 @@ function UserProfile(props){
         }
        
 
-    },[uid,loggedInuser.userAuthDetails.pk,loggedInuser.users_followed])
-    console.log(user)
-    console.log('posytsss')
-    console.log(posts)
+    },[uid,usersPosts])
+   
    
     
    if(user!==null && posts!==null){
@@ -125,7 +124,7 @@ function UserProfile(props){
                     </div>
                     {getFollowStatus()}
                 </div>
-                {posts && <div className="userPostContainer">
+                {posts!==null && <div className="userPostContainer">
                     <PostList postList={posts} uid={uid} userDetails={user.userDetails}></PostList>
                 </div>}
     

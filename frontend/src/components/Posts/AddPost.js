@@ -11,18 +11,18 @@ function AddPost() {
     // states
     const [post_title,setpost_title]=useState('')
     const [post_type,setpost_type]=useState('')
-    const [cateogary,setcateogary]=useState('')
+    const [category,setcategory]=useState('')
     const [post_text,setpost_text]=useState('')
     
     const submitForm=(e)=>{
         e.preventDefault();
-        let obj={
-            post_text:post_text,
-            post_title:post_title,
-            post_type:post_type,
-            category:cateogary,
-            user_id:userDetails.id
-        }
+        
+        let obj=new FormData()
+        obj.append('post_text',post_text)
+        obj.append('post_title',post_title)
+        obj.append('post_type',post_type)
+        obj.append('category',category)
+        obj.append('user_id',userDetails.if)
         console.log(obj)
         dispatch(addUserPost(obj))
         
@@ -35,15 +35,15 @@ function AddPost() {
     }
     return (
         <div className="addPostFormContainer" style={{display:postStyle}}>
-            <form className='addPostForm'>
+            <form className='addPostForm' encType="multipart/form-data" onSubmit={submitForm} method="POST">
                 <div className='close' onClick={hide}><i className='bx bx-x-circle' ></i></div>
                 <div>Post As: {userDetails.username}</div>
                 <input type="text" placeholder='Post title' onChange={(e)=>setpost_title(e.target.value)}></input>
                 <input type="file" placeholder='Post type' onChange={(e)=>setpost_type(e.target.files[0])}></input>
-                <input type="text" placeholder='Cateogary' onChange={(e)=>setcateogary(e.target.value)}></input>
+                <input type="text" placeholder='Cateogary' onChange={(e)=>setcategory(e.target.value)}></input>
                 <input type="text" placeholder='Text' onChange={(e)=>setpost_text(e.target.value)}></input>
                 
-                <input type="submit" onClick={submitForm}></input>
+                <input type="submit"  placeholder="Login"></input>
             </form>
             
         </div>

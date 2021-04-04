@@ -13,7 +13,10 @@ function LikeBtn(props){
     useEffect(() => {
         axios.get('api/posts_likes/')
         .then(res=>{
+            console.log('for post id '+post_id)
+            console.log(res.data)
             let liked=res.data.filter(el=>(el.user_id==loggedInUserID&& el.post_id==post_id))
+            console.log(liked)
             if(liked.length!==0){
                 setLiked(true)
             }
