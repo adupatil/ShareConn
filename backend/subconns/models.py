@@ -13,7 +13,36 @@ class Subconn(models.Model):
 
 class SubconnPost(models.Model):
     subconn = models.ForeignKey(Subconn, on_delete=models.CASCADE)
-    post = models.ForeignKey('posts.Post', on_delete=models.CASCADE)
+    # post_id= models.AutoField()
+    post_title= models.TextField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    num_likes = models.PositiveBigIntegerField(default=0)
+    num_comments = models.PositiveBigIntegerField(default=0)
+    date_created = models.DateTimeField(auto_now_add=True)
+    post_type= models.FileField(upload_to=f"subconn_posts/",verbose_name="path",blank=True)
+    post_text=models.TextField(max_length=1000, blank=True)
+    category = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.post_title
+
+
+class SubconnLike(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(SubconnPost,on_delete=models.CASCADE)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'post'], name='subconn_post_like_unique')
+        ]
+
+class SubconnComment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(SubconnPost,on_delete=models.CASCADE)
+    comment = models.TextField(max_length=400)
+
+    def __str__(self):
+        return self.user.username + 'posted' + self.post.post_title
 
 class SubconnFollower(models.Model):
   follower_s = models.ForeignKey(User, on_delete=models.CASCADE, related_name='follower_s')
