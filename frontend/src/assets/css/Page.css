@@ -84,3 +84,18 @@
     left:98%;
     cursor: pointer;
 }
+.followingContainer{
+    padding: 1rem;
+}
+.followingContainer h4{
+    margin-top: 0px;
+}
+.followList{
+    margin-left: 1rem;
+}
+.followList .user_avatar_container{
+    margin-top: 1rem;
+}
+.addPostPhn{
+    display: none;
+}

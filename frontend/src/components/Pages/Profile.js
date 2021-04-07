@@ -18,7 +18,10 @@ function Profile(props){
         )
     }else if(props.option==='subconn'){
         return(
+            <div className="listContainerScroll">
             <SubconnProfile></SubconnProfile>
+            </div>
+
         )
     }
     

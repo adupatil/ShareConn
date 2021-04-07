@@ -1,0 +1,23 @@
+@media screen and (max-width:695px){
+    #sidebar_container{
+        display: none;
+    }
+    .listContainer{
+        width:100%
+    }
+    .addPostPhn{
+       
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    background-color: var(--primaryColor);
+    border-radius: 50%;
+    position: fixed;
+    bottom: 33px;
+    right: 10;
+    right: 15px;
+    /* padding: 2rem; */
+    width: 5rem;
+    height: 5rem;
+    }
+}

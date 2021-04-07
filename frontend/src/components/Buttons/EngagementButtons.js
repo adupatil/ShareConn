@@ -1,7 +1,7 @@
 import React,{ useState,useEffect} from 'react';
 import '../../assets/css/Buttons.css'
-import {useDispatch,useSelector} from 'react-redux';
-import {increment_post_likes,decrement_post_likes} from '../../features/posts/postSlice'
+import {useSelector} from 'react-redux';
+
 import axios from 'axios';
 
 function LikeBtn(props){
@@ -22,8 +22,8 @@ function LikeBtn(props){
             }
         })
     }, [])
-    // const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
-    const dispatch=useDispatch()
+    
+    
   
     const likedStyle={
         color:'red'

@@ -10,7 +10,7 @@ const initialState={
     users_following:[],
     users_followed:[],
     subconns_following:[],
-    subconns_followed:[]
+    subconns_admined:[]
    
 }
 
@@ -42,6 +42,9 @@ const userSlice=createSlice({
         decrement_user_following:(state,action)=>{
             state.users_followed.splice(state.users_followed.indexOf(parseInt(action.payload)),1)
         },
+        fetch_subconns_admined:(state,action)=>{
+            state.subconns_admined = action.payload
+        },
         
         logout_user:(state)=>{
             state.token=null
@@ -57,7 +60,7 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following}=userSlice.actions
 export default userSlice.reducer
 
 
@@ -84,6 +87,8 @@ export const fetchUser=(uid)=>(dispatch)=>{
  
             dispatch(fetchUserProfile(uid))
             dispatch(fetchUsersFollowing(uid))
+            dispatch(fetchSubconnsAdmined())
+            dispatch(fetchSubconnsFollowed())
       
        
     })
@@ -182,6 +187,40 @@ export const decrementUserFollowing=(fid)=>(dispatch,getState)=>{
         })
        
     })
+}
+export const fetchSubconnsAdmined=()=>(dispatch,getState)=>{
+    axios.get('api/subconns/')
+    .then(res=>{
+        let arr=[]
+        res.data.forEach(el=>{
+            if(getState().user.userAuthDetails.pk===el.subconn_admin){
+                arr.push(el)
+            }})
+            dispatch(fetch_subconns_admined(arr))
+    })
+}
+export const fetchSubconnsFollowed=()=>(dispatch,getState)=>{
+    let fsubconnsid=[]
+   
+
+    axios.get('api/subconns_follower/')
+    .then(res=>{
+        
+       
+        res.data.forEach(el=>{
+
+            if(el.follower_s===parseInt(getState().user.userAuthDetails.pk)){
+                fsubconnsid.push(el.followee_s)
+            }
+        })
+     
+        console.log(fsubconnsid)
+        dispatch(fetch_subconns_following(fsubconnsid))
+        
+   
+        
+    })
+
 }
 
 // ***Selectorrs***

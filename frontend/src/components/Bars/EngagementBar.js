@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import {LikeBtn,CommentBtn} from '../Buttons/EngagementButtons'
 
 
@@ -12,7 +12,7 @@ function EngagementBar(props){
     return(
         <div className="engagementBar">
            <div className='likeBtnContainer'><LikeBtn updateLikes={(no)=>handleLikeUpdate(no)} postDetail={props.postDetail} ></LikeBtn> {props.likes}</div> 
-            <div className='commentBtnContainer'><CommentBtn postDetail={props.postDetail}></CommentBtn>{props.comments}</div>
+            <div className='commentBtnContainer'><CommentBtn postDetail={props.comments}></CommentBtn>{props.comments}</div>
         </div>
     )
 }

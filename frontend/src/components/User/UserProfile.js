@@ -4,6 +4,7 @@ import {useParams} from 'react-router';
 import { useSelector,useDispatch} from 'react-redux';
 import {incrementUserFollowing,decrementUserFollowing} from '../../features/user/userSlice'
 import axios from 'axios'
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -118,8 +119,8 @@ function UserProfile(props){
                         <div id="userName">{user.userDetails.username}</div>
                       
                         <div className="userEngagement">
-                            <div id="userFollowers"><span className="followerCount">{user.userProfile.num_followers}</span> Followers</div>
-                            <div id="userFollowing"><span className="followingCount">{user.userProfile.num_following}</span> Following</div>
+                            <NavLink to={`/u/following/${loggedInuser.userAuthDetails.pk}`}id="userFollowers"><span className="followerCount">{user.userProfile.num_followers}</span> Followers</NavLink>
+                            <NavLink to={`/u/following/${loggedInuser.userAuthDetails.pk}`}id="userFollowing"><span className="followingCount">{user.userProfile.num_following}</span> Following</NavLink>
                         </div>
                     </div>
                     {getFollowStatus()}

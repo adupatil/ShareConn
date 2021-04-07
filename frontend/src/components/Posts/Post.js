@@ -12,6 +12,7 @@ function Post({postDetail}){
     const [postsUser,setpostUser]=useState(null)
     const [likes,setlikes]=useState(postDetail.num_likes)
     const [comments,setcomments]=useState(postDetail.num_comments)
+    const [edit,setedit]=useState(false)
     
     const post_area=()=>{
         let postType=postDetail.post_type;
@@ -23,6 +24,7 @@ function Post({postDetail}){
 useEffect(()=>{
  
     if(loggedInuser.id==postDetail.user_id){
+        setedit(true)
         setpostUser(loggedInuser)
     }else{
     axios.get('http://localhost:8000/api/users/'+postDetail.user_id+'/')
@@ -31,7 +33,7 @@ useEffect(()=>{
             console.log('user of the post')
             setpostUser(user.data)  
     })}
- },[likes,comments,postDetail])
+ },[postDetail])
 
  const handleSetLikes=(no)=>{
      if(no===-1){
@@ -63,9 +65,9 @@ useEffect(()=>{
       
     return(
         <div className='post'>
-            <UserAvatar user={postsUser}>
+            <UserAvatar user={postsUser} option='user'>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
-              
+                {edit && <div>Edit</div>}
             </UserAvatar>
             <div className='post_container'>
                 <div className="post_area_container">

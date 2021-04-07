@@ -1,7 +1,8 @@
 import React,{ Fragment, useEffect, useState } from 'react';
 // css
 import '../assets/css/Bars.css';
-import '../assets/css/Page.css'
+import '../assets/css/Page.css';
+import '../assets/css/responsive.css'
 
 // components
 import {NavBar,SideBar} from './Bars/Bars';
@@ -66,7 +67,7 @@ useEffect(()=>{
                 
             </div>
                 
-            
+        <div className="addPostPhn"><i class='bx bx-plus'></i></div>
         </div>
         
   
