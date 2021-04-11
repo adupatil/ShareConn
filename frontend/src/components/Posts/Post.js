@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
 import axios from 'axios'
+import SubConnAvatar from '../SubConn/SubConnAvatar';
 
 function Post({postDetail,postType}){
 
@@ -75,10 +76,11 @@ useEffect(()=>{
       
     return(
         <div className='post'>
-            <UserAvatar user={postsUser} subconn={postsUser} option={'subconn' in postDetail?'subconn':'user'} withEdit={true}>
+           {postType==='user'? <UserAvatar user={postsUser}  withEdit={true}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
                
-            </UserAvatar>
+            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} withEdit={true} >
+            <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
             <div className='post_container'>
             <div className="post_text">{postDetail.post_text}</div>
                 <div className="post_area_container">

@@ -77,11 +77,23 @@
     color:white;
     width:50%
 }
+.addPostForm input[type='file']{
+    opacity: 0;
+    height: 0px;
+    width: 0px;
+}
+.addPostForm select{
+    height: 2rem;
+    border-radius: 5px;
+    color:darkslategrey;
+    width: 60%;
+
+}
 .addPostForm .close{
     background-color: var(--modeColor);
     color:var(--inverseModeColor);
     position:absolute;
-    left:98%;
+  right: 4px;
     cursor: pointer;
 }
 .followingContainer{
@@ -101,6 +113,7 @@
 }
 
 .adminSticker{
+    font-size: small;
     border:1px solid #00af91;
     color:#00af91;
     background-color: var(--modeColor);

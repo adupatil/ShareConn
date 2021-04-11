@@ -4,8 +4,8 @@ button{
     align-items: center;
 }
 .auth_btn{
-    height: 2.5rem;
-        width: 7rem;
+    height: 2rem;
+        width: 5rem;
         background-color: #EA8201;
         border-radius: 6px;
         border: 1px solid #EA8201;
@@ -13,12 +13,13 @@ button{
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: smaller;
 }
 .orangeBtn:hover{
     background-color: #EA8201B2;
 }
 .newPostBtn{
-    height: 3.5rem;
+    height:2.8rem;
     width: 10rem;
     background-color: #EA8201;
     border-radius: 1000px;
@@ -42,13 +43,13 @@ button{
     margin-right:0.3rem;
 }
 .editProfileBtn{
-    color: #00af91;
+    color: #00af91;font-size: smaller;
     background-color: var(--modeColor);
     border:2px solid #00af91;
-    border-radius: 25px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: 0.1rem 0.8rem 0.1rem 0.8rem;
+    padding: 0rem 0.6rem 0rem 0.6rem;
     cursor: pointer;
     height: 2rem;
     

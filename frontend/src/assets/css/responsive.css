@@ -81,6 +81,12 @@
         margin-top: 0 !important;
         width:70%!important
     }
+    /* addpost form
+     */
+     .addPostForm{
+         height: 24rem !important;
+         width: 21rem !important;
+     }
     
 
 

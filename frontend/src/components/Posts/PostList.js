@@ -15,6 +15,7 @@ function PostList({postList,userDetails}){
     return(
         
             <div className='posts'>
+                <div style={{height:'0.4rem',backgroundColor:'#f7f6f6'}}></div>
                 <ul className="post__list">
                    {posts.length>0?posts:<div style={{textAlign:'center',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'larger'}}><i class='bx bx-sad'></i>No Posts.</div>}
                 </ul>

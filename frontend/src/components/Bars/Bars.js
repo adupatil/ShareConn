@@ -12,7 +12,7 @@ import '../../assets/css/Buttons.css'
 
 // Bars need to get user values
 function NavBar(props){
-    const user=useSelector(state=>state.user.userProfile)
+    const userProfile=useSelector(state=>state.user.userProfile)
    const dispatch = useDispatch()
     const logoutUser=()=>{
        localStorage.removeItem('token')
@@ -28,8 +28,8 @@ return(
             <NavLink to='/' className='brand'>ShareConn</NavLink>
             <div className='auth_details'>
                 <div className="user_info">
-                    <div className='user_profile_pic'><img src={user.profile_pic}></img></div>
-                    <NavLink to={`/u/profile/${user.id}`} className='username'></NavLink>
+                    <div className='user_profile_pic'><img src={userProfile.profile_pic}></img></div>
+                    <NavLink to={`/u/profile/${userProfile.id}`} className='username'></NavLink>
                 </div>
                 <div className=" button orangeBtn auth_btn" onClick={logoutUser}>Logout</div>
                    

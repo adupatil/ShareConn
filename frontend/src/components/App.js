@@ -13,13 +13,16 @@ import { Redirect } from 'react-router';
 
 // redux
 import {useDispatch,useSelector} from 'react-redux';
-import {fetchUser,fetch_user_authDetails} from '../features/user/userSlice'
+import {fetchUser,fetch_user_authDetails,fetchUserProfile} from '../features/user/userSlice';
+import {addNewPost} from '../features/posts/postSlice'
 import axios from 'axios';
 
 
 function App(props) {
 
 const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
+
+
 const dispatch = useDispatch()
 const token=localStorage.getItem('token')
 
@@ -35,8 +38,11 @@ const token=localStorage.getItem('token')
 
     useEffect(()=>{
         dispatch(fetchUser(loggedInUserID))
+        dispatch(fetchUserProfile(loggedInUserID))
     },[loggedInUserID])
-
+    const showPost=()=>{
+        dispatch(addNewPost('flex'))
+    }
     
     
   if(token){
@@ -57,7 +63,7 @@ const token=localStorage.getItem('token')
                 
             </div>
                 
-        <div className="addPostPhn"><i class='bx bx-plus'></i></div>
+        <div className="addPostPhn" onClick={()=>showPost()}><i className='bx bx-plus'></i></div>
         </div>
         
   

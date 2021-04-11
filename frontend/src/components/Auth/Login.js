@@ -45,7 +45,7 @@ function Login() {
                 <h4 style={{marginBottom:'0.2rem'}}>Login</h4>
                 <div>
                   
-                    <div className='otherSocialLinks' style={{display:'flex',justifyContent:'center'}}>
+                    <div className='otherSocialLinks' style={{display:'flex',justifyContent:'center',marginBottom:'1rem'}}>
                             <i className='bx bxl-facebook-square' style={{fontSize:'xx-large'}}></i>
                     </div>
                 </div>
