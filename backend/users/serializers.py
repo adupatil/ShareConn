@@ -13,8 +13,14 @@ class UserFollowSerializer(serializers.ModelSerializer):
         model = UserFollow
         fields = '__all__'
 
+class UserProfileReadOnlySerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
+        # depth = 1
 class UserProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    
     class Meta:
         model = UserProfile
         fields = '__all__'
