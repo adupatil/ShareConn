@@ -22,7 +22,7 @@ const postSlice=createSlice({
             state.user_posts.push(action.payload)
         },
         fetch_followed_posts:(state,action)=>{
-            state.followed_posts=action.payload
+            state.followed_posts.push(...action.payload)
         },
         increment_post_likes:(state,action)=>{
             const {option,post_id}=action.payload
@@ -86,6 +86,8 @@ export const fetchUserPosts=(uid)=>(dispatch,getState)=>{
         console.log('f='+followed_posts)
         dispatch(fetch_user_posts(users_posts))
         dispatch(fetch_followed_posts(followed_posts))
+
+
         
     
     }).catch((err)=>{
@@ -94,5 +96,23 @@ export const fetchUserPosts=(uid)=>(dispatch,getState)=>{
         }if(err.request){
             console.log('req err')
         }
+    })
+}
+
+export const fetchSubconnsPosts=()=>(dispatch,getState)=>{
+    axios.get(`api/subconns_posts/`)
+    .then(res=>{
+        console.log('------------=======')
+        console.log(res.data)
+        let arr=[]
+        res.data.forEach(spost=>{
+            console.log(getState().user.subconns_following.includes(1))
+            console.log(spost)
+            if( getState().user.subconns_following.includes(spost.subconn)){
+                console.log('in tre')
+                arr.push(spost)
+            }
+        })
+        dispatch(fetch_followed_posts(arr))
     })
 }

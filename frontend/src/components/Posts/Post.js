@@ -5,7 +5,7 @@ import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
 import axios from 'axios'
 
-function Post({postDetail}){
+function Post({postDetail,postType}){
 
     const loggedInuser=useSelector(state=>state.user.userDetails)
     // states for post
@@ -27,12 +27,22 @@ useEffect(()=>{
         setedit(true)
         setpostUser(loggedInuser)
     }else{
-    axios.get('http://localhost:8000/api/users/'+postDetail.user_id+'/')
+        if(postType==='user'){
+            axios.get('api/users/'+postDetail.user_id+'/')
 
-        .then(user=>{
-            console.log('user of the post')
-            setpostUser(user.data)  
-    })}
+            .then(user=>{
+                console.log('user of the post')
+                setpostUser(user.data)  
+        })}
+        else if(postType==='subconn'){
+            console.log(postDetail)
+           axios.get(`api/subconns/${postDetail.subconn}/`)
+           .then(res=>{
+               setpostUser(res.data)
+           })
+        }
+    }
+    
  },[postDetail])
 
  const handleSetLikes=(no)=>{
@@ -65,7 +75,7 @@ useEffect(()=>{
       
     return(
         <div className='post'>
-            <UserAvatar user={postsUser} option='user' withEdit={true}>
+            <UserAvatar user={postsUser} subconn={postsUser} option={'subconn' in postDetail?'subconn':'user'} withEdit={true}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
             </UserAvatar>
             <div className='post_container'>

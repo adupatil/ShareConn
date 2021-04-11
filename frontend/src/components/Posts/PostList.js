@@ -6,7 +6,7 @@ function PostList({postList,uid,userDetails}){
     
     console.log(postList)
    
-        const posts=postList.map((post,i)=>(<Post postDetail={post} key={"post_"+i} userDetails={userDetails}></Post>))
+        const posts=postList.map((post,i)=>(<Post postDetail={post} key={"post_"+i} userDetails={userDetails} postType={('subconn' in post)?'subconn':'user'}></Post>))
 
    
 

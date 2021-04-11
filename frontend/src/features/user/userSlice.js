@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import axios from 'axios';
-import {fetchUserPosts} from '../posts/postSlice'
+import {fetchSubconnsPosts, fetchUserPosts} from '../posts/postSlice'
 
 const initialState={
    
@@ -216,7 +216,7 @@ export const fetchSubconnsFollowed=()=>(dispatch,getState)=>{
      
         console.log(fsubconnsid)
         dispatch(fetch_subconns_following(fsubconnsid))
-        
+        dispatch(fetchSubconnsPosts())
    
         
     })
