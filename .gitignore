@@ -14,7 +14,7 @@
 
 
 #ignore DB
-*.sqlite3
+**/db.sqlite3
 
 
 # Ignore Secret Key
