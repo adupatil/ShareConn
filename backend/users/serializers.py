@@ -5,7 +5,8 @@ from rest_auth.serializers import PasswordResetSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        exclude = ['is_superuser','is_staff','is_active','date_joined','groups','dob' ]
+        exclude = ['is_superuser','is_staff','is_active','date_joined','groups','dob','user_permissions']
+        extra_kwargs = {'password': {'write_only': True}}
 
 class UserFollowSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,9 +14,11 @@ class UserFollowSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
     class Meta:
         model = UserProfile
         fields = '__all__'
+        # depth = 1
 
 class CustomPasswordResetSerializer(PasswordResetSerializer):
     def get_email_options(self):
