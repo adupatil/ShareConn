@@ -101,7 +101,7 @@ export const fetchUserProfile=(uid)=>(dispatch,getState)=>{
     .then(userProfiles=>{
         console.log('got data from fetchProfile')
         userProfiles.data.forEach(profile=>{
-            if(profile.user==uid){
+            if(profile.user.id===parseInt(uid)){
             
               
                   dispatch(fetch_user_profile(profile))

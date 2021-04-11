@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import '../../assets/css/Post.css'
 import Post from './Post'
 
-function PostList({postList,uid,userDetails}){
+function PostList({postList,userDetails}){
     
     console.log(postList)
    

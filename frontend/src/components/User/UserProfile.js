@@ -55,10 +55,12 @@ function UserProfile(props){
                     console.log('fetched user not logged')
                 obj.userDetails=user.data
                 axios.get('http://127.0.0.1:8000/api/users_profile/')
+               
                         .then(userProfiles=>{
-                            
+                            console.log('123456789')
+                            console.log(userProfiles)
                             userProfiles.data.forEach(profile=>{
-                                if(profile.user==uid){
+                                if(profile.user.id==uid){
                                 console.log(profile)
                                     obj.userProfile=profile
                                 }

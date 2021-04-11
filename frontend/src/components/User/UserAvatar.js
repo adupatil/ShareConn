@@ -11,9 +11,9 @@ if(props.option==='user'){
            
         <div className="user_avatar_container">
             <div className="user_avatar">
-                <div className='user_profile_pic'><img src={`${process.env.PUBLIC_URL}/assets/img/bean.jpeg`} className='avatarImg'></img></div>
+                <div className='user_profile_pic'><img src={props.user.profile_pic} className='avatarImg'></img></div>
                 <div className='verticleWrap'>
-                <NavLink to={'/u/profile/'+props.user.id} className='username'>{props.user.username}</NavLink>
+                <NavLink to={'/u/profile/'+props.user.id} className='username'>{props.user.user.username}</NavLink>
                 <div>{props.children && props.children}</div>
                 </div>
                 {props.withEdit && <div style={{marginLeft:'auto',cursor:'pointer'}}><i className='bx bx-dots-vertical-rounded'></i></div>}

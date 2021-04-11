@@ -7,7 +7,7 @@ import axios from 'axios'
 
 function Post({postDetail,postType}){
 
-    const loggedInuser=useSelector(state=>state.user.userDetails)
+    const loggedInuser=useSelector(state=>state.user.userProfile)
     // states for post
     const [postsUser,setpostUser]=useState(null)
     const [likes,setlikes]=useState(postDetail.num_likes)
@@ -17,7 +17,7 @@ function Post({postDetail,postType}){
     const post_area=()=>{
         let postType=postDetail.post_type;
         if(postType){
-            return(<img src={postDetail.postType}></img>)
+            return(<img src={postType}></img>)
         }
     }
 
@@ -28,7 +28,7 @@ useEffect(()=>{
         setpostUser(loggedInuser)
     }else{
         if(postType==='user'){
-            axios.get('api/users/'+postDetail.user_id+'/')
+            axios.get('api/users_profile/'+postDetail.user_id+'/')
 
             .then(user=>{
                 console.log('user of the post')
@@ -80,9 +80,10 @@ useEffect(()=>{
                
             </UserAvatar>
             <div className='post_container'>
+            <div className="post_text">{postDetail.post_text}</div>
                 <div className="post_area_container">
                     {/* <p className="post_title">{postDetail.post_title}</p> */}
-                    <div className="post_text">{postDetail.post_text}</div>
+                 
                     <div className="post_area">
                       {post_area()}  
                     </div>
