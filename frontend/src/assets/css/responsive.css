@@ -1,4 +1,7 @@
 @media screen and (max-width:695px){
+    #root{
+        overflow: unset !important;
+    }
     #sidebar_container{
         display: none;
     }
@@ -6,18 +9,80 @@
         width:100%
     }
     .addPostPhn{
-       
         display: flex;
         justify-content: center;
         align-items: center;
-    background-color: var(--primaryColor);
-    border-radius: 50%;
-    position: fixed;
-    bottom: 33px;
-    right: 10;
-    right: 15px;
-    /* padding: 2rem; */
-    width: 5rem;
-    height: 5rem;
+        background-color: var(--primaryColor);
+        border-radius: 50%;
+        position: fixed;
+        bottom: 33px;
+        right: 10;
+        right: 15px;
+        /* padding: 2rem; */
+        width: 4.5rem;
+        height: 4.5rem;
+        box-shadow: -1px -1px 17px grey;
+        border: none;
+        font-size: xx-large;
+        color: white;
     }
+/* navbar */
+    .brand{
+        margin-left: 0px;
+    }
+    .nav_container{
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .nav_container .button{
+        display: none;
+    }
+
+    .nav_container .hamburger{
+        display: block;
+    }
+
+    /* login form */
+    .loginFormContainer{
+        height: 100%;
+        display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+
+    }
+   .loginImgConatiner{
+
+       width: 100% !important;
+   }
+  
+    .loginForm, .signupForm{
+     
+    margin-right: unset  !important;
+    margin-left: unset  !important;
+    width: 80%  !important;
+    height: 31rem  !important;
+    display: flex  !important;
+    flex-direction: column  !important;
+    padding: 1rem  !important;
+    border: none  !important;
+    border-radius: unset  !important;
+    align-items: center  !important;
+    margin-top: unset  !important;
+
+    }
+    .loginFormContainer img{
+        height: 13rem  !important;
+    }
+    .loginFormContainer h4{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .loginBtn,.signupBtn{
+        margin-top: 0 !important;
+        width:70%!important
+    }
+    
+
+
 }
+

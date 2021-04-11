@@ -107,12 +107,12 @@ function UserProfile(props){
                 <div className='pictures'>
                     <div className="coverPicContainer">
                         <div className="coverPic">
-                            <img src={`${process.env.PUBLIC_URL}/assets/img/cover_pic.jpg`} className='coverImg'></img>
+                            <img src={user.userProfile.cover_pic} className='coverImg'></img>
                         </div>
                     </div>
                     <div className="profilePicContainer">
                         <div className="profilePic">
-                        <img src={`${process.env.PUBLIC_URL}/assets/img/bean.jpeg`} className='profileImg'></img>
+                        <img src={user.userProfile.profile_pic} className='profileImg'></img>
                         </div>
                     </div>
                 </div>

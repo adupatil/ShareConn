@@ -1,16 +1,42 @@
 import axios from 'axios';
 import React, { useState ,useEffect,Fragment} from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import PostList from '../Posts/PostList';
+import {incrementSubconnsFollowing,decrementSubconnsFollowing} from '../../features/user/userSlice'
+
+
 function SubconnProfile(props){
     const [subconnD,setsubconnD]=useState(null)
-    // const [subconnP,setsubconnP]=useState(null)
+    const [posts,setposts]=useState([])
+    
     const sid=useParams().id;
-    // check if logged in user is subconns admin
-    // check is subconn is followed 
+    
+    const loggedInuser=useSelector(state=>state.user)
     const loggedUserAdmined=useSelector(state=>state.user.subconns_admined)
     const admined=loggedUserAdmined.some(el=>el.id===parseInt(sid))?true:false
-    console.log(admined)
+    const dispatch=useDispatch();
+
+    const getFollowStatus=()=>{
+        if(admined){
+            return(<div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>)
+        }else{
+            if(loggedInuser.subconns_following.includes(parseInt(sid))){
+                return(<div className='followingBtn' onClick={handleUnfollow}>Following</div>)
+            }
+            else{
+                return(<div className='followBtn' onClick={handleFollow} >Follow</div>)
+            }
+        }
+        
+    }
+    const handleFollow=()=>{
+        console.log(sid)
+        dispatch(incrementSubconnsFollowing(parseInt(sid)))
+    }
+    const handleUnfollow=()=>{
+        dispatch(decrementSubconnsFollowing(parseInt(sid)))
+    }
     useEffect(() => {
         if(!admined){
             axios.get('api/subconns/'+sid+'/')
@@ -21,7 +47,21 @@ function SubconnProfile(props){
             setsubconnD(loggedUserAdmined.filter(el=>el.id===parseInt(sid))[0])
         }
         
-    }, [loggedUserAdmined,sid])
+        
+    }, [loggedUserAdmined,sid,loggedInuser.subconns_following])
+    useEffect(()=>{
+        axios.get('api/subconns_posts/')
+        .then(res=>{
+            res.data.forEach(s=>{
+                if(s.subconn===parseInt(sid)){
+                    setposts(prev=>[...prev,s])
+                }
+            })
+        })
+    },[loggedUserAdmined,sid])
+
+    
+
     if(subconnD!==null){
     return(
        
@@ -44,11 +84,15 @@ function SubconnProfile(props){
                           
                             <div className="userEngagement">
                                 <div id="userFollowers"><span className="followerCount">{subconnD.num_subconn_followers}</span> Followers</div>
+                                {getFollowStatus()}
                             
                             </div>
                         </div>
                        
                     </div>
+                    {posts!==null && <div className="userPostContainer">
+                    <PostList postList={posts} userDetails={loggedInuser.userProfile} option='subconn'></PostList>
+                </div>}
                     
         
             </Fragment>

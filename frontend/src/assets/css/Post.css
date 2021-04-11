@@ -30,9 +30,9 @@
     margin-left: 3rem;
 }
 .post_area_container{
-    border-radius: 5px;
-    border:1px solid gray;
-    padding: 0.3rem;
+    margin-top: 0.4rem;
+    border-bottom:0.4px solid lightgray;
+  
    
     
 }
@@ -56,6 +56,8 @@
     width: 100%;
     object-fit: cover;
     height: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 

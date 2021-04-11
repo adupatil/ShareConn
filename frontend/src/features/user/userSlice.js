@@ -45,6 +45,12 @@ const userSlice=createSlice({
         fetch_subconns_admined:(state,action)=>{
             state.subconns_admined = action.payload
         },
+        increment_subconns_following:(state,action)=>{
+            state.subconns_following.push(parseInt(action.payload))
+        },
+        decrement_subconns_following:(state,action)=>{
+            state.subconns_following.splice(state.subconns_following.indexOf(parseInt(action.payload)),1)
+        },
         
         logout_user:(state)=>{
             state.token=null
@@ -60,7 +66,7 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following}=userSlice.actions
 export default userSlice.reducer
 
 
@@ -163,6 +169,7 @@ export const incrementUserFollowing=(fid)=>(dispatch,getState)=>{
         dispatch(increment_user_following(fid))
         dispatch(fetchUsersFollowing(getState().user.userAuthDetails.pk))
         dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+     
     })
 }
 
@@ -180,6 +187,7 @@ export const decrementUserFollowing=(fid)=>(dispatch,getState)=>{
             dispatch(decrement_user_following(fid))
             dispatch(fetchUsersFollowing(getState().user.userAuthDetails.pk))
             dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+         
         })
         .catch(err=>{
             console.log(err)
@@ -188,6 +196,41 @@ export const decrementUserFollowing=(fid)=>(dispatch,getState)=>{
        
     })
 }
+
+export const incrementSubconnsFollowing=(sid)=>(dispatch,getState)=>{
+
+    axios.post('api/subconns_follower/',{follower_s:getState().user.userAuthDetails.pk,followee_s:sid})
+    .then(data=>{
+       console.log('incrementing s following')
+        dispatch(increment_subconns_following(sid))
+        dispatch(fetchSubconnsFollowed(getState().user.userAuthDetails.pk))
+        dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+     
+    })
+}
+export const decrementSubconnsFollowing=(sid)=>(dispatch,getState)=>{
+   
+    axios.get('api/subconns_follower/')
+    .then(res=>{
+        let deleteFollow=res.data.filter(el=>(el.follower_s===parseInt(getState().user.userAuthDetails.pk) && el.followee_s===parseInt(sid)))
+       console.log('decrementing s follow')
+        axios.delete('api/subconns_follower/'+deleteFollow[0].id+'/')
+        .then(data=>{
+            dispatch(decrement_subconns_following(sid))
+            dispatch(fetchSubconnsFollowed(getState().user.userAuthDetails.pk))
+            dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+         
+        })
+        .catch(err=>{
+            console.log(err)
+           
+        })
+       
+    })
+}
+
+
+
 export const fetchSubconnsAdmined=()=>(dispatch,getState)=>{
     axios.get('api/subconns/')
     .then(res=>{

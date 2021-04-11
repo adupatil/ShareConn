@@ -29,10 +29,18 @@
     align-items: center;
 }
 .user_profile_pic{
-    border: 1pc solid lightgray;
+    border: 1px solid lightgray;
     border-radius: 50%;
     background-color: lightgray;
     margin-right: 10px;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.user_profile_pic img{
+    border-radius: 50%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 .brand{
     margin-left: 5.8rem;

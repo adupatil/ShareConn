@@ -46,17 +46,35 @@ if(token===null){
 
 
     return (
-        <div className='signupFormContainer'>
-            <form className="signupForm">
+        <div className='loginFormContainer'>
+            <div className='loginImgConatiner'>
+                <img  alt='loginsvg'  src={process.env.PUBLIC_URL + '/assets/img/sign_in.svg'}></img>
+            </div>
+            <form className="loginForm">
                 <h4>Sign Up</h4>
-                <input type='text' placeholder='Username' onChange={(e)=>setusername(e.target.value)}></input>
+                <div className='inputWrapper'>
+                    <input type='text' onChange={(e)=>setusername(e.target.value)}></input>
+                    <label>Username</label>
+                </div>
+                <div className='inputWrapper'>
+                    <input type='text' onChange={(e)=>setemail(e.target.value)}></input>
+                    <label>Email</label>
+                </div>
+                <div className='inputWrapper'>
+                    <input type='text' onChange={(e)=>setpassword(e.target.value)}></input>
+                    <label>Password</label>
+                </div>
+                <div className='inputWrapper'>
+                    <input type='text' onChange={(e)=>setconfirmpassword(e.target.value)}></input>
+                    <label>Confirm Password</label>
+                </div>
                 
                 
-                <input type='text' placeholder='email' onChange={(e)=>setemail(e.target.value)}></input>
-                <input type='text' placeholder='Password' onChange={(e)=>setpassword(e.target.value)}></input>
-                <input type='text' placeholder='Confirm Password' onChange={(e)=>setconfirmpassword(e.target.value)}></input>
+                
+                
+             
                 <input type="submit" onClick={(e)=>handleSubmit(e)} className='signupBtn'></input>
-                <NavLink to='/login'>Already have an accout?</NavLink>
+                <NavLink style={{fontSize:'smaller',color:'darkslategrey'}} to='/login'>Already have an accout?</NavLink>
             
             </form>
             

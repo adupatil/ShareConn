@@ -8,15 +8,14 @@ import {logout_user as clearPosts} from '../../features/posts/postSlice'
 import {logout_user as clearUser} from '../../features/user/userSlice'
 
 import '../../assets/css/Buttons.css'
-import axios from 'axios';
+
 
 // Bars need to get user values
 function NavBar(props){
-    const user=useSelector(state=>state.user.userDetails)
+    const user=useSelector(state=>state.user.userProfile)
    const dispatch = useDispatch()
     const logoutUser=()=>{
-        console.log('logout')
-        localStorage.removeItem('token')
+       localStorage.removeItem('token')
         dispatch(clearPosts())
         dispatch(clearUser())
         window.location.replace('/login')
@@ -29,8 +28,8 @@ return(
             <NavLink to='/' className='brand'>ShareConn</NavLink>
             <div className='auth_details'>
                 <div className="user_info">
-                    <div className='user_profile_pic'>{props.profile_pic}</div>
-                    <NavLink to={`/u/profile/${user.id}`} className='username'>{user.username}</NavLink>
+                    <div className='user_profile_pic'><img src={user.profile_pic}></img></div>
+                    <NavLink to={`/u/profile/${user.id}`} className='username'></NavLink>
                 </div>
                 <div className=" button orangeBtn auth_btn" onClick={logoutUser}>Logout</div>
                    
