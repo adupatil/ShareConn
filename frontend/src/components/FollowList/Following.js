@@ -56,7 +56,7 @@ function Following() {
                     <h4>People you follow</h4>
                     <div className='followList'>
                         {
-                            pFollow.map(el=>(<UserAvatar option='user' user={el}></UserAvatar>))
+                            pFollow.map(el=>(<UserAvatar option='user' user={el} widthEdit={false}></UserAvatar>))
                         }
                         
                     </div>
@@ -66,7 +66,7 @@ function Following() {
                     <h4>Subconns you follow</h4>
                     <div className='followList'>
                         {
-                            sFollow.map(el=>(<UserAvatar option='subconn' subconn={el}></UserAvatar>))
+                            sFollow.map(el=>(<UserAvatar option='subconn' subconn={el} widthEdit={false}></UserAvatar>))
                         }
                     </div>
                 </div>

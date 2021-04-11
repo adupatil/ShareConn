@@ -23,28 +23,18 @@ const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
 const dispatch = useDispatch()
 const token=localStorage.getItem('token')
 
-useEffect(()=>{
-   console.log('for token= '+token)
-    if(token!==null){
-        axios.defaults.headers.common['Authorization']='Token '+token;
-        console.log('token auth')
-        axios.get('rest-auth/user/')
-        
-        .then(data=>{
-            console.log('updating auth details')
-            dispatch(fetch_user_authDetails(data.data))})
-    }
-
-},[token])
     useEffect(()=>{
-       
-      console.log('loggedIn user= '+loggedInUserID)
+        if(token!==null){
+            axios.defaults.headers.common['Authorization']='Token '+token;
+            axios.get('rest-auth/user/')
+            .then(data=>{
+                dispatch(fetch_user_authDetails(data.data))})
+        }
+    },[token])
+
+
+    useEffect(()=>{
         dispatch(fetchUser(loggedInUserID))
-            
-          
-            
-         
-        
     },[loggedInUserID])
 
     

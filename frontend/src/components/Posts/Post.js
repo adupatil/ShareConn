@@ -65,9 +65,8 @@ useEffect(()=>{
       
     return(
         <div className='post'>
-            <UserAvatar user={postsUser} option='user'>
+            <UserAvatar user={postsUser} option='user' withEdit={true}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
-                {edit && <div>Edit</div>}
             </UserAvatar>
             <div className='post_container'>
                 <div className="post_area_container">
