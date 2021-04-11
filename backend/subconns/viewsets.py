@@ -1,6 +1,7 @@
 from rest_framework import permissions, viewsets
-from .serializers import SubconnSerializer,SubconnFollowerSerializer,SubconnPostSerializer
-from .models import Subconn, SubconnFollower, SubconnPost
+from .serializers import (SubconnSerializer,SubconnFollowerSerializer,SubconnPostSerializer,
+                        SubconnCommentSerializer,SubconnLikeSerializer)
+from .models import Subconn, SubconnFollower, SubconnPost,SubconnLike,SubconnComment
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -22,3 +23,13 @@ class SubconnPostViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAuthenticated]
     queryset = SubconnPost.objects.all()
     serializer_class = SubconnPostSerializer
+
+class SubconnLikeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = SubconnLike.objects.all()
+    serializer_class = SubconnLikeSerializer
+
+class SubconnCommentViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = SubconnComment.objects.all()
+    serializer_class = SubconnCommentSerializer

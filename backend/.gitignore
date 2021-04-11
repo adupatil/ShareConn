@@ -10,11 +10,8 @@
 /.idea
 /.vscode
 
-<<<<<<< HEAD
-=======
 #ignore DB
 *.sqlite3
->>>>>>> 6ae52ab29f73ab51fc10c3535b1bf525994ddd78
 
 
 # Ignore Secret Key

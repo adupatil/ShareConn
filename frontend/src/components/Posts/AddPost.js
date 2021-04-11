@@ -22,7 +22,7 @@ function AddPost() {
         obj.append('post_title',post_title)
         obj.append('post_type',post_type)
         obj.append('category',category)
-        obj.append('user_id',userDetails.if)
+        obj.append('user_id',userDetails.id)
         console.log(obj)
         dispatch(addUserPost(obj))
         

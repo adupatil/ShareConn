@@ -3,7 +3,8 @@ from users.models import User
 from subconns.models import Subconn
 from django.db.models import F
 
-
+def User_Directory(instance,image):
+    return "posts/{}/{}".format(instance.user_id.username, image)
 
 class Post(models.Model):
     # post_id= models.AutoField()
@@ -12,7 +13,7 @@ class Post(models.Model):
     num_likes = models.PositiveBigIntegerField(default=0)
     num_comments = models.PositiveBigIntegerField(default=0)
     date_created = models.DateTimeField(auto_now_add=True)
-    post_type= models.FileField(upload_to=f"posts/{F('user.username')}",verbose_name="path",blank=True)
+    post_type= models.FileField(upload_to=User_Directory,verbose_name="path",blank=True)
     post_text=models.TextField(max_length=1000, blank=True)
     category = models.CharField(max_length=50)
 
