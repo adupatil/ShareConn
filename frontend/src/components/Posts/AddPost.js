@@ -16,22 +16,15 @@ function AddPost() {
     const [post_text,setpost_text]=useState('')
     
     const submitForm=(e)=>{
-        const reader = new FileReader();
-        let f=''
-        reader.onloadend = () => {
-         f=reader.result
-        };
-        reader.readAsDataURL(post_type)
-        
-        e.preventDefault();
-        // const file = URL.createObjectURL(post_type);
+        e.preventDefault()
+       
 
         let obj=new FormData()
         
       
         obj.append('post_text',post_text)
         obj.append('post_title',post_title)
-        obj.append('post_type',f)
+        obj.append('post_type',post_type)
         obj.append('category',category)
         obj.append('user_id',userDetails.id)
         console.log(obj)

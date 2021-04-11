@@ -77,6 +77,7 @@ useEffect(()=>{
         <div className='post'>
             <UserAvatar user={postsUser} subconn={postsUser} option={'subconn' in postDetail?'subconn':'user'} withEdit={true}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
+               
             </UserAvatar>
             <div className='post_container'>
                 <div className="post_area_container">

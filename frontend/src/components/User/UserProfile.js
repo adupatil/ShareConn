@@ -59,7 +59,7 @@ function UserProfile(props){
                             
                             userProfiles.data.forEach(profile=>{
                                 if(profile.user==uid){
-                                
+                                console.log(profile)
                                     obj.userProfile=profile
                                 }
                             })
