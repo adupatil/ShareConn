@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from .serializers import UserSerializer,UserFollowSerializer,UserProfileSerializer
+from .serializers import UserSerializer,UserFollowSerializer,UserProfileSerializer, UserProfileReadOnlySerializer
 from .models import User, UserProfile, UserFollow
 from rest_framework import authentication
 from rest_framework.permissions import IsAuthenticated
@@ -19,9 +19,15 @@ class UserFollowViewSet(viewsets.ModelViewSet):
     serializer_class = UserFollowSerializer
 
 class UserProfileViewSet(viewsets.ModelViewSet):
+
     permission_classes=[IsAuthenticated]
     queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+    
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return UserProfileSerializer
+        return UserProfileReadOnlySerializer
 
 class LogoutExView(LogoutView):
     

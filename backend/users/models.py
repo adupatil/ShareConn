@@ -4,6 +4,8 @@ from django.db.models import F
 from PIL import Image
 
 
+def User_Directory(instance,image,name):
+  return "{}/{}/{}".format(name,instance.user.username, image)
 
 
 class User(AbstractUser):
@@ -14,8 +16,8 @@ class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   num_following = models.PositiveIntegerField(default= 0)
   num_followers = models.PositiveIntegerField(default= 0)
-  profile_pic = models.ImageField(default='default.jpg',upload_to='profile_pics')
-  cover_pic = models.ImageField(default='default.jpg',upload_to='cover_pics')
+  profile_pic = models.ImageField(default='default.jpg',upload_to=lambda i,img: User_Directory(i,img,"profile_pics"))
+  cover_pic = models.ImageField(default='default.jpg',upload_to=lambda i,img: User_Directory(i,img,"cover_pics"))
   #num_subconns = models.PositiveIntegerField(default=0)
   
   def save(self, *args, **kwargs):
