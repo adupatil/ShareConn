@@ -3,10 +3,12 @@ import axios from 'axios'
 import { useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import UserAvatar from '../User/UserAvatar';
+import SubConnAvatar from '../SubConn/SubConnAvatar'
 
 // only for users
 function Following() {
     const user=useSelector(state=>state.user)
+   
     const uid=useParams().id
     // state
     const [pFollow,setpFollow]=useState([])
@@ -67,7 +69,7 @@ function Following() {
                     <h4>Subconns you follow</h4>
                     <div className='followList'>
                         {
-                            sFollow.map(el=>(<UserAvatar option='subconn' subconn={el} widthEdit={false}></UserAvatar>))
+                            sFollow.map(el=>(<SubConnAvatar option='followList' subconn={el} widthEdit={false}></SubConnAvatar>))
                         }
                     </div>
                 </div>

@@ -36,6 +36,9 @@
    
     
 }
+video{
+    width: 100%;
+}
 .postDate{
     font-size: x-small;
     font-weight: 300;

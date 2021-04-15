@@ -4,7 +4,8 @@ import Post from './Post'
 
 function PostList({postList,userDetails}){
     
-    console.log(postList)
+//    postList.sort((a,b)=>a.date_created-b.date_created)
+   console.log(postList)
    
         const posts=postList.map((post,i)=>(<Post postDetail={post} key={"post_"+i} userDetails={userDetails} postType={('subconn' in post)?'subconn':'user'}></Post>))
 

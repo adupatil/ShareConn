@@ -13,6 +13,7 @@ axios.defaults.baseURL='http://localhost:8000/';
 
 ReactDOM.render(
     <Provider store={store}>
-<Router>
-    <App />
-</Router></Provider>,document.getElementById('root'));
+        <Router>
+            <App />
+        </Router>
+    </Provider>,document.getElementById('root'));

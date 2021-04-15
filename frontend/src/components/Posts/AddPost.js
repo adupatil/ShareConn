@@ -11,7 +11,7 @@ function AddPost() {
     const subconns_following=useSelector(state=>state.user.subconns_following)
     const dispatch=useDispatch()
     // states
-    const [followingSubconnDets,setfds]=useState([<option defaultChecked >Category</option>,<option value='user'>Self</option>])
+    const [followingSubconnDets,setfds]=useState([<option defaultChecked >Post under</option>,<option value='user'>Self</option>])
     const [post_title,setpost_title]=useState('')
     const [post_type,setpost_type]=useState('')
     const [category,setcategory]=useState('')
@@ -30,7 +30,7 @@ function AddPost() {
            
         })
 
-    },[postStyle])
+    },[subconns_following])
        
         
 
@@ -46,14 +46,19 @@ function AddPost() {
       
         obj.append('post_text',post_text)
         obj.append('post_title',post_title)
-        obj.append('post_type',post_type)
         obj.append('category',category)
         obj.append('user_id',userDetails.id)
+        if(post_type!==''){
+            obj.append('post_type',post_type)
+        }
+      
+       
         console.log(obj)
         dispatch(addUserPost(obj))
         setpost_text('')
         setpost_title('')
         setpost_type('')
+        setfds([<option defaultChecked >Category</option>,<option value='user'>Self</option>])
         hide()
         
         
@@ -73,13 +78,20 @@ function AddPost() {
                 <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/add_post_gree.svg`}></img><h3 style={{color:'darkslategrey'}}>Add Post</h3>
             </div>
                 <div className='close' onClick={hide}><i className='bx bx-x-circle' ></i></div>
-               
-                <input type="text" placeholder='Post title' value={post_title} onChange={(e)=>setpost_title(e.target.value)}></input>
-                <div style={{display:'flex',alignItems:'center',marginTop:'1rem',width:'100%'}}>
-                    <select onChange={(e)=>{console.log(e.target.value);setcategory(e.target.value)}}>
+                <select>
                         {followingSubconnDets}
                     </select>
+                <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
+                    <input type="text" placeholder='Post title' value={post_title} onChange={(e)=>setpost_title(e.target.value)}></input>
+
+                    <input type="text" placeholder='Category' value={category} onChange={(e)=>setcategory(e.target.value)}></input>
                     
+
+                </div>
+                
+                <div style={{display:'flex',alignItems:'center',marginTop:'1rem',width:'100%'}}>
+                  
+                <input type="text" placeholder='Text'  value={post_text} onChange={(e)=>setpost_text(e.target.value)}></input>
                     <label> 
                     <i className='bx bx-image-add' style={{fontSize:'24px',marginLeft:'1rem'}}></i>
                         <input type="file" onChange={(e)=>setpost_type(e.target.files[0])}></input>
@@ -88,7 +100,7 @@ function AddPost() {
                 </div>
                 
                 
-                <input type="text" placeholder='Text'  value={post_text} onChange={(e)=>setpost_text(e.target.value)}></input>
+                
                 
                 <input type="submit"  placeholder="Login"></input>
             </form>

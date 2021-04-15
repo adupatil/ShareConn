@@ -17,9 +17,18 @@ function Post({postDetail,postType}){
     
     const post_area=()=>{
         let postType=postDetail.post_type;
-        if(postType){
+        if(postType!==null){
+            // let imgRegex="([^\\s]+(\\.(?i)(jpe?g|png))$)"
+        // let videoRegex="([^\\s]+(\\.(?i)(mp3|mp4))$)"
+        if(postType.includes('.png') || postType.includes('.jpg') || postType.includes('.jpeg') ){
             return(<img src={postType}></img>)
+        }else if(postType.includes('.mp3') || postType.includes('.mp4')){
+            return(<video width='400' controls>
+                <source type={'video/'+postType.substring(postType.length,postType.length-3)} src={postType}></source>
+            </video>)
         }
+        }
+        
     }
 
 useEffect(()=>{
@@ -36,7 +45,7 @@ useEffect(()=>{
                 setpostUser(user.data)  
         })}
         else if(postType==='subconn'){
-            console.log(postDetail)
+          
            axios.get(`api/subconns/${postDetail.subconn}/`)
            .then(res=>{
                setpostUser(res.data)
@@ -72,14 +81,14 @@ useEffect(()=>{
 
   
   
-   if(postsUser!==null){ 
+   if(postsUser!==null && Object.keys(loggedInuser).length>0){ 
       
     return(
         <div className='post'>
            {postType==='user'? <UserAvatar user={postsUser}  withEdit={true}>
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
                
-            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} withEdit={true} >
+            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={true} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
             <div className='post_container'>
             <div className="post_text">{postDetail.post_text}</div>

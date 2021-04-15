@@ -8,6 +8,7 @@ import {logout_user as clearPosts} from '../../features/posts/postSlice'
 import {logout_user as clearUser} from '../../features/user/userSlice'
 
 import '../../assets/css/Buttons.css'
+import axios from 'axios';
 
 
 // Bars need to get user values
@@ -21,23 +22,28 @@ function NavBar(props){
         window.location.replace('/login')
         
     }
-    
-return(
-    <div className="nav_container">
-        <nav className="navbar">
-            <NavLink to='/' className='brand'>ShareConn</NavLink>
-            <div className='auth_details'>
-                <div className="user_info">
-                    <div className='user_profile_pic'><img src={userProfile.profile_pic}></img></div>
-                    <NavLink to={`/u/profile/${userProfile.id}`} className='username'></NavLink>
+if(Object.keys(userProfile).length>0){
+    return(
+        <div className="nav_container">
+            <nav className="navbar">
+                <NavLink to='/' className='brand'>ShareConn</NavLink>
+                <div className='auth_details'>
+                    <div className="user_info">
+                        <div className='user_profile_pic'><img src={userProfile.profile_pic}></img></div>
+                        <NavLink to={`/u/profile/${userProfile.id}`} className='username'>{userProfile.user.username}</NavLink>
+                    </div>
+                    <div className=" button orangeBtn auth_btn" onClick={logoutUser}>Logout</div>
+                       
+                 
+                    
                 </div>
-                <div className=" button orangeBtn auth_btn" onClick={logoutUser}>Logout</div>
-                   
-             
-                
-            </div>
-        </nav>
-    </div>)
+            </nav>
+        </div>)
+
+} else{
+    return <div></div>
+} 
+
 
 
 }
@@ -46,13 +52,16 @@ const sidebarElements=[
 ]
 function SideBar(props){
     // get which page is active
-    
+    const options=useSelector(state=>state.user.subconns_admined)
+
+
     const user=useSelector(state=>state.user)
     const activeStyle={
         color:'var(--primaryColor)',
        
         borderRadius:'1000px'
     }
+   
     
    
     const arr=sidebarElements.map((el,i)=>{ 
@@ -65,7 +74,19 @@ function SideBar(props){
      })
      
 
-    
+    const switchToSubconn=(val)=>{
+       
+        if(val!==''){
+            console.log(val);
+            window.location='/s/profile/'+val
+            return
+           
+        }else{
+            return
+        }
+       
+       
+    }
     
        
        
@@ -78,8 +99,12 @@ function SideBar(props){
                 <ul className="sidebar__items">
                     {arr}
                     
-                    
+                    <select onChange={(e)=>switchToSubconn(e.target.value)}>
+                        <option defaultChecked value="">Admined Subconns</option>
+                        {options.map(opt=><option value={opt.id}>{opt.subconn_name}</option>)}
+                </select>
                 </ul>
+                
                
                 <AddPostBtn ></AddPostBtn>
             </div>

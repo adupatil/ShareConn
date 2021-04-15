@@ -8,9 +8,9 @@ function SubConnAvatar(props) {
         return(
             <div className="user_avatar_container">
                 <div className="user_avatar">
-                    <div className='user_profile_pic'><img alt="subconn profile"></img></div>
+                    <div className='user_profile_pic'><img alt="subconn profile" src={props.subconnProfile.profile_pic}></img></div>
                     <div className='verticleWrap'>
-                        <NavLink to={'/s/profile/'+props.subconn.id} className='username'>{props.subconn.subconn_name}</NavLink>
+                        <NavLink to={'/s/profile/'+props.subconn.id} className='username'>{props.subconnProfile.subconn_name}</NavLink>
                         
                         <div>{props.children && props.children}</div>
                     </div>
