@@ -91,7 +91,7 @@ useEffect(()=>{
             </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={true} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
             <div className='post_container'>
-            <div className="post_text">{postDetail.post_text}</div>
+            <div className="post_text">{postDetail.post_title}</div>
                 <div className="post_area_container">
                     {/* <p className="post_title">{postDetail.post_title}</p> */}
                  
