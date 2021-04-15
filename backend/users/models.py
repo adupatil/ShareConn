@@ -4,8 +4,11 @@ from django.db.models import F
 from PIL import Image
 
 
-def User_Directory(instance,image,name):
-  return "{}/{}/{}".format(name,instance.user.username, image)
+def User_Directory(instance,image):
+  return "profile_pics/{}/{}".format(instance.user.username, image)
+
+def User_Directory_C(instance,image):
+  return "cover_pics/{}/{}".format(instance.user.username, image)
 
 
 class User(AbstractUser):
@@ -16,8 +19,8 @@ class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   num_following = models.PositiveIntegerField(default= 0)
   num_followers = models.PositiveIntegerField(default= 0)
-  profile_pic = models.ImageField(default='default.jpg',upload_to=lambda i,img: User_Directory(i,img,"profile_pics"))
-  cover_pic = models.ImageField(default='default.jpg',upload_to=lambda i,img: User_Directory(i,img,"cover_pics"))
+  profile_pic = models.ImageField(default='default.jpg',upload_to=User_Directory)
+  cover_pic = models.ImageField(default='default.jpg',upload_to=User_Directory_C)
   #num_subconns = models.PositiveIntegerField(default=0)
   
   def save(self, *args, **kwargs):
@@ -32,7 +35,7 @@ class UserProfile(models.Model):
     if img2.height > 312 or img2.width > 820:
             output_size = (312, 820)
             img2.thumbnail(output_size)
-            img2.save(self.profile_pic.path)
+            img2.save(self.cover_pic.path)
 
     def __str__(self):
        return self.user.username
