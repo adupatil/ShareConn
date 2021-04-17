@@ -1,104 +1,100 @@
 /* login */
-.loginFormContainer{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    background-color: white;
+.loginFormContainer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: white;
 }
-.loginForm,.signupForm{
-    position: relative;
-    right: 0;
-    left: 0;
-    margin-right: auto;
-    margin-left: auto;
-    width:31rem;
-   
-    display: flex;
-    flex-direction: column;
-    padding:1rem;
-    /* border:1px solid var(--inverseModeColor);
+.loginForm,
+.signupForm {
+  position: relative;
+  right: 0;
+  left: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 31rem;
+
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  /* border:1px solid var(--inverseModeColor);
     border-radius:6px; */
-    align-items: center;
+  align-items: center;
+}
+.loginForm a {
+  font-size: small;
+}
+.loginFormContainer h4 {
+  font-size: x-large;
+  color: darkslategray;
+}
+.loginImgConatiner {
+  width: 50%;
+}
+.loginFormContainer img {
+  width: 85%;
+  order: 1;
+  height: 100%;
+}
+.loginForm input[type="text"],
+.signupForm input[type="text"] {
+  width: 100%;
 
+  color: darkslategray;
+  height: 2rem;
 
-}
-.loginForm a{
-    font-size: small;
-}
-.loginFormContainer h4{
-    font-size: x-large;
-    color:darkslategray
-}
-.loginImgConatiner{
-    width: 50%;
-}
-.loginFormContainer img{
-    width: 85%;
-    order:1;
-    height:100%
-}
-.loginForm input[type='text'],.signupForm input[type='text']{
-    width:100%;
-
-    color:darkslategray;
-    height: 2rem;
-  
-    border-radius: 3px;
-    border:1px solid var(--primaryColor)
-}
-
-.loginForm .inputWrapper{
-    width: 100%;
-    position: relative;
-    height: 69px;
-    
-}
-.loginForm input[type='text']{
-    padding-left: 1rem;
-    width:90% !important;
-    position: absolute;
-    left: 0;
-    top:0;
+  border-radius: 3px;
+  border: 1px solid var(--primaryColor);
 }
 
-.loginForm label{
-    z-index: 3;
-    transform: translateY(-8px);
-    position: absolute;
-    background: white;
-    color: var(--primaryColor);
-    font-size: small;
-    top: 0px;
-    left: 8px;
-    
-    padding: 1px 7px;
+.loginForm .inputWrapper {
+  width: 100%;
+  position: relative;
+  height: 69px;
 }
-.loginBtn,.signupBtn{
-    cursor: pointer;
-    width:30%;
-    background-color: var(--primaryColor);
-    color:white;
-    margin-top:1rem;
-    border-radius: 25px;
-    height: 2.5rem;
-    border:1px solid var(--primaryColor)
-
-}
-.form-group{
-    width: 77%;
-    display: flex;
-    justify-content: space-between;
-
-}
-.form-group input[type='text']{
-    width:47%;
-}
-input[type='text']:focus + label {
-    transform: translateY(-16px);
-    transition: all 0.1s ease-in-out;
-}
-.input:focus{
-    background-color: white;
+.loginForm input[type="text"] {
+  padding-left: 1rem;
+  width: 90% !important;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
+.loginForm label {
+  z-index: 3;
+  transform: translateY(-8px);
+  position: absolute;
+  background: white;
+  color: var(--primaryColor);
+  font-size: small;
+  top: 0px;
+  left: 8px;
 
+  padding: 1px 7px;
+}
+.loginBtn,
+.signupBtn {
+  cursor: pointer;
+  width: 30%;
+  background-color: var(--primaryColor);
+  color: white;
+  margin-top: 1rem;
+  border-radius: 25px;
+  height: 2.5rem;
+  border: 1px solid var(--primaryColor);
+}
+.form-group {
+  width: 77%;
+  display: flex;
+  justify-content: space-between;
+}
+.form-group input[type="text"] {
+  width: 47%;
+}
+input[type="text"]:focus + label {
+  transform: translateY(-16px);
+  transition: all 0.1s ease-in-out;
+}
+.input:focus {
+  background-color: white;
+}

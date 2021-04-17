@@ -72,7 +72,7 @@ function Login() {
                 <input type="submit" onClick={(e)=>handleSubmit(e)} className='loginBtn'></input>
                 <div style={{display:'flex',marginTop:'0.4rem'}}>
                     <NavLink style={{marginRight:'1rem'}} to='/signup'>Create new account</NavLink>
-                    <NavLink to='/'>Forgot Password?</NavLink>
+                    <NavLink to='/forgotPassword'>Forgot Password?</NavLink>
                 </div>
                 
         
