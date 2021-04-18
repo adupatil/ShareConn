@@ -69,7 +69,7 @@ function Following() {
                     <h4>Subconns you follow</h4>
                     <div className='followList'>
                         {
-                            sFollow.map(el=>(<SubConnAvatar option='followList' subconn={el} widthEdit={false}></SubConnAvatar>))
+                            sFollow.map(el=>(<SubConnAvatar option='followList' subconnProfile={el} widthEdit={false}></SubConnAvatar>))
                         }
                     </div>
                 </div>

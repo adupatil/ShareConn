@@ -3,6 +3,7 @@
     height: 100%;
     display: flex;
     align-items: center;
+    background-color: white;
 }
 .loginForm,.signupForm{
     position: relative;
@@ -23,6 +24,7 @@
 }
 .loginForm a{
     font-size: small;
+    color:darkslategray;
 }
 .loginFormContainer h4{
     font-size: x-large;

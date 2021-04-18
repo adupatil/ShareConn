@@ -18,15 +18,14 @@ function Post({postDetail,postType}){
     const post_area=()=>{
         let postType=postDetail.post_type;
         if(postType!==null){
-            // let imgRegex="([^\\s]+(\\.(?i)(jpe?g|png))$)"
-        // let videoRegex="([^\\s]+(\\.(?i)(mp3|mp4))$)"
-        if(postType.includes('.png') || postType.includes('.jpg') || postType.includes('.jpeg') ){
-            return(<img src={postType}></img>)
-        }else if(postType.includes('.mp3') || postType.includes('.mp4')){
-            return(<video width='400' controls>
-                <source type={'video/'+postType.substring(postType.length,postType.length-3)} src={postType}></source>
-            </video>)
-        }
+    
+            if(postType.includes('.png') || postType.includes('.jpg') || postType.includes('.jpeg') ){
+                return(<img src={postType}></img>)
+            }else if(postType.includes('.mp3') || postType.includes('.mp4')){
+                return(<video width='400' controls>
+                    <source type={'video/'+postType.substring(postType.length,postType.length-3)} src={postType}></source>
+                </video>)
+            }
         }
         
     }
@@ -48,6 +47,8 @@ useEffect(()=>{
           
            axios.get(`api/subconns/${postDetail.subconn}/`)
            .then(res=>{
+               console.log('subconn of the post')
+               console.log(res.data)
                setpostUser(res.data)
            })
         }
