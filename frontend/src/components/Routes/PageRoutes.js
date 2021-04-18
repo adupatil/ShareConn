@@ -7,6 +7,7 @@ import Settings from '../Pages/Settings'
 import Login from '../Auth/Login';
 import Signup from '../Auth/Signup';
 import Following from '../FollowList/Following'
+import ChangePassword from '../Forms/ChangePassword'
 
 
 
@@ -18,6 +19,7 @@ const PageRoutes=()=>(
         <Route  path='/s/profile/:id' exact render={(props) => <Profile option="subconn"></Profile>}></Route>
         <Route path='/u/following/:id' exact component={Following}></Route>
         <Route  path='/settings' exact component={Settings}></Route>
+        <Route path='/changePassword' exact component={ChangePassword}></Route>
         
         
         

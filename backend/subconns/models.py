@@ -1,12 +1,36 @@
 from django.db import models
 from users.models import User
+from PIL import Image
 # from posts.models import Post
+
+def User_Directory(instance,image):
+  return "subconn_profile_pics/{}/{}".format(instance.user.username, image)
+
+def User_Directory_C(instance,image):
+  return "subconn_cover_pics/{}/{}".format(instance.user.username, image)
 
 
 class Subconn(models.Model):
     subconn_admin = models.ForeignKey(User,on_delete=models.CASCADE,related_name='subconn_admin')
     subconn_name = models.CharField(max_length=100,unique=True)
     num_subconn_followers = models.PositiveBigIntegerField(default=0)
+    profile_pic = models.ImageField(default='default.jpg',upload_to=User_Directory)
+    cover_pic = models.ImageField(default='default.jpg',upload_to=User_Directory_C)
+
+    def save(self, *args, **kwargs):
+        super().save(*args,**kwargs)
+        img1 = Image.open(self.profile_pic.path)
+        img2 = Image.open(self.cover_pic.path)
+        if img1.height > 300 or img1.width > 300:
+                output_size = (300, 300)
+                img1.thumbnail(output_size)
+                img1.save(self.profile_pic.path)
+
+        if img2.height > 312 or img2.width > 820:
+                output_size = (312, 820)
+                img2.thumbnail(output_size)
+                img2.save(self.cover_pic.path)
+
 
     def __str__(self):
         return self.subconn_name
