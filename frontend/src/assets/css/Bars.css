@@ -1,4 +1,13 @@
-
+ul{
+    text-decoration: none;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+h6{
+    margin: 0px;
+    font-size: large;
+}
 /* Navbar */
 .nav_container{
     height:2.5rem;
@@ -8,7 +17,7 @@
     color:var(--inverseModeColor);
     padding:0.5rem;
     padding-left: 7rem;
-    padding-right: 7rem;
+    padding-right: 9rem;
     box-shadow: 0px -5px 14px #999;
     
 
@@ -97,7 +106,8 @@ a i{
 
 /* Engagement Bar */
 .engagementBar{
-
+    margin-right: 1rem;
+    margin-left: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -106,3 +116,70 @@ a i{
    
 }
 
+/* search bar */
+.rightSideBar{
+    flex-grow: 1;
+    padding: 1rem;
+    padding-right: 9rem;
+}
+
+.searchBarContainer{
+    margin-bottom: 1rem;
+}
+.searchBar{
+    
+    width:90%;
+    padding-left: 0.5rem;
+    height: 2rem;
+    border-radius: 25px;
+    background-color: var(--modeColor);
+    border:1px solid gray;
+    outline: none;
+    color:var(--inverseModeColor)
+}
+.searchBar:focus{
+    width: 95%;
+    border:1px solid var(--primaryColor);
+    transition: all 0.1s ease-in;
+  
+}
+.adminedSubconns{
+    background-color: var(--modeColor);
+    box-shadow: -0.2px 0.5px 4px lightgrey;
+    border-radius: 12px;
+   
+}
+.adminedSubconnsSelect{
+    background-color: var(--modeColor);
+    color:var(--inverseModeColor);
+    outline:none;
+    height: 2rem;
+}
+
+
+
+
+.adminedSubconns .user_avatar{
+    padding:1rem;
+    padding-top:0px ;
+    background-color: var(--modeColor);
+
+}
+.createSubconnbtn{
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top:1px solid gray;
+    text-align: center;
+    padding: 0.4rem;
+    color:var(--primaryColor);
+    cursor: pointer;
+}
+.createSubconnbtn:hover{
+    text-decoration: underline;
+    
+    transition: all 0.1s linear;
+}
+.adminedSubconns .user_avatar .user_profile_pic{
+    height: 2rem;
+    width: 2rem;
+}

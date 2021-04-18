@@ -25,7 +25,7 @@ function UserProfile(props){
     }
     const getFollowStatus=()=>{
         if(loggedInuser.userDetails.id===parseInt(uid)){
-            return(<div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>)
+            return(<div className='editProfileBtn' ><i className='bx bx-edit-alt'></i>Edit Profile</div>)
         }else{
             if(loggedInuser.users_followed.includes(parseInt(uid))){
                 return(<div className='followingBtn' onClick={handleUnfollow}>Following</div>)
@@ -118,7 +118,8 @@ function UserProfile(props){
                 </div>
                 <div className="userDetails">
                     <div className="userCredentials">
-                        <div id="userName">{user.userDetails.username}</div>
+                        <div id="name">{user.userProfile.user.first_name} {user.userProfile.user.last_name}</div>
+                        <div id="userName" style={{color:'gray',fontSize:'smaller'}}>@{user.userDetails.username}</div>
                       
                         <div className="userEngagement">
                             <NavLink to={`/u/following/${loggedInuser.userAuthDetails.pk}`}id="userFollowers"><span className="followerCount">{user.userProfile.num_followers}</span> Followers</NavLink>

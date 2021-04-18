@@ -18,12 +18,15 @@
     width: 100%;
 }
 .post__list .post{
+    cursor: pointer;
+    border-bottom:1px solid #4b4b4b;
     
-    border-bottom:1px solid gray;
-    margin-bottom:0.5rem;
     padding: 0.4rem;
     
 
+}
+.post:hover *,.post:hover{
+    background-color: rgb(46 51 62);
 }
 .post_container{
     margin-right: 1rem;
@@ -31,7 +34,7 @@
 }
 .post_area_container{
     margin-top: 0.4rem;
-    border-bottom:0.4px solid lightgray;
+    border-bottom:0.4px solid #4b4b4b;
   
    
     

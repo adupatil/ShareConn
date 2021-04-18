@@ -21,14 +21,9 @@
     border-radius:6px; */
   align-items: center;
 }
-<<<<<<< HEAD
 .loginForm a{
     font-size: small;
     color:darkslategray;
-=======
-.loginForm a {
-  font-size: small;
->>>>>>> 85c36b4b9231b165333aa01d22070236a086ac54
 }
 .loginFormContainer h4 {
   font-size: x-large;

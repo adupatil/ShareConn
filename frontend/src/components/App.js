@@ -9,6 +9,7 @@ import {NavBar,SideBar} from './Bars/Bars';
 import PageRoutes from './Routes/PageRoutes';
 import AuthRoutes from './Routes/AuthRoutes'
 import AddPost from './Posts/AddPost';
+import EditProfile from './Forms/EditProfile'
 import { Redirect } from 'react-router';
 
 // redux
@@ -16,6 +17,8 @@ import {useDispatch,useSelector} from 'react-redux';
 import {fetchUser,fetch_user_authDetails,fetchUserProfile} from '../features/user/userSlice';
 import {addNewPost} from '../features/posts/postSlice'
 import axios from 'axios';
+import SearchBar from './Bars/SearchBar';
+
 
 
 function App(props) {
@@ -56,9 +59,11 @@ const token=localStorage.getItem('token')
                 {/* page */}
                 <div className='listContainer'>
                 <PageRoutes></PageRoutes>
-               
                 </div>
+                <SearchBar></SearchBar>
+                
                 <AddPost ></AddPost>
+                <EditProfile option='user'></EditProfile>
                
                 
             </div>

@@ -26,7 +26,9 @@ if(Object.keys(userProfile).length>0){
     return(
         <div className="nav_container">
             <nav className="navbar">
-                <NavLink to='/' className='brand'>ShareConn</NavLink>
+                <NavLink to='/' className='brand'>
+                    <img src={`${process.env.PUBLIC_URL}/assets/logo.png`} style={{height:'2rem'}}></img>
+                </NavLink>
                 <div className='auth_details'>
                     <div className="user_info">
                         <div className='user_profile_pic'><img src={userProfile.profile_pic}></img></div>
@@ -52,7 +54,7 @@ const sidebarElements=[
 ]
 function SideBar(props){
     // get which page is active
-    const options=useSelector(state=>state.user.subconns_admined)
+ 
 
 
     const user=useSelector(state=>state.user)
@@ -74,19 +76,7 @@ function SideBar(props){
      })
      
 
-    const switchToSubconn=(val)=>{
-       
-        if(val!==''){
-            console.log(val);
-            window.location='/s/profile/'+val
-            return
-           
-        }else{
-            return
-        }
-       
-       
-    }
+    
     
        
        
@@ -99,10 +89,7 @@ function SideBar(props){
                 <ul className="sidebar__items">
                     {arr}
                     
-                    <select onChange={(e)=>switchToSubconn(e.target.value)}>
-                        <option defaultChecked value="">Admined Subconns</option>
-                        {options.map(opt=><option value={opt.id}>{opt.subconn_name}</option>)}
-                </select>
+                    
                 </ul>
                 
                

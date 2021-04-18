@@ -1,12 +1,14 @@
 // import Avatar
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
 import axios from 'axios'
 import SubConnAvatar from '../SubConn/SubConnAvatar';
+import {increment_post_likes,decrement_post_likes} from '../../features/posts/postSlice'
+import { NavLink, Redirect } from 'react-router-dom';
 
-function Post({postDetail,postType}){
+function Post({postDetail,postType,userDetails}){
 
     const loggedInuser=useSelector(state=>state.user.userProfile)
     // states for post
@@ -14,7 +16,7 @@ function Post({postDetail,postType}){
     const [likes,setlikes]=useState(postDetail.num_likes)
     const [comments,setcomments]=useState(postDetail.num_comments)
     const [edit,setedit]=useState(false)
-    
+    const dispatch=useDispatch()
     const post_area=()=>{
         let postType=postDetail.post_type;
         if(postType!==null){
@@ -58,24 +60,33 @@ useEffect(()=>{
 
  const handleSetLikes=(no)=>{
      if(no===-1){
-        console.log('like decrement')
+       
         axios.get('api/posts_likes/')
          .then(res=>{
             let liked=res.data.filter(el=>el.user_id===parseInt(loggedInuser.id) && el.post_id===parseInt(postDetail.id))
             if(liked.length===1){
                 axios.delete('api/posts_likes/'+liked[0].id+'/')
-                .then(res=>setlikes(prev=>prev-1))
+                .then(res=>{
+                    dispatch(decrement_post_likes({option:postType==='user'?'user_posts':'followed_posts',post_id:postDetail.id}))
+                    setlikes(prev=>prev-1)})
             }
             })
        
      }else{
-         console.log('like increment')
+  
         
          axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
-         .then(data=>setlikes(prev=>prev+1))
+         .then(data=>{
+             dispatch(increment_post_likes({option:postType==='user'?loggedInuser.id===postDetail.user_id?'user_posts':'followed_posts':'',post_id:postDetail.id}))
+             setlikes(prev=>prev+1)})
      }
  }
    
+ const redirect=()=>{
+     return(
+         <Redirect to={'/posts/'+postDetail.id}></Redirect>
+     )
+ }
     
 
 
@@ -85,30 +96,38 @@ useEffect(()=>{
    if(postsUser!==null && Object.keys(loggedInuser).length>0){ 
       
     return(
-        <div className='post'>
+     
+        <div className='post' onClick={redirect}>
            {postType==='user'? <UserAvatar user={postsUser}  withEdit={true}>
+                
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
                
             </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={true} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
-            <div className='post_container'>
-            <div className="post_text">{postDetail.post_title}</div>
-                <div className="post_area_container">
-                    {/* <p className="post_title">{postDetail.post_title}</p> */}
-                 
-                    <div className="post_area">
-                      {post_area()}  
-                    </div>
+            <NavLink to={postType==='user'?'/u/posts/'+postDetail.id:'/s/posts/'+postDetail.id} option={postType} >
+                <div className='post_container'>
+                <div className="post_text">{postDetail.post_title}</div>
+                    <div className="post_area_container">
+                        
                     
-                </div>
-               
-                <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no)}></EngagementBar>
+                        <div className="post_area">
+                        {post_area()}  
+                        </div>
+                        
+                    </div>
                 
-                
+            
+                    
+                    
 
-            </div>
+                </div>
+
+            </NavLink>
+           
+            <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no)}></EngagementBar>
             
         </div>
+     
         
     )}else{
         return( <div>no post</div>)

@@ -25,12 +25,18 @@ const postSlice=createSlice({
             state.followed_posts.push(...action.payload)
         },
         increment_post_likes:(state,action)=>{
+            console.log(action.payload)
             const {option,post_id}=action.payload
            const gotPost= state[option].find(post=>post.id===post_id)
+           console.log(gotPost)
            gotPost.num_likes+=1
         },
         decrement_post_likes:(state,action)=>{
-            state[action.payload.option].num_likes-=1
+            console.log(action.payload)
+            const {option,post_id}=action.payload
+           const gotPost= state[option].find(post=>post.id===post_id)
+           console.log(gotPost)
+           gotPost.num_likes-=1
         },
         get_comments:(state)=>{
             state=state

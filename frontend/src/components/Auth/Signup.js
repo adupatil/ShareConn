@@ -8,6 +8,8 @@ import '../../assets/css/Auth.css'
 
 function Signup() {
     const [username,setusername]=useState(null)
+    const [fname,setfname]=useState(null)
+    const [lname,setlname]=useState(null)
     const [password,setpassword]=useState(null)
     const [confirmpassword,setconfirmpassword]=useState(null)
   
@@ -25,6 +27,8 @@ function Signup() {
         e.preventDefault();
        
             let obj={
+                first_name:fname,
+                last_name:lname,
                 username:username,
                 email:email,
                 password1:password,
@@ -52,6 +56,20 @@ if(token===null){
             </div>
             <form className="loginForm">
                 <h4>Sign Up</h4>
+                <div style={{width:'100%',display:'flex'}}>
+                    <div className='inputWrapper' style={{width:'95%'}}>
+                        <input type='text' onChange={(e)=>setfname(e.target.value)}></input>
+                        <label>First Name</label>
+
+                    </div>
+                    <div className='inputWrapper' style={{width:'95%'}}>
+                        <input type='text' onChange={(e)=>setlname(e.target.value)}></input>
+                        <label>Last Name</label>
+                    </div>
+                   
+
+                </div>
+
                 <div className='inputWrapper'>
                     <input type='text' onChange={(e)=>setusername(e.target.value)}></input>
                     <label>Username</label>

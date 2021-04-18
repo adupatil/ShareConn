@@ -3,7 +3,7 @@ import axios from 'axios';
 import {fetchSubconnsPosts, fetchUserPosts} from '../posts/postSlice'
 
 const initialState={
-   
+    editProfile:'none',
     userDetails:{},
     userAuthDetails:{},
     userProfile:{},

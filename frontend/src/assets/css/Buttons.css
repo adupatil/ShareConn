@@ -36,12 +36,16 @@ button{
 .like_btn,.comment_btn{
     background-color: var(--modeColor);
     color:var(--inverseModeColor);
-    border:none;
+    border-radius: 50%;
+    padding: 5px;
+
 
 }
-.like_btn i,.comment_btn i{
-    margin-right:0.3rem;
+.like_btn:hover,.comment_btn:hover{
+    background-color: rgb(189, 146, 146);
+    color:red
 }
+
 .editProfileBtn{
     color: #00af91;font-size: smaller;
     background-color: var(--modeColor);

@@ -108,3 +108,9 @@ img.profileImg{
     padding: 0.2rem 1rem;
     border-radius: 25px;
 }
+.username:hover{
+    text-decoration: underline;
+}
+.username span:hover{
+    text-decoration: none;
+}
