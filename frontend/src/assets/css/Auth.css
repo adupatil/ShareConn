@@ -37,7 +37,9 @@
   height: 100%;
 }
 .loginForm input[type="text"],
-.signupForm input[type="text"] {
+.signupForm input[type="text"],
+.loginForm input[type="password"],
+.signupForm input[type="password"] {
   width: 100%;
 
   color: darkslategray;
@@ -52,7 +54,8 @@
   position: relative;
   height: 69px;
 }
-.loginForm input[type="text"] {
+.loginForm input[type="text"],
+.loginForm input[type="password"] {
   padding-left: 1rem;
   width: 90% !important;
   position: absolute;
@@ -91,7 +94,14 @@
 .form-group input[type="text"] {
   width: 47%;
 }
+.form-group input[type="password"] {
+  width: 47%;
+}
 input[type="text"]:focus + label {
+  transform: translateY(-16px);
+  transition: all 0.1s ease-in-out;
+}
+input[type="password"]:focus + label {
   transform: translateY(-16px);
   transition: all 0.1s ease-in-out;
 }

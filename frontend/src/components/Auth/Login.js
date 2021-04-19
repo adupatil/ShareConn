@@ -31,6 +31,28 @@ function Login() {
         dispatch(updateAuthKey(data))
 
     }
+    const handlePassword=(e)=>{
+        let val = e.target.value
+        const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,50}$/
+        if(!re.test(val)){
+            alert("Please enter a valid password")
+        }
+        else{
+            setpassword(e.target.value)
+        }
+    }
+
+    const handleEmail=(e)=>{
+        let val = e.target.value
+        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if(!re.test(val)){
+            alert("Enter a valid email")
+        }
+        else{
+            setemail(e.target.value)
+        }
+
+    }
    
  
 
@@ -52,20 +74,20 @@ function Login() {
                 
                 <div className='inputWrapper'>
                    
-                    <input id="username" type='text'  onChange={(e)=>setusername(e.target.value)}></input>
+                    <input id="username" required type='text'  onChange={(e)=>setusername(e.target.value)}></input>
                     <label for="username" >Username</label>
                 </div>
 
                 <div className='inputWrapper'>
                    
-                    <input id="email" type='text'  onChange={(e)=>setemail(e.target.value)}></input>
+                    <input id="email" type='text' required onBlur={(e)=>handleEmail(e)}></input>
                     <label for="email" >E-mail</label>
                 </div>
                 
                 <div className='inputWrapper'>
                    
-                    <input type='text' id='pw' onChange={(e)=>setpassword(e.target.value)}></input>
-                    <label for="pw" >Password</label> 
+                    <input type='password' id='pw' required onBlur={(e)=>handlePassword(e)}></input>
+                    <label for="pw">Password</label>
 
                 </div>
                 

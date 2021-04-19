@@ -5,6 +5,19 @@ import '../../assets/css/responsive.css'
 import { NavLink, Redirect } from 'react-router-dom';
 
 function ForgotPassword() {
+
+    // const handleEmail=(e)=>{
+    //     let val = e.target.value
+    //     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    //     if(!re.test(val)){
+    //         alert("Enter a valid email")
+    //     }
+    //     else{
+    //         setemail(e.target.value)
+    //     }
+
+    // }
+
     return (
         <div className='loginFormContainer'>
             <div className='loginImgConatiner'>
