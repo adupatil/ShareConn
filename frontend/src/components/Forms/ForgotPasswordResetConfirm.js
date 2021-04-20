@@ -4,6 +4,31 @@ import '../../assets/css/responsive.css'
 
 function ForgotPasswordResetConfirm() {
     return (
+
+        // const handlePassword=(e)=>{
+        //     let val = e.target.value
+        //     const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,50}$/
+        //     if(!re.test(val)){
+        //         alert("Please enter a valid password")
+        //     }
+        //     else{
+        //         setpassword(e.target.value)
+        //     }
+    
+        // }
+    
+        // const handleConfirmPassword=(e)=>{
+        //     let val = e.target.value
+        //     const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,50}$/
+        //     if(!re.test(val)){
+        //         alert("Please enter a valid password")
+        //     }
+        //     else{
+        //         setconfirmpassword(e.target.value)
+        //     }
+    
+        // }
+
         <div className='loginFormContainer'>
             <div className='loginImgConatiner'>
                 <img  alt='loginsvg'  src={process.env.PUBLIC_URL + '/assets/img/reset.svg'}></img>

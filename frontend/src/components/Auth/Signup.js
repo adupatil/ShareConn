@@ -37,11 +37,41 @@ function Signup() {
             }
             console.log(obj)
             dispatch(updateAuthKeyRegister(obj))
-            
-            
-           
-        
-        
+        }
+    
+    const handlePassword=(e)=>{
+        let val = e.target.value
+        const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,50}$/
+        if(!re.test(val)){
+            alert("Please enter a valid password")
+        }
+        else{
+            setpassword(e.target.value)
+        }
+
+    }
+
+    const handleConfirmPassword=(e)=>{
+        let val = e.target.value
+        const re = /^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])[a-zA-Z0-9!@#$%^&*]{8,50}$/
+        if(!re.test(val)){
+            alert("Please enter a valid password")
+        }
+        else{
+            setconfirmpassword(e.target.value)
+        }
+
+    }
+
+    const handleEmail=(e)=>{
+        let val = e.target.value
+        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if(!re.test(val)){
+            alert("Enter a valid email")
+        }
+        else{
+            setemail(e.target.value)
+        }
 
     }
    
@@ -75,15 +105,15 @@ if(token===null){
                     <label>Username</label>
                 </div>
                 <div className='inputWrapper'>
-                    <input type='text' onChange={(e)=>setemail(e.target.value)}></input>
+                    <input type='text' onBlur={(e)=>handleEmail(e)}></input>
                     <label>Email</label>
                 </div>
                 <div className='inputWrapper'>
-                    <input type='text' onChange={(e)=>setpassword(e.target.value)}></input>
+                    <input type='password' onBlur={(e)=>handlePassword(e)}></input>
                     <label>Password</label>
                 </div>
                 <div className='inputWrapper'>
-                    <input type='text' onChange={(e)=>setconfirmpassword(e.target.value)}></input>
+                    <input type='password' onBlur={(e)=>handleConfirmPassword(e)}></input>
                     <label>Confirm Password</label>
                 </div>
                 
