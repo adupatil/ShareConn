@@ -1,12 +1,20 @@
 import React from 'react'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router';
+import Post from '../Posts/Post';
+import CommentList from './CommentList';
 
 function FullPost(props) {
     const pid=useParams().id
+    const l=useLocation()
+    const {postDetail,postType}=useLocation()
+    console.log('------')
+    console.log(l)
     if(props.option==='user'){
         return (
-            <div>
-                Full post {pid} {props.option}
+            <div className='listContainerScroll'>
+               
+                <Post postDetail={postDetail} postType={postType}></Post>
+                <CommentList></CommentList>
             </div>
         )
 

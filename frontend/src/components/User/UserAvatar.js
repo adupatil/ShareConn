@@ -13,9 +13,9 @@ function UserAvatar(props){
         if(props.withEdit===true){
             return(
                 <div className="editBox">
-                    <div>Edit</div>
-                    <div>Delete</div>
-                    <div>Share</div>
+                    <div><i class='bx bx-edit'></i> Edit</div>
+                    <div style={{color:'red'}}><i class='bx bx-trash' ></i>Delete</div>
+                    
                 </div>
             )
         }else{

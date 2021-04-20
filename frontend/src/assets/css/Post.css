@@ -66,5 +66,32 @@ video{
     border-top-right-radius: 5px;
 }
 
+/* comment */
+.commentContainer{
+    overflow-y: scroll;
+    padding: 1rem;
+}
+.commentInput{
+    width: 90%;
+    background-color: var(--modeColor);
+    outline: none;
+    border:1px solid #4f4f4f;
+    height: 2rem;
+    border-radius: 25px;
+    padding-left: 0.3rem;
+    color:white;
+    transition: all 0.1s linear;
+
+}
+.commentInput:focus{
+    
+    border:1px solid var(--primaryColor);
+    
+}
+.commentContainer{
+    padding: 0.3rem;
+    border-top: 1px solid #4b4b4b;
+}
+
 
 

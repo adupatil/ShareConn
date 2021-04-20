@@ -1,24 +1,33 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleEditProfile } from '../../features/user/userSlice'
+import '../../assets/css/Auth.css'
 
 function EditProfile(props) {
     const user=useSelector(state=>state.user)
     const [fname,setfname]=useState(user.userDetails.first_name)
     const [lname,setlname]=useState(user.userDetails.last_name)
+    const [password,setPassword]=useState('')
     const [subconnName,setsunconnName]=useState(undefined)
     const style=user.editProfile
-    const handleSubmit=()=>{
+    const dispatch=useDispatch()
+    const handleSubmit=()=>{ 
         if(props.option==='user'){
             let data={
                 first_name:fname,
                 last_name:lname,
                 username:user.userDetails.username,
+                password:password
                 
             }
             axios.put('api/users/'+user.userDetails.id+'/',data)
         }
     }
+    const closeEditForm=()=>{
+        dispatch(toggleEditProfile('none'))
+    }
+    
 
     if(props.option==='user' ){
         return (
@@ -29,9 +38,23 @@ function EditProfile(props) {
             
                     <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/edit.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Edit Profile</h3>
                 </div>
-                <div className='close' ><i className='bx bx-x-circle' ></i></div>
-                <input type='text' value={fname} onChange={(e)=>setfname(e.target.value)}></input>
+                <div className='close' onClick={closeEditForm}><i className='bx bx-x-circle' ></i></div>
+
+                <div>
+                <div className='inputWrapper'>
+                    <input type='text' value={fname} onChange={(e)=>setfname(e.target.value)}></input>
+                    <label>First Name</label>
+                </div>
+                <div className='inputWrapper'>
                 <input type='text' value={lname} onChange={(e)=>setlname(e.target.value)}></input>
+                    <label>Last Name</label>
+                </div>
+               
+                
+
+                </div>
+            
+                <input type='password' onChange={(e)=>setPassword(e.target.value)} value={password}></input>
                 
                 
                 
@@ -43,7 +66,7 @@ function EditProfile(props) {
     )
         
 
-    }else if(props.option==='subconnProfile'){
+    }else {
         return(
             <div>
                 

@@ -19,7 +19,9 @@ const userSlice=createSlice({
     initialState,
     reducers:{
        
-        
+        toggle_edit_profile:(state,action)=>{
+            state.editProfile=action.payload
+        },
         fetch_user: (state,action)=>{
             state.userDetails=action.payload
         },
@@ -66,11 +68,15 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
+
+export const toggleEditProfile=(val)=>dispatch=>{
+    dispatch(toggle_edit_profile(val))
+}
 
 export const updateAuthKeyRegister=(data)=>dispatch=>{
     axios.post('rest-auth/registration/',data)

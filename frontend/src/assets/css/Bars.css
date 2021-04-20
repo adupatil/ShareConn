@@ -139,7 +139,7 @@ a i{
 }
 .searchBar:focus{
     width: 95%;
-    border:1px solid var(--primaryColor);
+    border:1px solid var(--inverseModeColor);
     transition: all 0.1s ease-in;
   
 }

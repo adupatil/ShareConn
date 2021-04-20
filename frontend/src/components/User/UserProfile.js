@@ -2,9 +2,10 @@ import React, { Fragment, useEffect, useState } from 'react';
 import PostList from '../Posts/PostList';
 import {useParams} from 'react-router';
 import { useSelector,useDispatch} from 'react-redux';
-import {incrementUserFollowing,decrementUserFollowing} from '../../features/user/userSlice'
+import {incrementUserFollowing,decrementUserFollowing,toggleEditProfile} from '../../features/user/userSlice'
 import axios from 'axios'
 import { NavLink } from 'react-router-dom';
+import EditProfile from '../Forms/EditProfile'
 
 
 
@@ -13,6 +14,7 @@ function UserProfile(props){
     const usersPosts=useSelector(state=>state.posts.user_posts)
     const uid=useParams().id
 // states
+    const [editProfile,seteditProfile]=useState('none')
     const [user,setUser]=useState(null)
     const [posts,setPosts]=useState(null)
     const dispatch=useDispatch()
@@ -23,9 +25,13 @@ function UserProfile(props){
     const handleUnfollow=()=>{
         dispatch(decrementUserFollowing(uid))
     }
+    const showEditForm=()=>{
+        console.log('cli')
+        dispatch(toggleEditProfile('flex'))
+    }
     const getFollowStatus=()=>{
         if(loggedInuser.userDetails.id===parseInt(uid)){
-            return(<div className='editProfileBtn' ><i className='bx bx-edit-alt'></i>Edit Profile</div>)
+            return(<div className='editProfileBtn' onClick={showEditForm}><i className='bx bx-edit-alt'></i>Edit Profile</div>)
         }else{
             if(loggedInuser.users_followed.includes(parseInt(uid))){
                 return(<div className='followingBtn' onClick={handleUnfollow}>Following</div>)
@@ -131,6 +137,7 @@ function UserProfile(props){
                 {posts!==null && <div className="userPostContainer">
                     <PostList postList={posts} uid={uid} userDetails={user.userDetails}></PostList>
                 </div>}
+                <EditProfile opt='user'></EditProfile>
     
         </Fragment>
             

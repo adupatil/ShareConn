@@ -104,7 +104,7 @@ useEffect(()=>{
                
             </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={true} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
-            <NavLink to={postType==='user'?'/u/posts/'+postDetail.id:'/s/posts/'+postDetail.id} option={postType} >
+            <NavLink to={{pathname:postType==='user'?'/u/posts/'+postDetail.id:'/s/posts/'+postDetail.id,postDetail:postDetail,postType:postType}} option={postType} >
                 <div className='post_container'>
                 <div className="post_text">{postDetail.post_title}</div>
                     <div className="post_area_container">
