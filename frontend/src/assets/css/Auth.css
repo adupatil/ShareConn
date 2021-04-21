@@ -1,4 +1,7 @@
 /* login */
+input{
+  outline: none;
+}
 .loginFormContainer {
   height: 100%;
   display: flex;
@@ -42,8 +45,8 @@
 .loginForm input[type="password"],
 .signupForm input[type="password"] {
   width: 100%;
-
-  color: darkslategray;
+ background-color: var(--modeColor);
+  color: var(--inverseModeColor);
   height: 2rem;
 
   border-radius: 3px;
@@ -68,7 +71,7 @@
   z-index: 3;
   transform: translateY(-8px);
   position: absolute;
-  background: white;
+  background-color: var(--modeColor);
   color: var(--primaryColor);
   font-size: small;
   top: 0px;

@@ -18,6 +18,7 @@ import {fetchUser,fetch_user_authDetails,fetchUserProfile} from '../features/use
 import {addNewPost} from '../features/posts/postSlice'
 import axios from 'axios';
 import SearchBar from './Bars/SearchBar';
+import NewSubconn from './Forms/NewSubconn'
 
 
 
@@ -64,6 +65,7 @@ const token=localStorage.getItem('token')
                 
                 <AddPost ></AddPost>
                 <EditProfile option='user'></EditProfile>
+                <NewSubconn></NewSubconn>
                
                 
             </div>

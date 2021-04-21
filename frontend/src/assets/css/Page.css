@@ -124,4 +124,20 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+.editProfileForm{
+    
+    top: 5rem;
+    
+    background-color: var(--modeColor);
+    color: var(--inverseModeColor);
+    
+    height: 26rem;
+    border-radius: 15px;
+    transition: display 0.5s linear;
+}
+.editProfileForm .close{
+    position: absolute;
+    right: 1rem;
+    top:1rem
+}
 

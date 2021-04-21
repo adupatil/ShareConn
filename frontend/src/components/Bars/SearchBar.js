@@ -1,12 +1,18 @@
 import React,{useState} from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SubConnAvatar from '../SubConn/SubConnAvatar'
+import {toggleSubconnForm} from '../../features/user/userSlice'
 
 
 
 function SearchBar() {
     const [search,setsearch]=useState(undefined)
     const options=useSelector(state=>state.user.subconns_admined);
+    const dispatch=useDispatch()
+
+    const showSubconnForm=()=>{
+        dispatch(toggleSubconnForm('flex'))
+    }
     
    
     return (
@@ -22,7 +28,7 @@ function SearchBar() {
                     
                     {options.map(opt=><SubConnAvatar option='followList' subconnProfile={opt}></SubConnAvatar>)}
                     <div className='createNewSubconn'>
-                        <div className='createSubconnbtn '>Create new SubConn</div>
+                        <div className='createSubconnbtn' onClick={showSubconnForm}>Create new SubConn</div>
                     </div>
                 </div>
            

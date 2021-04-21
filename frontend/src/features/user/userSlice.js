@@ -4,6 +4,7 @@ import {fetchSubconnsPosts, fetchUserPosts} from '../posts/postSlice'
 
 const initialState={
     editProfile:'none',
+    subconnForm:'none',
     userDetails:{},
     userAuthDetails:{},
     userProfile:{},
@@ -21,6 +22,9 @@ const userSlice=createSlice({
        
         toggle_edit_profile:(state,action)=>{
             state.editProfile=action.payload
+        },
+        toggle_subconn_form:(state,action)=>{
+            state.subconnForm=action.payload
         },
         fetch_user: (state,action)=>{
             state.userDetails=action.payload
@@ -53,6 +57,17 @@ const userSlice=createSlice({
         decrement_subconns_following:(state,action)=>{
             state.subconns_following.splice(state.subconns_following.indexOf(parseInt(action.payload)),1)
         },
+        edit_profile:(state,action)=>{
+            state.userDetails.first_name=action.payload.first_name;
+            state.userDetails.last_name=action.payload.first_name;
+            state.userProfile.user.first_name=action.payload.first_name;
+            state.userProfile.user.last_name=action.payload.last_name;
+
+        },
+        add_subconn:(state,action)=>{
+            state.subconns_admined.push(action.payload)
+            state.subconns_following.push(action.payload.id)
+        },
         
         logout_user:(state)=>{
             state.token=null
@@ -68,11 +83,15 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile,edit_profile,toggle_subconn_form,add_subconn}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
+export const toggleSubconnForm=(val)=>dispatch=>{
+    dispatch(toggle_subconn_form(val))
+}
+
 
 export const toggleEditProfile=(val)=>dispatch=>{
     dispatch(toggle_edit_profile(val))
@@ -270,6 +289,19 @@ export const fetchSubconnsFollowed=()=>(dispatch,getState)=>{
         
     })
 
+}
+
+export const editProfile=(editData)=>(dispatch,getState)=>{
+    axios.put('api/users/'+getState().user.userDetails.id+'/',editData)
+    .then(res=>{
+        console.log(res.data)
+        let data={
+            first_name:res.data.first_name,
+            last_name:res.data.last_name
+        }
+        dispatch(edit_profile(data))
+        
+    })
 }
 
 // ***Selectorrs***
