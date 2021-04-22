@@ -1,9 +1,11 @@
 import React from 'react'
 import '../../assets/css/Auth.css'
 import '../../assets/css/responsive.css'
+import { NavLink, Redirect } from 'react-router-dom';
+
 
 function ForgotPasswordResetConfirm() {
-    return (
+    
 
         // const handlePassword=(e)=>{
         //     let val = e.target.value
@@ -27,8 +29,14 @@ function ForgotPasswordResetConfirm() {
         //         setconfirmpassword(e.target.value)
         //     }
     
+
         // }
 
+        const submitHandler=(e)=>{
+            return(<Redirect to='/login'></Redirect>)
+        }
+
+        return (
         <div className='loginFormContainer'>
             <div className='loginImgConatiner'>
                 <img  alt='loginsvg'  src={process.env.PUBLIC_URL + '/assets/img/reset.svg'}></img>
@@ -38,16 +46,16 @@ function ForgotPasswordResetConfirm() {
                 
                 <div className='inputWrapper'>
                    
-                    <input id="password" type='text' placeholder="Password"></input>
+                    <input id="password" type='password' placeholder="Password"></input>
                     <label for="password" >Password</label>
                 </div>
 
                 <div className='inputWrapper'>
                    
-                    <input id="confirm password" type='text' placeholder="Confirm password"></input>
+                    <input id="confirm password" type='password' placeholder="Confirm password"></input>
                     <label for="confirm password" >Confirm Password</label>
                 </div>
-                <input type="submit" className='loginBtn'></input>
+                <input type="submit" onClick={e=>submitHandler(e)} className='loginBtn'></input>
             </form>
             
                 

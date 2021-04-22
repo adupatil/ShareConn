@@ -32,8 +32,8 @@ class UserProfile(models.Model):
             img1.thumbnail(output_size)
             img1.save(self.profile_pic.path)
 
-    if img2.height > 312 or img2.width > 820:
-            output_size = (312, 820)
+    if img2.height > 720 or img2.width > 1080:
+            output_size = (720, 1080)
             img2.thumbnail(output_size)
             img2.save(self.cover_pic.path)
 
