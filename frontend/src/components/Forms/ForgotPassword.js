@@ -3,38 +3,30 @@ import { withRouter } from 'react-router'
 import '../../assets/css/Auth.css'
 import '../../assets/css/responsive.css'
 import { NavLink, Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 function ForgotPassword() {
     const [email,setemail]=useState(undefined)
 
-    // const handleEmail=(e)=>{
-    //     let val = e.target.value
-    //     const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    //     if(!re.test(val)){
-    //         alert("Enter a valid email")
-    //     }
-    //     else{
-    //         setemail(e.target.value)
-    //     }
+    const handleEmail=(e)=>{
+        let val = e.target.value
+        const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        if(!re.test(val)){
+            alert("Enter a valid email")
+        }
+        else{
+            setemail(e.target.value)
+        }
 
-    // }
-    // const handleSubmit=()=>{
-        
-    //         const re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    //         if(!re.test(val)){
-    //             alert("Enter a valid email")
-    //         }else{
-    //             console.log(email)
-    //         //    axios.post('url',{email:email})
-    //         //    .then(res=>{
-    //         //        return(<Redirect to='/'></Redirect>)
-    //         //    }) 
-    //         }
-    // }
-
-    const submitHandler=(e)=>{
-        alert("Email has been sent")
     }
+    const handleSubmit=(e)=>{
+        
+            axios.post('rest-auth/password/reset/',{email:email})
+            .then(res=>{
+                return(<Redirect to='/forgotpasswordresetconfirm'></Redirect>)
+               }) 
+            }
+
 
     return (
         <div className='loginFormContainer'>
@@ -46,10 +38,10 @@ function ForgotPassword() {
                 
                 <div className='inputWrapper'>
                    
-                    <input id="email" type='text' onChange={(e)=>setemail(e.target.value)}></input>
+                    <input id="email" type='text' onChange={(e)=>handleEmail(e)}></input>
                     <label for="email" >E-mail</label>
                 </div>
-                <input type="submit"  onClick={e=>submitHandler(e)} className='loginBtn'></input>
+                <input type="submit"  onClick={e=>handleSubmit(e)} className='loginBtn'></input>
             </form>
             <NavLink to="/forgotpasswordresetconfirm" style={{color:'white'}}>Reset Confirm</NavLink>
         </div>    )
