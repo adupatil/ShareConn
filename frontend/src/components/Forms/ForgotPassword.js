@@ -22,9 +22,10 @@ function ForgotPassword() {
     const handleSubmit=(e)=>{
         
             axios.post('rest-auth/password/reset/',{email:email})
-            .then(res=>{
-                return(<Redirect to='/forgotpasswordresetconfirm'></Redirect>)
-               }) 
+            alert("Email has been sent with token for password reset")
+            // .then(res=>{
+            //     
+            //    }) 
             }
 
 
