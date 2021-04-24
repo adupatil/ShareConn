@@ -8,7 +8,8 @@ import axios from 'axios';
 function ForgotPasswordResetConfirm() {
     const [password,setpassword]=useState(undefined)
     const [confirmpassword,setconfirmpassword]=useState(undefined)
-    const [token,setToken]=useState(undefined);
+    const [token,setToken]=useState(undefined)
+    const [uid,setuid]=useState(undefined)
 
         const handlePassword=(e)=>{
             let val = e.target.value
@@ -34,7 +35,17 @@ function ForgotPasswordResetConfirm() {
     }
 
         const submitHandler=(e)=>{
-            axios.post('rest-auth/password/reset/confirm/',{new_password1:password,new_password2:confirmpassword,uid:"NA",token:token})
+
+            setuid("NA")
+            let obj = new FormData()
+
+            obj.append('new_password1',password)
+            obj.append('new_password2',confirmpassword)
+            obj.append('uid',uid)
+            obj.append('token',token)
+            console.log(obj)
+
+            axios.post('rest-auth/password/reset/confirm/',obj,{headers:{'Content-Type':'multipart/form-data'}})
             .then(res=>{
                 return(<Redirect to='/login'></Redirect>)
                }) 
