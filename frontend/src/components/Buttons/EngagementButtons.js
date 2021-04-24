@@ -10,16 +10,32 @@ function LikeBtn(props){
     const [liked,setLiked]=useState(false)
     const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
     const post_id=props.postDetail.id;
+    let postType=('subconn' in props.postDetail)?'subconn':'user'
     useEffect(() => {
-        axios.get('api/posts_likes/')
-        .then(res=>{
-          
-            let liked=res.data.filter(el=>(el.user_id==loggedInUserID&& el.post_id==post_id))
-         
-            if(liked.length!==0){
-                setLiked(true)
-            }
-        })
+        if(postType==='user'){
+            axios.get('api/posts_likes/')
+            .then(res=>{
+            
+                let liked=res.data.filter(el=>(el.user_id==loggedInUserID&& el.post_id==post_id))
+            
+                if(liked.length!==0){
+                    setLiked(true)
+                }
+            })
+
+        }else{
+            axios.get('api/subconns_likes/')
+            .then(res=>{
+            
+                let liked=res.data.filter(el=>(el.user==loggedInUserID&& el.post==post_id))
+            
+                if(liked.length!==0){
+                    setLiked(true)
+                }
+            })
+
+        }
+        
     }, [])
     
     

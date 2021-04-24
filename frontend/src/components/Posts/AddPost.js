@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewPost,addUserPost } from '../../features/posts/postSlice';
+import { addNewPost,addUserPost,addSubconnPost} from '../../features/posts/postSlice';
 import axios from 'axios';
 
 
@@ -12,6 +12,7 @@ function AddPost() {
     const dispatch=useDispatch()
     // states
     const [followingSubconnDets,setfds]=useState([<option defaultChecked >Post under</option>,<option value='user'>Self</option>])
+    const [source,setsource]=useState(undefined)
     const [post_title,setpost_title]=useState('')
     const [post_type,setpost_type]=useState('')
     const [category,setcategory]=useState('')
@@ -20,7 +21,7 @@ function AddPost() {
     
     useEffect(()=>{
         subconns_following.forEach(subconn=>{
-            console.log('subcponnnnn')
+           
             axios.get('api/subconns/'+subconn+'/')
             .then(res=>{
                 console.log(res.data)
@@ -47,14 +48,22 @@ function AddPost() {
        
         obj.append('post_title',post_title)
         obj.append('category',category)
-        obj.append('user_id',userDetails.id)
+       
         if(post_type!==''){
             obj.append('post_type',post_type)
         }
       
        
         console.log(obj)
-        dispatch(addUserPost(obj))
+        if(source==='user'){
+            obj.append('user_id',userDetails.id)
+            dispatch(addUserPost(obj))
+        }else{
+            obj.append('user',userDetails.id)
+            obj.append('subconn',source)
+            dispatch(addSubconnPost(obj))
+        }
+        
         
         setpost_title('')
         setpost_type('')
@@ -73,13 +82,14 @@ function AddPost() {
         <div className="addPostFormContainer" style={{display:postStyle}}>
             
             <form className='addPostForm' encType="multipart/form-data" onSubmit={submitForm} method="POST">
-            <div style={{display:'flex',alignItems:'center'}}>
-           
-                <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/add_post_gree.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Add Post</h3>
-            </div>
+                <div style={{display:'flex',alignItems:'center'}}>
+            
+                    <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/add_post_gree.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Add Post</h3>
+                </div>
                 <div className='close' onClick={hide}><i className='bx bx-x-circle' ></i></div>
-                <select>
-                        {followingSubconnDets}
+
+                <select onChange={(e)=>setsource(e.target.value)}>
+                    {followingSubconnDets}
                 </select>
                 <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
                     

@@ -60,25 +60,50 @@ useEffect(()=>{
 
  const handleSetLikes=(no)=>{
      if(no===-1){
-       
-        axios.get('api/posts_likes/')
-         .then(res=>{
-            let liked=res.data.filter(el=>el.user_id===parseInt(loggedInuser.id) && el.post_id===parseInt(postDetail.id))
-            if(liked.length===1){
-                axios.delete('api/posts_likes/'+liked[0].id+'/')
-                .then(res=>{
-                    dispatch(decrement_post_likes({option:postType==='user'?'user_posts':'followed_posts',post_id:postDetail.id}))
-                    setlikes(prev=>prev-1)})
-            }
-            })
+        if(postType==='user'){
+            axios.get('api/posts_likes/')
+            .then(res=>{
+                let liked=res.data.filter(el=>el.user_id===parseInt(loggedInuser.id) && el.post_id===parseInt(postDetail.id))
+                if(liked.length===1){
+                    axios.delete('api/posts_likes/'+liked[0].id+'/')
+                    .then(res=>{
+                        dispatch(decrement_post_likes({option:'user_posts',post_id:postDetail.id}))
+                        setlikes(prev=>prev-1)})
+                }
+                })
+
+        }else{
+            axios.get('api/subconns_likes/')
+            .then(res=>{
+                let liked=res.data.filter(el=>el.user===parseInt(loggedInuser.id) && el.post===parseInt(postDetail.id))
+                if(liked.length===1){
+                    axios.delete('api/subconns_likes/'+liked[0].id+'/')
+                    .then(res=>{
+                        dispatch(decrement_post_likes({option:'followed_posts',post_id:postDetail.id}))
+                        setlikes(prev=>prev-1)})
+                }
+                })
+
+        }
+        
        
      }else{
   
-        
-         axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
-         .then(data=>{
-             dispatch(increment_post_likes({option:postType==='user'?loggedInuser.id===postDetail.user_id?'user_posts':'followed_posts':'',post_id:postDetail.id}))
-             setlikes(prev=>prev+1)})
+        if(postType==='user'){
+            axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
+            .then(data=>{
+                dispatch(increment_post_likes({option:'user_posts',post_id:postDetail.id}))
+                setlikes(prev=>prev+1)
+            })
+
+        }else{
+            axios.post('api/subconns_likes/',{'post':parseInt(postDetail.id),'user':parseInt(loggedInuser.id)})
+            .then(data=>{
+                dispatch(increment_post_likes({option:'followed_posts',post_id:postDetail.id}))
+                setlikes(prev=>prev+1)
+            })
+        }
+         
      }
  }
    

@@ -11,7 +11,8 @@ const initialState={
     users_following:[],
     users_followed:[],
     subconns_following:[],
-    subconns_admined:[]
+    subconns_admined:[],
+    randomUsers:[]
    
 }
 
@@ -68,6 +69,9 @@ const userSlice=createSlice({
             state.subconns_admined.push(action.payload)
             state.subconns_following.push(action.payload.id)
         },
+        add_random_users:(state,action)=>{
+            state.randomUsers.push(...action.payload)
+        },
         
         logout_user:(state)=>{
             state.token=null
@@ -83,13 +87,29 @@ const userSlice=createSlice({
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile,edit_profile,toggle_subconn_form,add_subconn}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile,edit_profile,toggle_subconn_form,add_subconn,add_random_users}=userSlice.actions
 export default userSlice.reducer
 
 
 // ****async action functions****
 export const toggleSubconnForm=(val)=>dispatch=>{
     dispatch(toggle_subconn_form(val))
+}
+export const fetchRandomUsers=()=>(dispatch,getState)=>{
+    let randomUser=[]
+    axios.get('api/users/')
+    .then(res=>{
+        res.data.forEach(user=>{
+            if(!(user.id in getState().users_followed) && getState().randomUsers.length<10){
+                randomUser.push(user)
+            }if(getState().randomUsers.length===10){
+                return;
+            }
+        })
+        dispatch(add_random_users(randomUser))
+        
+    })
+       
 }
 
 
@@ -148,6 +168,7 @@ export const fetchUserProfile=(uid)=>(dispatch,getState)=>{
 export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
     let users_following=[]
     let users_followed=[]
+    
 
     axios.get('api/users_follow/')
     .then(res=>{
