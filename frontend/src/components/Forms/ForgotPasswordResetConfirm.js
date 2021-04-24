@@ -8,8 +8,8 @@ import axios from 'axios';
 function ForgotPasswordResetConfirm() {
     const [password,setpassword]=useState('')
     const [confirmpassword,setconfirmpassword]=useState('')
-    const [token,setToken]=useState('')
-    const [uid,setuid]=useState('')
+    const [token1,setToken]=useState('')
+    const [uid,setuid]=useState('NA')
 
         const handlePassword=(e)=>{
             let val = e.target.value
@@ -34,22 +34,22 @@ function ForgotPasswordResetConfirm() {
             else{
                 console.log(e.target.value)
                 setconfirmpassword(e.target.value)
+                console.log(confirmpassword)
             }
             console.log(confirmpassword)
     }
 
         const submitForm=(e)=>{
-            e.preventDefault()
-            setuid("NA")
-            let obj = new FormData()
-            
-            obj.append('new_password1',password)
-            obj.append('new_password2',confirmpassword)
-            obj.append('uid',uid)
-            obj.append('token',token)
-            console.log(obj)
+            // e.preventDefault()
+            // let obj = new FormData()
+            // obj.append('new_password1',password)
+            // obj.append('new_password2',confirmpassword)
+            // obj.append('uid',uid)
+            // obj.append('token',token1)
+            // console.log(obj)
 
-            axios.post('rest-auth/password/reset/confirm/',obj,{headers:{'Content-Type':'multipart/form-data'}})
+            axios.post('rest-auth/password/reset/confirm/',{new_password1:password,new_password2:confirmpassword
+            ,uid:uid,token:token1})
             .then(res=>{
                 return(<Redirect to='/login'></Redirect>)
                }) 
@@ -60,7 +60,7 @@ function ForgotPasswordResetConfirm() {
             <div className='loginImgConatiner'>
                 <img  alt='loginsvg'  src={process.env.PUBLIC_URL + '/assets/img/reset.svg'}></img>
             </div>
-            <form className="loginForm" encType="multipart/form-data" onSubmit={(e)=>submitForm(e)} method="POST">
+            <form className="loginForm" encType="multipart/form-data">
                 <h4 style={{marginBottom:'0.2rem'}}>Confirm Reset Password?</h4>
                 
                 <div className='inputWrapper'>
@@ -81,7 +81,7 @@ function ForgotPasswordResetConfirm() {
                     <label for="token" >Token</label>
                 </div>
 
-                <input type="submit"  className='loginBtn'></input>
+                <input type="submit" onClick={e=>submitForm(e)} className='loginBtn'></input>
             </form>
             
                 
