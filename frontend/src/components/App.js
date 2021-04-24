@@ -14,7 +14,7 @@ import { Redirect } from 'react-router';
 
 // redux
 import {useDispatch,useSelector} from 'react-redux';
-import {fetchUser,fetch_user_authDetails,fetchUserProfile} from '../features/user/userSlice';
+import {fetchUser,fetch_user_authDetails,fetchUserProfile, fetchRandomUsers} from '../features/user/userSlice';
 import {addNewPost} from '../features/posts/postSlice'
 import axios from 'axios';
 import SearchBar from './Bars/SearchBar';
@@ -41,8 +41,10 @@ const token=localStorage.getItem('token')
 
 
     useEffect(()=>{
+    
         dispatch(fetchUser(loggedInUserID))
         dispatch(fetchUserProfile(loggedInUserID))
+     
     },[loggedInUserID])
     const showPost=()=>{
         dispatch(addNewPost('flex'))
