@@ -5,7 +5,7 @@ import EngagementBar from '../Bars/EngagementBar'
 import UserAvatar from '../User/UserAvatar'
 import axios from 'axios'
 import SubConnAvatar from '../SubConn/SubConnAvatar';
-import {increment_post_likes,decrement_post_likes} from '../../features/posts/postSlice'
+import {increment_post_likes,decrement_post_likes, delete_post} from '../../features/posts/postSlice'
 import { NavLink, Redirect } from 'react-router-dom';
 
 function Post({postDetail,postType,userDetails}){
@@ -113,6 +113,26 @@ console.log(postType)
      )
  }
     
+ const deletePost=()=>{
+     if(postType==='user'){
+         axios.delete('api/posts/'+postDetail.id+'/')
+         .then(res=>{
+             console.log(res.data)
+             if(loggedInuser.id===postDetail.user_id){
+                 dispatch(delete_post({option:'user_posts',post_id:postDetail.id}))
+             }else{
+                dispatch(delete_post({option:'followed_posts',post_id:postDetail.id}))
+             }
+         })
+     }else{
+        axios.delete('api/subconns_posts/'+postDetail.id+'/')
+        .then(res=>{
+            
+               dispatch(delete_post({option:'followed_posts',post_id:postDetail.id}))
+            
+        })
+     }
+ }
 
 
 
@@ -123,11 +143,11 @@ console.log(postType)
     return(
      
         <div className='post' onClick={redirect}>
-           {postType==='user'? <UserAvatar user={postsUser}  withEdit={true}>
+           {postType==='user'? <UserAvatar user={postsUser}  withEdit={loggedInuser.id===postDetail.user_id} deletePost={deletePost}>
                 
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
                
-            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={true} >
+            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={loggedInuser.id===postDetail.id} deletePost={deletePost} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
             <NavLink to={{pathname:postType==='user'?'/u/posts/'+postDetail.id:'/s/posts/'+postDetail.id,postDetail:postDetail,postType:postType}} option={postType} >
                 <div className='post_container'>

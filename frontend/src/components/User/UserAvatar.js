@@ -9,18 +9,21 @@ function UserAvatar(props){
     const handleeditBox=()=>{
         seteditBox(prev=>!prev)
     }
-    const getEditBox=()=>{
-        if(props.withEdit===true){
-            return(
-                <div className="editBox">
-                    <div><i class='bx bx-edit'></i> Edit</div>
-                    <div style={{color:'red'}}><i class='bx bx-trash' ></i>Delete</div>
+    // const getEditBox=()=>{
+    //     if(props.withEdit===true){
+    //         return(
+    //             <div className="editBox">
+    //                 <div><i class='bx bx-edit'></i> Edit</div>
+    //                 <div style={{color:'red'}}><i class='bx bx-trash' ></i>Delete</div>
                     
-                </div>
-            )
-        }else{
-            return(<div></div>)
-        }
+    //             </div>
+    //         )
+    //     }else{
+    //         return(<div></div>)
+    //     }
+    // }
+    const deletePostReq=()=>{
+        props.deletePost()
     }
    
 
@@ -36,9 +39,10 @@ function UserAvatar(props){
                         {props.children && props.children}
                     </div>
                 </div>
-                {props.withEdit && <div style={{marginLeft:'auto',cursor:'pointer',marginTop:'auto',marginBottom:'auto'}} onClick={()=>handleeditBox()}>
-                    <i className='bx bx-dots-vertical-rounded' style={{fontSize:'21px'}}></i>
-                    {editBox && getEditBox()}
+                {props.withEdit && <div style={{marginLeft:'auto',cursor:'pointer',marginTop:'auto',marginBottom:'auto'}} onClick={deletePostReq}>
+                    {/* <i className='bx bx-dots-vertical-rounded' style={{fontSize:'21px'}}></i> */}
+                    Delete
+                    {/* {editBox && getEditBox()} */}
                 </div>}
                 
             </div>

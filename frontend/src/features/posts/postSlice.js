@@ -36,11 +36,19 @@ const postSlice=createSlice({
            gotPost.num_likes+=1
         },
         decrement_post_likes:(state,action)=>{
-            console.log(action.payload)
+       
             const {option,post_id}=action.payload
            const gotPost= state[option].find(post=>post.id===post_id)
            console.log(gotPost)
            gotPost.num_likes-=1
+        },
+        delete_post:(state,action)=>{
+            console.log(action.payload)
+            const {option,post_id}=action.payload
+            state[option]= state[option].filter(post=>post.id!==post_id)
+          
+       
+
         },
         get_comments:(state)=>{
             state=state
@@ -59,7 +67,7 @@ const postSlice=createSlice({
 
     }
 })
-export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user,add_user_posts,add_followed_posts}=postSlice.actions
+export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user,add_user_posts,add_followed_posts,delete_post}=postSlice.actions
 export default postSlice.reducer
 
 export const addNewPost=(val)=>dispatch=>{
