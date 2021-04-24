@@ -100,9 +100,9 @@ export const fetchRandomUsers=()=>(dispatch,getState)=>{
     axios.get('api/users/')
     .then(res=>{
         res.data.forEach(user=>{
-            if(!(user.id in getState().users_followed) && getState().randomUsers.length<10){
+            if(!(getState().user.users_followed.includes(user.id)) && randomUser.length<5 &&(user.id!==getState().user.userDetails.id)){
                 randomUser.push(user)
-            }if(getState().randomUsers.length===10){
+            }if(randomUser.length===5){
                 return;
             }
         })
@@ -185,6 +185,7 @@ export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
     
          dispatch(fetch_users_following({users_following:users_following,users_followed:users_followed}))
          dispatch(fetchUserPosts(uid))
+         dispatch(fetchRandomUsers())
         
        
     })

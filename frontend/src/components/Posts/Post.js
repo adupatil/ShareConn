@@ -57,7 +57,7 @@ useEffect(()=>{
     }
     
  },[postDetail])
-
+console.log(postType)
  const handleSetLikes=(no)=>{
      if(no===-1){
         if(postType==='user'){
@@ -67,7 +67,7 @@ useEffect(()=>{
                 if(liked.length===1){
                     axios.delete('api/posts_likes/'+liked[0].id+'/')
                     .then(res=>{
-                        dispatch(decrement_post_likes({option:'user_posts',post_id:postDetail.id}))
+                        dispatch(decrement_post_likes({option:postDetail.id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
                         setlikes(prev=>prev-1)})
                 }
                 })
@@ -92,7 +92,7 @@ useEffect(()=>{
         if(postType==='user'){
             axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
             .then(data=>{
-                dispatch(increment_post_likes({option:'user_posts',post_id:postDetail.id}))
+                dispatch(increment_post_likes({option:postDetail.id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
                 setlikes(prev=>prev+1)
             })
 
