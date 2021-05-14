@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import UserAvatar from '../User/UserAvatar'
+import Post from './Post'
 
 
 
@@ -24,13 +26,65 @@ function CommentList({postID,userDetail,postType}) {
     const [newComment,setnewComment]=useState({userDetail:loggedInuser,text:''})
     const [allComments,setallComments]=useState([])
     // fetch comments for a post 
+    useEffect(()=>{
+        if(postType==='user'){
+            axios.get('api/posts_comments/')
+            .then(res=>{
+                console.log(res.data)
+                let thisPostsComments=res.data.filter(comment=>comment.post_id===parseInt(postID))
+           
+                thisPostsComments.forEach(comment=>{
+                    console.log(comment)
+                    if(comment.user_id===loggedInuser.id){
+                        setallComments(prev=>[...prev,{userDetail:loggedInuser,text:comment.comment}])
+                    }else{
+                        axios.get('api/users_profile/'+comment.user_id+'/')
+                        .then(res=>{
+                            setallComments(prev=>[...prev,{userDetail:res.data,text:comment.comment}])
+                        })
+                    }
+                })
+            })
+        }else{
+            axios.get('api/subconns_comments/')
+            .then(res=>{
+                console.log(res.data)
+                let thisPostsComments=res.data.filter(comment=>comment.post===parseInt(postID))
+           
+                thisPostsComments.forEach(comment=>{
+                    console.log(comment)
+                    if(comment.user===loggedInuser.id){
+                        setallComments(prev=>[...prev,{userDetail:loggedInuser,text:comment.comment}])
+                    }else{
+                        axios.get('api/users_profile/'+comment.user+'/')
+                        .then(res=>{
+                            setallComments(prev=>[...prev,{userDetail:res.data,text:comment.comment}])
+                        })
+                    }
+                })
+            })
+        }
+    },[])
 
 
     const addNewComment=()=>{
         // api call
-        if(newComment.text!==''){
-            setallComments(prev=>[...prev,newComment])
+        if(postType==='user' && newComment.text!==''){
+            axios.post('api/posts_comments/',{user_id:loggedInuser.id,post_id:postID,comment:newComment.text})
+            .then(res=>{
+                console.log(res.data)
+                setallComments(prev=>[...prev,newComment])
+            })
+        }else if(postType==='subconn' && newComment.text!==''){
+            axios.post('api/subconns_comments/',{user:loggedInuser.id,post:postID,comment:newComment.text})
+            .then(res=>{
+                console.log(res.data)
+                setallComments(prev=>[...prev,newComment])
+            })
         }
+        
+          
+       
         
         setnewComment(prev=>({...prev,text:''}))
     }

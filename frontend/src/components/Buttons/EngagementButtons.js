@@ -3,6 +3,7 @@ import '../../assets/css/Buttons.css'
 import {useSelector} from 'react-redux';
 
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 function LikeBtn(props){
     // how tocheck if someone has like dour post 
@@ -74,10 +75,13 @@ function CommentBtn(props){
     const post_id=props.postDetail.id;
  
     const post=useSelector(state=> state.posts.user_posts.find(p=>p.id===post_id))
+    const showFull=()=>{
+        <Redirect to='/s/posts/1'></Redirect>
+    }
     
     return(
   
-            <div className='comment_btn'  >
+            <div className='comment_btn' onClick={showFull} >
                 <i className='bx bx-comment ' ></i>
             </div>
             

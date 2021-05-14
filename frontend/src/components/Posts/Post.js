@@ -169,7 +169,7 @@ console.log(postType)
 
             </NavLink>
            
-            <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no)}></EngagementBar>
+            <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no) }></EngagementBar>
             
         </div>
      
