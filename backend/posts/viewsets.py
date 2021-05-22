@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters, generics
 from .serializers import PostSerializer,LikeSerializer,CommentSerializer
 from .models import Post,Like,Comment
 from rest_framework.permissions import IsAuthenticated
@@ -17,3 +17,10 @@ class CommentViewset(viewsets.ModelViewSet):
     permission_classes=[IsAuthenticated]
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class SearchPostView(generics.ListAPIView):
+    queryset = Post.objects.all()
+    permission_classes=[IsAuthenticated]
+    serializer_class = PostSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ('num_likes')

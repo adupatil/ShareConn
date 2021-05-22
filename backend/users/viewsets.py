@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, filters, generics
 from .serializers import UserSerializer,UserFollowSerializer,UserProfileSerializer, UserProfileReadOnlySerializer
 from .models import User, UserProfile, UserFollow
 from rest_framework import authentication
@@ -22,7 +22,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 
     permission_classes=[IsAuthenticated]
     queryset = UserProfile.objects.all()
-    
+     
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -35,3 +35,10 @@ class LogoutExView(LogoutView):
 
 class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
+
+class SearchUserView(generics.ListAPIView):
+    queryset = User.objects.all()
+    permission_classes=[IsAuthenticated]
+    serializer_class = UserSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ('username','email')

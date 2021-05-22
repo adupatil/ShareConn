@@ -23,6 +23,7 @@ class UserProfile(models.Model):
   cover_pic = models.ImageField(default='default.jpg',upload_to=User_Directory_C)
   #num_subconns = models.PositiveIntegerField(default=0)
   
+  
   def save(self, *args, **kwargs):
     super().save(*args,**kwargs)
     img1 = Image.open(self.profile_pic.path)

@@ -1,4 +1,4 @@
-from .viewsets import UserViewSet,UserFollowViewSet,UserProfileViewSet,LogoutExView, FacebookLogin
+from .viewsets import UserViewSet,UserFollowViewSet,UserProfileViewSet,LogoutExView, FacebookLogin, SearchUserView
 from rest_framework import routers
 from django.urls import path, include
 from django.conf.urls import url 
@@ -14,7 +14,9 @@ urlpatterns = [
     path('rest-auth/logout',LogoutExView.as_view(),name='rest-logout'),
     url(r'^rest-auth/facebook/$', FacebookLogin.as_view(), name='fb_login'),
     path('fb/', TemplateView.as_view(template_name="fb.html")),
+    path('search_users',SearchUserView.as_view(),name='searchposts'),
 ]
 
 
 #router.urls
+

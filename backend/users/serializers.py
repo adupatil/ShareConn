@@ -26,6 +26,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
         # depth = 1
 
+
 class CustomPasswordResetSerializer(PasswordResetSerializer):
     def get_email_options(self):
         return {

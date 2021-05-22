@@ -5,7 +5,7 @@ from django.db.models import F
 
 def User_Directory(instance,image):
     return "posts/{}/{}".format(instance.user_id.username, image)
-
+ 
 class Post(models.Model):
     # post_id= models.AutoField()
     post_title= models.TextField(max_length=500)
