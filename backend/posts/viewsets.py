@@ -22,5 +22,6 @@ class SearchPostView(generics.ListAPIView):
     queryset = Post.objects.all()
     permission_classes=[IsAuthenticated]
     serializer_class = PostSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ('post_title')
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['post_title']
+

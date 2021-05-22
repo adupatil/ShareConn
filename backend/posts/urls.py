@@ -11,6 +11,7 @@ router.register('api/posts_comments',CommentViewset)
 urlpatterns = [
     path('', include(router.urls)),
     path('search_posts',SearchPostView.as_view(),name='searchposts'),
+    
 ]
 
 

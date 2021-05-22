@@ -1,4 +1,4 @@
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, filters, generics
 from .serializers import (SubconnSerializer,SubconnFollowerSerializer,SubconnPostSerializer,
                         SubconnCommentSerializer,SubconnLikeSerializer)
 from .models import Subconn, SubconnFollower, SubconnPost,SubconnLike,SubconnComment
@@ -33,3 +33,10 @@ class SubconnCommentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = SubconnComment.objects.all()
     serializer_class = SubconnCommentSerializer
+
+class SearchSubconnView(generics.ListAPIView):
+    queryset = Subconn.objects.all()
+    permission_classes=[IsAuthenticated]
+    serializer_class = SubconnSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['subconn_name']

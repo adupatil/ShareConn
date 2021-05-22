@@ -40,5 +40,5 @@ class SearchUserView(generics.ListAPIView):
     queryset = User.objects.all()
     permission_classes=[IsAuthenticated]
     serializer_class = UserSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ('username','email')
