@@ -8,7 +8,7 @@ import UserAvatar from '../User/UserAvatar';
 
 
 function SearchBar() {
-    const [search,setsearch]=useState(undefined)
+ 
     
     const randomUsers=useSelector(state=>state.user.randomUsers);
     const randomSubconns=useSelector(state=>state.user.randomSubconns)
@@ -52,7 +52,7 @@ function SearchBar() {
         <div className='rightSideBar'>
             <div className="searchBarContainer">
             
-                <input type='text' placeholder="Search" className="searchBar" onChange={(e)=>setsearch(e.target.value)}></input>
+                
                 <div className="randomUser" style={{padding:'1rem',paddingTop:'0px'}}>
                     <p>Users you may follow</p>
                     {rUserProfiles.map((user,i)=>(<UserAvatar user={user} withEdit={false}></UserAvatar>))}

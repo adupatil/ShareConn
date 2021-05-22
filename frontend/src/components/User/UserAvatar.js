@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom'
 import { useSelector } from 'react-redux';
 // props will get Username USer Profile pic.
 function UserAvatar(props){
-    const [editBox,seteditBox]=useState(false)
+  
 
    
     
