@@ -8,6 +8,7 @@ import FullPost from '../Posts/FullPost'
 import Following from '../FollowList/Following'
 import ChangePassword from '../Forms/ChangePassword'
 import Follower from '../FollowList/Follower';
+import SearchList from '../SearchList'
 
 
 
@@ -21,6 +22,7 @@ const PageRoutes=()=>(
         <Route path='/s/posts/:id' exact render={(props) => <FullPost option="subconn"></FullPost>}></Route>
         <Route path='/u/following/:id' exact component={Following}></Route>
         <Route path='/u/follower/:id' exact component={Follower}></Route>
+        <Route path='/search/' component={SearchList}></Route>
         <Route  path='/settings' exact component={Settings}></Route>
         <Route path='/changePassword' exact component={ChangePassword}></Route>
         

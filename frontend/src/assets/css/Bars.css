@@ -128,19 +128,21 @@ a i{
 }
 .searchBar{
     
-    width:90%;
+    width: 70%;
     padding-left: 0.5rem;
     height: 2rem;
     border-radius: 25px;
     background-color: var(--modeColor);
-    border:1px solid gray;
+    border: 1px solid gray;
     outline: none;
-    color:var(--inverseModeColor)
+    margin-right: 6rem;
+    margin-left: 3rem;
+    color: var(--inverseModeColor)
 }
 .searchBar:focus{
-    width: 95%;
+    width: 80%;
     border:1px solid var(--inverseModeColor);
-    transition: all 0.1s ease-in;
+    transition: all 0.3s ease-in;
   
 }
 .adminedSubconns{
@@ -182,4 +184,13 @@ a i{
 .adminedSubconns .user_avatar .user_profile_pic{
     height: 2rem;
     width: 2rem;
+}
+
+.searchList{
+    width: 33%;
+    position: absolute;
+    left: 29.5%;
+    border: 1px solid gray;
+    background: var(--modeColor);
+    padding: 1rem;
 }

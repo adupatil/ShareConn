@@ -37,8 +37,8 @@ class FacebookLogin(SocialLoginView):
     adapter_class = FacebookOAuth2Adapter
 
 class SearchUserView(generics.ListAPIView):
-    queryset = User.objects.all()
+    queryset = UserProfile.objects.all()
     permission_classes=[IsAuthenticated]
-    serializer_class = UserSerializer
+    serializer_class = UserProfileReadOnlySerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ('username','email')
+    search_fields = ['user__username']
