@@ -23,4 +23,4 @@ class SearchPostView(generics.ListAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = PostSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ('num_likes')
+    search_fields = ('post_title')
