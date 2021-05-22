@@ -9,28 +9,41 @@ import UserAvatar from '../User/UserAvatar';
 
 function SearchBar() {
     const [search,setsearch]=useState(undefined)
-    const options=useSelector(state=>state.user.subconns_admined);
-    const randomUsers=useSelector(state=>state.user.randomUsers)
+    
+    const randomUsers=useSelector(state=>state.user.randomUsers);
+    const randomSubconns=useSelector(state=>state.user.randomSubconns)
     const dispatch=useDispatch()
     // states
     const [rUserProfiles,setrUserProfiles]=useState([])
+    const [rSubconnProfiles,setrSubconnProfiles]=useState([])
 
 
-    const showSubconnForm=()=>{
-        dispatch(toggleSubconnForm('flex'))
-    }
+    
     useEffect(()=>{
-        console.log('in')
         
+        setrUserProfiles([])
+        console.log(rUserProfiles)
         randomUsers.forEach(user=>{
+
             axios.get('api/users_profile/'+user.id+'/')
             .then(res=>{
+           
                 setrUserProfiles(prev=>[...prev,res.data])
                 
+                
             })
+            
         })
        
     },[randomUsers])
+    
+    useEffect(()=>{
+        setrSubconnProfiles([])
+        setrSubconnProfiles(randomSubconns)
+        
+        
+       
+    },[randomSubconns])
     
     
     
@@ -44,19 +57,13 @@ function SearchBar() {
                     <p>Users you may follow</p>
                     {rUserProfiles.map((user,i)=>(<UserAvatar user={user} withEdit={false}></UserAvatar>))}
                 </div>
+                <div className="randomUser" style={{padding:'1rem',paddingTop:'0px'}}>
+                    <p>Subconns you may follow</p>
+                    {rSubconnProfiles.map((s,i)=>(<SubConnAvatar option='followList' withEdit={false} subconnProfile={s}></SubConnAvatar>))}
+                </div>
                 
             </div>
-            <div className='adminedSubconns'>
-                <div style={{padding:'1rem',fontWeight:'bolder'}}>Subconns you admin</div>
-                <div>
-                    
-                    {options.map(opt=><SubConnAvatar option='followList' subconnProfile={opt}></SubConnAvatar>)}
-                    <div className='createNewSubconn'>
-                        <div className='createSubconnbtn' onClick={showSubconnForm}>Create new SubConn</div>
-                    </div>
-                </div>
-           
-            </div>
+            
 
         </div>
         

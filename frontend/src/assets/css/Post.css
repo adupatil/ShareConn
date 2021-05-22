@@ -26,7 +26,7 @@
 
 }
 .post:hover *,.post:hover{
-    background-color: rgb(46 51 62);
+    background-color: #282c34;
 }
 .post_container{
     margin-right: 1rem;
@@ -68,7 +68,7 @@ video{
 
 /* comment */
 .commentContainer{
-    overflow-y: scroll;
+ 
     padding: 1rem;
 }
 .commentInput{

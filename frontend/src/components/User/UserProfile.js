@@ -128,7 +128,7 @@ function UserProfile(props){
                         <div id="userName" style={{color:'gray',fontSize:'smaller'}}>@{user.userDetails.username}</div>
                       
                         <div className="userEngagement">
-                            <NavLink to={`/u/following/${loggedInuser.userAuthDetails.pk}`}id="userFollowers"><span className="followerCount">{user.userProfile.num_followers}</span> Followers</NavLink>
+                            <NavLink to={`/u/follower/${loggedInuser.userAuthDetails.pk}`}id="userFollowers"><span className="followerCount">{user.userProfile.num_followers}</span> Followers</NavLink>
                             <NavLink to={`/u/following/${loggedInuser.userAuthDetails.pk}`}id="userFollowing"><span className="followingCount">{user.userProfile.num_following}</span> Following</NavLink>
                         </div>
                     </div>

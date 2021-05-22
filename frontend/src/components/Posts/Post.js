@@ -7,6 +7,7 @@ import axios from 'axios'
 import SubConnAvatar from '../SubConn/SubConnAvatar';
 import {increment_post_likes,decrement_post_likes, delete_post} from '../../features/posts/postSlice'
 import { NavLink, Redirect } from 'react-router-dom';
+import { set_to_editPost, toggle_edit_post } from '../../features/user/userSlice';
 
 function Post({postDetail,postType,userDetails}){
 
@@ -16,6 +17,7 @@ function Post({postDetail,postType,userDetails}){
     const [likes,setlikes]=useState(postDetail.num_likes)
     const [comments,setcomments]=useState(postDetail.num_comments)
     const [edit,setedit]=useState(false)
+    
     const dispatch=useDispatch()
     const post_area=()=>{
         let postType=postDetail.post_type;
@@ -67,7 +69,9 @@ console.log(postType)
                 if(liked.length===1){
                     axios.delete('api/posts_likes/'+liked[0].id+'/')
                     .then(res=>{
-                        dispatch(decrement_post_likes({option:postDetail.id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
+                        console.log(postDetail.id)
+                console.log(loggedInuser.id)
+                        dispatch(decrement_post_likes({option:postDetail.user_id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
                         setlikes(prev=>prev-1)})
                 }
                 })
@@ -92,7 +96,9 @@ console.log(postType)
         if(postType==='user'){
             axios.post('api/posts_likes/',{'post_id':parseInt(postDetail.id),'user_id':parseInt(loggedInuser.id)})
             .then(data=>{
-                dispatch(increment_post_likes({option:postDetail.id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
+                console.log(postDetail.id)
+                console.log(loggedInuser.id)
+                dispatch(increment_post_likes({option:postDetail.user_id===loggedInuser.id?'user_posts':'followed_posts',post_id:postDetail.id}))
                 setlikes(prev=>prev+1)
             })
 
@@ -133,6 +139,13 @@ console.log(postType)
         })
      }
  }
+ 
+ 
+const redirectEdit=()=>{
+    dispatch(toggle_edit_post('flex'))
+    dispatch(set_to_editPost(postDetail))
+   
+}
 
 
 
@@ -143,11 +156,11 @@ console.log(postType)
     return(
      
         <div className='post' onClick={redirect}>
-           {postType==='user'? <UserAvatar user={postsUser}  withEdit={loggedInuser.id===postDetail.user_id} deletePost={deletePost}>
+           {postType==='user'? <UserAvatar user={postsUser}  withEdit={loggedInuser.id===postDetail.user_id} deletePost={deletePost} redirectEdit={redirectEdit}>
                 
                 <div className="postDate">{postDetail.date_created.slice(0,10)}</div>
                
-            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={loggedInuser.id===postDetail.id} deletePost={deletePost} >
+            </UserAvatar>:<SubConnAvatar option='postAvatar' subconn={postDetail} subconnProfile={postsUser} withEdit={loggedInuser.id===postDetail.id} deletePost={deletePost} redirectToFullPost={redirectEdit} >
             <div className="postDate">{postDetail.date_created.slice(0,10)}</div> </SubConnAvatar>}
             <NavLink to={{pathname:postType==='user'?'/u/posts/'+postDetail.id:'/s/posts/'+postDetail.id,postDetail:postDetail,postType:postType}} option={postType} >
                 <div className='post_container'>
@@ -169,7 +182,7 @@ console.log(postType)
 
             </NavLink>
            
-            <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no) }></EngagementBar>
+            <EngagementBar  postDetail={postDetail} likes={likes}  comments={comments} userDetails={postsUser} updateLikes={(no)=>handleSetLikes(no) } postType={postType==='user'?postDetail.user_id===loggedInuser.id?'user_posts':'followed_posts':'followed_posts'}></EngagementBar>
             
         </div>
      

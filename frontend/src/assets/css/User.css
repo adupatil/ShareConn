@@ -16,6 +16,10 @@
     border-radius: 50%;
     border:1px solid lightgray;
 }
+.bx-trash,.bxs-edit{
+    margin-right: 0.5rem;
+    font-size: large;
+}
 .avatarImg{
     height: 2.5rem;
     width: 2.5rem;
@@ -99,6 +103,7 @@ img.profileImg{
     border-radius: 25px;
 }
 .followBtn{
+    cursor: pointer;
     border: 2px solid #00af91;
     color:#00af91;
     height: 1.5rem;

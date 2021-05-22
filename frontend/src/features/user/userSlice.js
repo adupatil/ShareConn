@@ -5,6 +5,10 @@ import {fetchSubconnsPosts, fetchUserPosts} from '../posts/postSlice'
 const initialState={
     editProfile:'none',
     subconnForm:'none',
+    editPostForm:{
+        style:'none',
+        post:{}
+    },
     userDetails:{},
     userAuthDetails:{},
     userProfile:{},
@@ -12,7 +16,8 @@ const initialState={
     users_followed:[],
     subconns_following:[],
     subconns_admined:[],
-    randomUsers:[]
+    randomUsers:[],
+    randomSubconns:[]
    
 }
 
@@ -20,6 +25,12 @@ const userSlice=createSlice({
     name:'user',
     initialState,
     reducers:{
+        toggle_edit_post:(state,action)=>{
+            state.editPostForm.style=action.payload
+        },
+        set_to_editPost:(state,action)=>{
+            state.editPostForm.post=action.payload
+        },
        
         toggle_edit_profile:(state,action)=>{
             state.editProfile=action.payload
@@ -69,8 +80,17 @@ const userSlice=createSlice({
             state.subconns_admined.push(action.payload)
             state.subconns_following.push(action.payload.id)
         },
+        reset_random_users:(state)=>{
+            state.randomUsers=[]
+        },
         add_random_users:(state,action)=>{
             state.randomUsers.push(...action.payload)
+        },
+        reset_random_subconns:(state)=>{
+            state.randomSubconns=[]
+        },
+        add_random_subconns:(state,action)=>{
+            state.randomSubconns.push(...action.payload)
         },
         
         logout_user:(state)=>{
@@ -83,11 +103,17 @@ const userSlice=createSlice({
             state.users_followed=[]
             state.subconns_following=[]
             state.subconns_followed=[]
+        },
+        add_admin_as_follower:(state,action)=>{
+            console.log(action.payload)
+            let newsubconn=state.subconns_admined.find(s=>s.id===parseInt(action.payload))
+            console.log(newsubconn)
+           
         }
 
     }
 })
-export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile,edit_profile,toggle_subconn_form,add_subconn,add_random_users}=userSlice.actions
+export const {fetch_user,fetch_user_authDetails,fetch_user_profile,fetch_users_following,fetch_subconns_following,fetch_subconns_admined,update_authkey,logout_user,update_authkey_register,decrement_user_following,increment_user_following,increment_subconns_following,decrement_subconns_following,toggle_edit_profile,edit_profile,toggle_subconn_form,add_subconn,add_random_users,reset_random_users,add_random_subconns,reset_random_subconns,add_admin_as_follower,toggle_edit_post,set_to_editPost}=userSlice.actions
 export default userSlice.reducer
 
 
@@ -96,6 +122,7 @@ export const toggleSubconnForm=(val)=>dispatch=>{
     dispatch(toggle_subconn_form(val))
 }
 export const fetchRandomUsers=()=>(dispatch,getState)=>{
+    console.log(getState().user.randomUsers)
     let randomUser=[]
     axios.get('api/users/')
     .then(res=>{
@@ -107,6 +134,22 @@ export const fetchRandomUsers=()=>(dispatch,getState)=>{
             }
         })
         dispatch(add_random_users(randomUser))
+        
+    })
+       
+}
+export const fetchRandomSubconns=()=>(dispatch,getState)=>{
+    let randomSubconns=[]
+    axios.get('api/subconns/')
+    .then(res=>{
+        res.data.forEach(subconns=>{
+            if(!(getState().user.subconns_following.includes(subconns.id)) && randomSubconns.length<5 &&(subconns.subconn_admin!==getState().user.userDetails.id)){
+                randomSubconns.push(subconns)
+            }if(randomSubconns.length===5){
+                return;
+            }
+        })
+        dispatch(add_random_subconns(randomSubconns))
         
     })
        
@@ -185,6 +228,7 @@ export const fetchUsersFollowing=(uid)=>(dispatch,getState)=>{
     
          dispatch(fetch_users_following({users_following:users_following,users_followed:users_followed}))
          dispatch(fetchUserPosts(uid))
+         dispatch(reset_random_users())
          dispatch(fetchRandomUsers())
         
        
@@ -252,6 +296,7 @@ export const incrementSubconnsFollowing=(sid)=>(dispatch,getState)=>{
         dispatch(increment_subconns_following(sid))
         dispatch(fetchSubconnsFollowed(getState().user.userAuthDetails.pk))
         dispatch(fetchUserProfile(getState().user.userAuthDetails.pk))
+      
      
     })
 }
@@ -307,6 +352,8 @@ export const fetchSubconnsFollowed=()=>(dispatch,getState)=>{
         console.log(fsubconnsid)
         dispatch(fetch_subconns_following(fsubconnsid))
         dispatch(fetchSubconnsPosts())
+        dispatch(reset_random_subconns())
+        dispatch(fetchRandomSubconns())
    
         
     })

@@ -7,6 +7,7 @@ import axios from 'axios';
 
 function AddPost() {
     const userDetails=useSelector(state=>state.user.userDetails)
+    const userProfile=useSelector(state=>state.user.userProfile)
     const postStyle=useSelector(state=>state.posts.addPost)
     const subconns_following=useSelector(state=>state.user.subconns_following)
     const dispatch=useDispatch()
@@ -21,7 +22,7 @@ function AddPost() {
     
     useEffect(()=>{
         subconns_following.forEach(subconn=>{
-           
+           console.log('use Effect')
             axios.get('api/subconns/'+subconn+'/')
             .then(res=>{
                 console.log(res.data)
@@ -67,7 +68,7 @@ function AddPost() {
         
         setpost_title('')
         setpost_type('')
-        setfds([<option defaultChecked >Category</option>,<option value='user'>Self</option>])
+       
         hide()
         
         
@@ -76,7 +77,12 @@ function AddPost() {
     }
     
     const hide=()=>{
+        setpost_title('')
+        setpost_type('')
+       
         dispatch(addNewPost('none'))
+       
+
     }
     return (
         <div className="addPostFormContainer" style={{display:postStyle}}>
@@ -86,27 +92,39 @@ function AddPost() {
             
                     <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/add_post_gree.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Add Post</h3>
                 </div>
+
                 <div className='close' onClick={hide}><i className='bx bx-x-circle' ></i></div>
 
-                <select onChange={(e)=>setsource(e.target.value)}>
-                    {followingSubconnDets}
-                </select>
-                <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-                    
 
+               
+                <div className='firstContainer'>
+                    
+                    <select onChange={(e)=>setsource(e.target.value)}>
+                        {followingSubconnDets}
+                    </select>
                     <input type="text" placeholder='Category' value={category} onChange={(e)=>setcategory(e.target.value)}></input>
                     
 
                 </div>
                 
-                <div style={{display:'flex',alignItems:'center',marginTop:'1rem',width:'100%'}}>
-                  <div style={{width:'88%',marginRight:'1rem'}}>
-                  <input type="text" style={{marginTop:'0px'}}  placeholder='Post Text' value={post_title} onChange={(e)=>setpost_title(e.target.value)}></input>
 
-                  </div>
+                <div className='userWhatsHappening'>
+                    <div className='user_profile_pic'>
+                        <img src={userProfile.profile_pic}></img>
+                    </div>
+                    <div style={{flexGrow:1}}>
+                        <input type="text" style={{marginTop:'0px'}}  placeholder="Some description..." value={post_title} onChange={(e)=>setpost_title(e.target.value)}></input>
+                    </div>
+
+                </div>
+
+               
+                
+                <div style={{display:'flex',alignItems:'center',marginTop:'1rem',width:'100%'}}>
+                 
                   
-                    <label style={{display:'flex',alignItems:'center'}} > 
-                    <i className='bx bx-image-add' style={{fontSize:'24px',marginLeft:'1rem'}}></i>
+                    <label style={{display:'flex',alignItems:'center'}} className="imgLabel" > 
+                    <i className='bx bx-image-add' style={{fontSize:'24px'}}></i>
                         <input type="file" onChange={(e)=>setpost_type(e.target.files[0])}></input>
                     </label>
                     

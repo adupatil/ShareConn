@@ -45,8 +45,8 @@ input{
 .loginForm input[type="password"],
 .signupForm input[type="password"] {
   width: 100%;
- background-color: var(--modeColor);
-  color: var(--inverseModeColor);
+ background-color:white;
+  color: darkslategrey;
   height: 2rem;
 
   border-radius: 3px;
@@ -71,7 +71,7 @@ input{
   z-index: 3;
   transform: translateY(-8px);
   position: absolute;
-  background-color: var(--modeColor);
+  background-color: white;
   color: var(--primaryColor);
   font-size: small;
   top: 0px;

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { increment_comment } from '../../features/posts/postSlice'
 
 import UserAvatar from '../User/UserAvatar'
 import Post from './Post'
@@ -21,10 +22,11 @@ function Comment(props) {
 
 
 
-function CommentList({postID,userDetail,postType}) {
+function CommentList({postID,userDetail,postType,post}) {
     const loggedInuser=useSelector(state=>state.user.userProfile)
     const [newComment,setnewComment]=useState({userDetail:loggedInuser,text:''})
     const [allComments,setallComments]=useState([])
+    const dispatch=useDispatch()
     // fetch comments for a post 
     useEffect(()=>{
         if(postType==='user'){
@@ -74,12 +76,15 @@ function CommentList({postID,userDetail,postType}) {
             .then(res=>{
                 console.log(res.data)
                 setallComments(prev=>[...prev,newComment])
+                dispatch(increment_comment({option:post.user_id===loggedInuser.id?'user_posts':'followed_posts',post_id:postID}))
+
             })
         }else if(postType==='subconn' && newComment.text!==''){
             axios.post('api/subconns_comments/',{user:loggedInuser.id,post:postID,comment:newComment.text})
             .then(res=>{
                 console.log(res.data)
                 setallComments(prev=>[...prev,newComment])
+                dispatch(increment_comment({option:post.user_id==='followed_posts',post_id:postID}))
             })
         }
         

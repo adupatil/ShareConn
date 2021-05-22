@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import '../../assets/css/User.css'
 import {NavLink} from 'react-router-dom'
 import { useSelector } from 'react-redux';
@@ -6,27 +6,18 @@ import { useSelector } from 'react-redux';
 function UserAvatar(props){
     const [editBox,seteditBox]=useState(false)
 
-    const handleeditBox=()=>{
-        seteditBox(prev=>!prev)
-    }
-    // const getEditBox=()=>{
-    //     if(props.withEdit===true){
-    //         return(
-    //             <div className="editBox">
-    //                 <div><i class='bx bx-edit'></i> Edit</div>
-    //                 <div style={{color:'red'}}><i class='bx bx-trash' ></i>Delete</div>
-                    
-    //             </div>
-    //         )
-    //     }else{
-    //         return(<div></div>)
-    //     }
-    // }
+   
+    
     const deletePostReq=()=>{
         props.deletePost()
     }
+    const editPostReq=()=>{
+        console.log('edittt')
+        props.redirectEdit()
+    }
+    
    
-
+    
     return (
            
         <div className="user_avatar_container">
@@ -39,10 +30,12 @@ function UserAvatar(props){
                         {props.children && props.children}
                     </div>
                 </div>
-                {props.withEdit && <div style={{marginLeft:'auto',cursor:'pointer',marginTop:'auto',marginBottom:'auto'}} onClick={deletePostReq}>
-                    {/* <i className='bx bx-dots-vertical-rounded' style={{fontSize:'21px'}}></i> */}
-                    Delete
-                    {/* {editBox && getEditBox()} */}
+                {props.withEdit && <div style={{display:'flex',marginLeft:'auto'}}>
+
+                    <div style={{marginLeft:'auto',cursor:'pointer',marginTop:'auto',marginBottom:'auto'}} onClick={deletePostReq}><i class='bx bx-trash'></i></div>
+
+                    <div style={{marginLeft:'auto',cursor:'pointer',marginTop:'auto',marginBottom:'auto'}} onClick={editPostReq}><i class='bx bxs-edit' ></i></div>
+
                 </div>}
                 
             </div>

@@ -14,18 +14,31 @@ import { Redirect } from 'react-router';
 
 // redux
 import {useDispatch,useSelector} from 'react-redux';
-import {fetchUser,fetch_user_authDetails,fetchUserProfile, fetchRandomUsers} from '../features/user/userSlice';
+import {fetchUser,fetch_user_authDetails,fetchUserProfile} from '../features/user/userSlice';
 import {addNewPost} from '../features/posts/postSlice'
 import axios from 'axios';
 import SearchBar from './Bars/SearchBar';
 import NewSubconn from './Forms/NewSubconn'
+import EditPost from './Forms/EditPost';
 
-
+const modes={
+    light:{
+        modeColor:'white',
+        inverseModeColor:'darkslategray'
+        
+    },
+    dark:{
+        modeColor:'rgb(40, 44, 52)',
+        inverseModeColor:'white'
+    }
+}
 
 function App(props) {
 
-const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
 
+const loggedInUserID=useSelector(state=>state.user.userAuthDetails.pk)
+const modeOpt=useSelector(state=>state.general.mode)
+console.log()
 
 const dispatch = useDispatch()
 const token=localStorage.getItem('token')
@@ -52,10 +65,13 @@ const token=localStorage.getItem('token')
     
     
   if(token){
+      console.log(modes[modeOpt].modeColor)
+      const style={'--modeColor':modes[modeOpt].modeColor,'--inverseModeColor':modes[modeOpt].inverseModeColor
+        } 
     return(
    
        
-        <div className='page'>
+        <div className='page' style={style}>
             <NavBar ></NavBar>
             <div className="main_area">
                 <SideBar activePage='home'></SideBar>
@@ -67,6 +83,7 @@ const token=localStorage.getItem('token')
                 
                 <AddPost ></AddPost>
                 <EditProfile option='user'></EditProfile>
+                <EditPost></EditPost>
                 <NewSubconn></NewSubconn>
                
                 
@@ -82,11 +99,11 @@ const token=localStorage.getItem('token')
 
   }else{
       return(
-          <Fragment>
+            <Fragment>
               <AuthRoutes></AuthRoutes>
-       <Redirect to='/login'></Redirect>
+                <Redirect to='/login'></Redirect>
 
-          </Fragment>
+            </Fragment>
        
       )
   }

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { add_subconn, toggleSubconnForm } from '../../features/user/userSlice';
+import { add_admin_as_follower, add_subconn, increment_subconns_following, toggleSubconnForm } from '../../features/user/userSlice';
 
 function NewSubconn() {
     const style=useSelector(state=>state.user.subconnForm);
@@ -31,8 +31,14 @@ function NewSubconn() {
         }
         axios.post('api/subconns/',data)
         .then(res=>{
-            console.log(res.data)
+           
             dispatch(add_subconn(res.data))
+            axios.post('api/subconns_follower/',{followee_s:res.data.id,follower_s:res.data.subconn_admin})
+            .then(res=>{
+                
+                dispatch(add_admin_as_follower(res.data.follower_s))
+                dispatch(increment_subconns_following(res.data.followee_s))
+            })
         })
         
 
@@ -49,23 +55,31 @@ function NewSubconn() {
     return (
         <div className="addPostFormContainer" style={{display:style}} >
             
-            <form className='editProfileForm loginForm' encType="multipart/form-data" onSubmit={(e)=>handleSubmit(e)}  method="POST">
+            <form className='editProfileForm ' encType="multipart/form-data" onSubmit={(e)=>handleSubmit(e)}  method="POST">
                 <div style={{display:'flex',alignItems:'center'}}>
             
-                    <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/edit.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Edit Profile</h3>
+                    <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/edit.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Create new subconn</h3>
                 </div>
                 <div className='close' onClick={closeSubconnForm}><i className='bx bx-x-circle' ></i></div>
 
-                <div style={{display:'flex',width:'100%',marginTop:'1rem'}}>
+                <div style={{width:'100%',marginTop:'1rem'}}>
                     <div className='inputWrapper'>
                         <input type='text' value={sname} onChange={(e)=>setsname(e.target.value)}></input>
                         <label>SubConn Name</label>
                         
                         
                     </div>
-                    <div>
-                        <input type='file' ></input>
-                        <input type='file'></input>
+                    <div style={{display:'flex'}}>
+                        <label style={{position:'unset'}} className='newSubconnFile'>
+                            <div><i class='bx bx-image' ></i>Add profile picture</div>
+                            <input type='file' ></input>
+                        </label>
+                        <label style={{position:'unset',color:'var(--inverseModeColor)'}} className='newSubconnFile'>
+                            <div><i class='bx bx-image' ></i>Add cover picture</div>
+                            <input type='file' ></input>
+                        </label>
+                        
+                        
                     </div>
                     
                

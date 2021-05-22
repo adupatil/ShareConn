@@ -5,13 +5,15 @@ import {NavLink, Redirect} from 'react-router-dom';
 import { useSelector,useDispatch} from 'react-redux'
 import '../../assets/css/Bars.css';
 import {logout_user as clearPosts} from '../../features/posts/postSlice'
-import {logout_user as clearUser} from '../../features/user/userSlice'
+import {logout_user as clearUser, toggleSubconnForm} from '../../features/user/userSlice'
 
 import '../../assets/css/Buttons.css'
 import axios from 'axios';
+import SubConnAvatar from '../SubConn/SubConnAvatar';
 
 
 // Bars need to get user values
+
 function NavBar(props){
     const userProfile=useSelector(state=>state.user.userProfile)
    const dispatch = useDispatch()
@@ -50,12 +52,13 @@ if(Object.keys(userProfile).length>0){
 
 }
 const sidebarElements=[
-    {pageName:'home',icon:'bx bx-home',routeName:'/'},{pageName:'notifications',icon:'bx bx-bell',routeName:'/notifications'},{pageName:'profile',icon:'bx bx-user',routeName:'/profile'},{pageName:'settings',icon:'bx bx-wrench',routeName:'/settings'}
+    {pageName:'home',icon:'bx bx-home',routeName:'/'},{pageName:'profile',icon:'bx bx-user',routeName:'/profile'},{pageName:'settings',icon:'bx bx-wrench',routeName:'/settings'}
 ]
 function SideBar(props){
     // get which page is active
- 
-
+     const dispatch = useDispatch()
+    
+    const options=useSelector(state=>state.user.subconns_admined);
 
     const user=useSelector(state=>state.user)
     const activeStyle={
@@ -64,6 +67,10 @@ function SideBar(props){
         borderRadius:'1000px'
     }
    
+    const showSubconnForm=()=>{
+        dispatch(toggleSubconnForm('flex'))
+       
+    }
     
    
     const arr=sidebarElements.map((el,i)=>{ 
@@ -94,6 +101,18 @@ function SideBar(props){
                 
                
                 <AddPostBtn ></AddPostBtn>
+
+                <div className='adminedSubconns' style={{marginTop:'2rem'}}>
+                <div style={{padding:'1rem',fontWeight:'bolder'}}>Subconns you admin</div>
+                <div>
+                    
+                    {options.map(opt=><SubConnAvatar option='followList' subconnProfile={opt}></SubConnAvatar>)}
+                    <div className='createNewSubconn'>
+                        <div className='createSubconnbtn' onClick={showSubconnForm}>Create new SubConn</div>
+                    </div>
+                </div>
+           
+            </div>
             </div>
         </div>
     )

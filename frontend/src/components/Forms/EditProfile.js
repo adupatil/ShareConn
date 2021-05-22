@@ -35,7 +35,7 @@ function EditProfile(props) {
         return (
             <div className="addPostFormContainer" style={{display:style}} >
             
-            <form className='editProfileForm loginForm' encType="multipart/form-data" onSubmit={(e)=>handleSubmit(e)}  method="POST">
+            <form className='editProfileForm ' encType="multipart/form-data" onSubmit={(e)=>handleSubmit(e)}  method="POST">
                 <div style={{display:'flex',alignItems:'center'}}>
             
                     <img style={{height:'3.5rem'}} src={`${process.env.PUBLIC_URL}`+`/assets/img/edit.svg`}></img><h3 style={{color:'var(--inverseModeColor)'}}>Edit Profile</h3>

@@ -19,7 +19,7 @@ function SubconnProfile(props){
 
     const getFollowStatus=()=>{
         if(admined){
-            return(<div className='editProfileBtn'><i className='bx bx-edit-alt'></i>Edit Profile</div>)
+            return(<div className='adminSticker'>Admin</div>)
         }else{
             if(loggedInuser.subconns_following.includes(parseInt(sid))){
                 return(<div className='followingBtn' onClick={handleUnfollow}>Following</div>)
@@ -69,12 +69,12 @@ function SubconnProfile(props){
                     <div className='pictures'>
                         <div className="coverPicContainer">
                             <div className="coverPic">
-                                <img src={`${process.env.PUBLIC_URL}/assets/img/cover_pic.jpg`} className='coverImg'></img>
+                                <img src={subconnD.cover_pic} className='coverImg'></img>
                             </div>
                         </div>
                         <div className="profilePicContainer">
                             <div className="profilePic">
-                            <img src={`${process.env.PUBLIC_URL}/assets/img/bean.jpeg`} className='profileImg'></img>
+                            <img src={subconnD.profile_pic} className='profileImg'></img>
                             </div>
                         </div>
                     </div>

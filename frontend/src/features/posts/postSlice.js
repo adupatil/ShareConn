@@ -31,9 +31,21 @@ const postSlice=createSlice({
         increment_post_likes:(state,action)=>{
           
             const {option,post_id}=action.payload
+            console.log(option)
+          console.log(post_id)
+          console.log(state[option])
            const gotPost= state[option].find(post=>post.id===post_id)
            
            gotPost.num_likes+=1
+        },
+        increment_comment:(state,action)=>{
+          
+            const {option,post_id}=action.payload
+            console.log(option)
+          console.log(post_id)
+           const gotPost= state[option].find(post=>post.id===parseInt(post_id))
+           
+           gotPost.num_comments+=1
         },
         decrement_post_likes:(state,action)=>{
        
@@ -67,7 +79,7 @@ const postSlice=createSlice({
 
     }
 })
-export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user,add_user_posts,add_followed_posts,delete_post}=postSlice.actions
+export const {increment_post_likes,decrement_post_likes,get_comments,add_comment,delete_comment,fetch_user_posts,fetch_followed_posts,add_new_post,logout_user,add_user_posts,add_followed_posts,delete_post,increment_comment}=postSlice.actions
 export default postSlice.reducer
 
 export const addNewPost=(val)=>dispatch=>{
