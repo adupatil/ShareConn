@@ -4,10 +4,10 @@ from PIL import Image
 # from posts.models import Post
 
 def User_Directory(instance,image):
-  return "subconn_profile_pics/{}/{}".format(instance.user.username, image)
+  return "subconn_profile_pics/{}/{}".format(instance.subconn_admin.username, image)
 
 def User_Directory_C(instance,image):
-  return "subconn_cover_pics/{}/{}".format(instance.user.username, image)
+  return "subconn_cover_pics/{}/{}".format(instance.subconn_admin.username, image)
 
 
 class Subconn(models.Model):

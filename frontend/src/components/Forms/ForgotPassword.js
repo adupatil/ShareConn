@@ -39,7 +39,7 @@ function ForgotPassword() {
                 
                 <div className='inputWrapper'>
                    
-                    <input id="email" type='text' onChange={(e)=>handleEmail(e)}></input>
+                    <input id="email" type='text' onBlur={(e)=>handleEmail(e)}></input>
                     <label for="email" >E-mail</label>
                 </div>
                 <input type="submit"  onClick={e=>handleSubmit(e)} className='loginBtn'></input>
